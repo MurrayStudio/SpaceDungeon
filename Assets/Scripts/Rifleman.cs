@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Diagnostics.Eventing.Reader;
 
 public class Rifleman : Friendly
 {
