@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Medic : Friendly
+public class Medic : Unit
 {
 	/*==================================
 			   Ability Indexes
@@ -9,7 +9,7 @@ public class Medic : Friendly
 	private readonly int PISTOL 		= 0;
 	private readonly int WAVE		 	= 1;
 	private readonly int BULWARK		= 2;
-	private readonly int RUSH	 		= 3;
+	private readonly int ADRENALINE		= 3;
 	private readonly int TASER	 		= 4;
 
 	/*==================================
@@ -25,12 +25,11 @@ public class Medic : Friendly
 	{
 		int NewLevel = 0;
 		MAX_HEALTH = LVL_HEALTH[NewLevel];
-		SPEED = LVL_SPEED[NewLevel];
-		DODGE = LVL_DODGE[NewLevel];
+		BASE_SPEED = LVL_SPEED[NewLevel];
+		BASE_DODGE = LVL_DODGE[NewLevel];
 		BASE_CRIT = LVL_CRIT[NewLevel];
 		BASE_DMG = new int[] {LVL_DMG[NewLevel, 0], LVL_DMG[NewLevel, 1]};
-		ARMOR = 0;
-		IS_STUNNED = false;
+		BASE_ARMOR = 0;
 
 		CRIT_MODS = new int[] {5, 0, 0, 0, 0};
 		DMG_MODS = new float[] {0f, 0f, 0f, 0f, -0.5f};
@@ -41,23 +40,24 @@ public class Medic : Friendly
 		Rank = 3;
 		CAT = MEDIC;
 		IS_MECH = false;
+		IS_FRIENDLY = true;
 		XP = 0;
+		HasPlayed = false;
 	}
 
-	public void SetStats (int NewLevel, int NewRank, int NewHealth) 
+	public override void SetStats (int NewLevel, int NewRank, int NewHealth)
 	{
 		NewLevel--;
-		MAX_HEALTH = LVL_HEALTH[NewLevel];
-		SPEED = LVL_SPEED[NewLevel];
-		DODGE = LVL_DODGE[NewLevel];
-		BASE_CRIT = LVL_CRIT[NewLevel];
-		BASE_DMG = new int[] {LVL_DMG[NewLevel, 0], LVL_DMG[NewLevel, 1]};
-		ARMOR = 0;
-		IS_STUNNED = false;
+		this.MAX_HEALTH = this.LVL_HEALTH[NewLevel];
+		this.BASE_SPEED = this.LVL_SPEED[NewLevel];
+		this.BASE_DODGE = this.LVL_DODGE[NewLevel];
+		this.BASE_CRIT = this.LVL_CRIT[NewLevel];
+		this.BASE_DMG = new int[] {this.LVL_DMG[NewLevel, 0], this.LVL_DMG[NewLevel, 1]};
+		this.BASE_ARMOR = 0;
 
-		CurrHealth = NewHealth;
-		Level = NewLevel;
-		Rank = NewRank;
+		this.CurrHealth = NewHealth;
+		this.Level = NewLevel;
+		this.Rank = NewRank;
 	}
 
 	public void Pistol ()				// Kinda bulwark of faith?
@@ -65,22 +65,22 @@ public class Medic : Friendly
 		
 	}
 
-	public void Wave (Enemy e) 		// Stats from rampart
+	public void Wave () 		// Stats from rampart
 	{
 		
 	}
 
-	public void Bulwark (Enemy e)		// Stats from open vein
+	public void Adrenaline ()		// Stats from open vein
 	{
 
 	}
 
-	public void Rush (Enemy e) 	// Stats from smite
+	public void Rush () 	// Stats from smite
 	{
 
 	}
 
-	public void Taser ()
+	public void Taser (Unit Enemy)
 	{
 
 	}

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Engineer : Friendly
+public class Engineer : Unit
 {
 	/*==================================
 			   Ability Indexes
@@ -25,12 +25,11 @@ public class Engineer : Friendly
 	{
 		int NewLevel = 0;
 		MAX_HEALTH = LVL_HEALTH[NewLevel];
-		SPEED = LVL_SPEED[NewLevel];
-		DODGE = LVL_DODGE[NewLevel];
+		BASE_SPEED = LVL_SPEED[NewLevel];
+		BASE_DODGE = LVL_DODGE[NewLevel];
 		BASE_CRIT = LVL_CRIT[NewLevel];
 		BASE_DMG = new int[] {LVL_DMG[NewLevel, 0], LVL_DMG[NewLevel, 1]};
-		ARMOR = 0;
-		IS_STUNNED = false;
+		BASE_ARMOR = 0;
 
 		CRIT_MODS = new int[] {3, 0, 0, 0, 0};
 		DMG_MODS = new float[] {0f, -0.30f, -0.80f, -0.50f};
@@ -41,36 +40,37 @@ public class Engineer : Friendly
 		Rank = 4;
 		CAT = ENGINEER;
 		IS_MECH = false;
+		IS_FRIENDLY = true;
 		XP = 0;
+		HasPlayed = false;
 	}
 
-	public void SetStats (int NewLevel, int NewRank, int NewHealth) 
+	public override void SetStats (int NewLevel, int NewRank, int NewHealth)
 	{
 		NewLevel--;
-		MAX_HEALTH = LVL_HEALTH[NewLevel];
-		SPEED = LVL_SPEED[NewLevel];
-		DODGE = LVL_DODGE[NewLevel];
-		BASE_CRIT = LVL_CRIT[NewLevel];
-		BASE_DMG = new int[] {LVL_DMG[NewLevel, 0], LVL_DMG[NewLevel, 1]};
-		ARMOR = 0;
-		IS_STUNNED = false;
+		this.MAX_HEALTH = this.LVL_HEALTH[NewLevel];
+		this.BASE_SPEED = this.LVL_SPEED[NewLevel];
+		this.BASE_DODGE = this.LVL_DODGE[NewLevel];
+		this.BASE_CRIT = this.LVL_CRIT[NewLevel];
+		this.BASE_DMG = new int[] {this.LVL_DMG[NewLevel, 0], this.LVL_DMG[NewLevel, 1]};
+		this.BASE_ARMOR = 0;
 
-		CurrHealth = NewHealth;
-		Level = NewLevel;
-		Rank = NewRank;
+		this.CurrHealth = NewHealth;
+		this.Level = NewLevel;
+		this.Rank = NewRank;
 	}
 
-	public void Ratchet (Enemy e) 		// Stats from rampart
+	public void Ratchet (Unit Enemy) 		// Stats from rampart
 	{
 		
 	}
 
-	public void Ion (Enemy e) 	// Stats from smite
+	public void Ion (Unit Enemy) 	// Stats from smite
 	{
 
 	}
 
-	public void Flashbang (Enemy e)		// Stats from open vein
+	public void Flashbang (Unit Enemy)		// Stats from open vein
 	{
 
 	}
