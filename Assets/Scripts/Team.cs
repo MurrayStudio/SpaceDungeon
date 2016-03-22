@@ -12,6 +12,7 @@ public class Team : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		myTeam = new Unit[4] {new Enforcer(), new Rifleman(), new Medic(), new Engineer()};
+		// GET STATS FROM PREFS 
 	}
 	
 	// Update is called once per frame

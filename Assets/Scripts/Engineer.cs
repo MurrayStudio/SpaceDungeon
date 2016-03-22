@@ -1,43 +1,47 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Engineeer : Friendly
+public class Engineer : Friendly
 {
 	/*==================================
 			   Ability Indexes
 	===================================*/
-	private readonly int KICK = 0;
-	private readonly int HEAVY_SWING = 1;
-	private readonly int SLICE = 2;
-	private readonly int WAR_CRY = 3;
-	private readonly int FIFTH = 4;
+	private readonly int RATCHET		= 0;
+	private readonly int ION		 	= 1;
+	private readonly int FLASHBANG		= 2;
+	private readonly int SNARE	 		= 3;
+	private readonly int LIGHT_WALL		= 4;
 
 	/*==================================
 			Character stat values
 	===================================*/
-	private readonly int[,] LVL_DMG = new int[,] { {5, 10}, {6, 12}, {7, 13}, {8, 15}, {9, 16}};
-	private readonly int[] LVL_HEALTH = new int[] {23, 28, 33, 38, 43};
+	private readonly int[,] LVL_DMG = new int[,] { {4, 7}, {5, 8}, {6, 10}, {6, 11}, {7, 13} };
+	private readonly int[] LVL_HEALTH = new int[] {19, 23, 27, 31, 35};
 	private readonly int[] LVL_DODGE = new int[] {10, 15, 20, 25, 30};
-	private readonly int[] LVL_SPEED = new int[] {5, 5, 6, 6, 7};
-	private readonly int[] LVL_CRIT = new int[] {5, 5, 6, 6, 7};
+	private readonly int[] LVL_SPEED = new int[] {6, 6, 7, 7, 8};
+	private readonly int[] LVL_CRIT = new int[] {7, 8, 8, 9, 9};
 
-	public Engineeer () : base ()
+	public Engineer () : base ()
 	{
 		int NewLevel = 0;
 		MAX_HEALTH = LVL_HEALTH[NewLevel];
 		SPEED = LVL_SPEED[NewLevel];
 		DODGE = LVL_DODGE[NewLevel];
 		BASE_CRIT = LVL_CRIT[NewLevel];
-		BASE_DMG = LVL_DMG[NewLevel];
+		BASE_DMG = new int[] {LVL_DMG[NewLevel, 0], LVL_DMG[NewLevel, 1]};
+		ARMOR = 0;
+		IS_STUNNED = false;
 
-		CRIT_MODS = new int[] {0, 0, 0, 0};
-		DMG_MODS = new float[] {0f, 0f, 0f, 0f};
-		ACC_MODS = new int[] {0, 0, 0, 0};
+		CRIT_MODS = new int[] {3, 0, 0, 0, 0};
+		DMG_MODS = new float[] {0f, -0.30f, -0.80f, -0.50f};
+		ACC_MODS = new int[] {85, 85, 85, 85, 0};
 
 		CurrHealth = MAX_HEALTH;
 		Level = 1;
-		Rank = 1;
-		Cat = RIFLEMAN;
+		Rank = 4;
+		CAT = ENGINEER;
+		IS_MECH = false;
+		XP = 0;
 	}
 
 	public void SetStats (int NewLevel, int NewRank, int NewHealth) 
@@ -47,35 +51,36 @@ public class Engineeer : Friendly
 		SPEED = LVL_SPEED[NewLevel];
 		DODGE = LVL_DODGE[NewLevel];
 		BASE_CRIT = LVL_CRIT[NewLevel];
-		BASE_DMG = LVL_DMG[NewLevel];
+		BASE_DMG = new int[] {LVL_DMG[NewLevel, 0], LVL_DMG[NewLevel, 1]};
+		ARMOR = 0;
+		IS_STUNNED = false;
 
 		CurrHealth = NewHealth;
 		Level = NewLevel;
 		Rank = NewRank;
-		Cat = RIFLEMAN;
 	}
 
-	void Kick (Enemy e) 		// Stats from rampart
+	public void Ratchet (Enemy e) 		// Stats from rampart
 	{
 		
 	}
 
-	void HeavySwing (Enemy e) 	// Stats from smite
+	public void Ion (Enemy e) 	// Stats from smite
 	{
 
 	}
 
-	void Slice (Enemy e)		// Stats from open vein
+	public void Flashbang (Enemy e)		// Stats from open vein
 	{
 
 	}
 
-	void WarCry ()				// Kinda bulwark of faith?
+	public void Snare ()				// Kinda bulwark of faith?
 	{
 		
 	}
 
-	void FIFTHABIL ()
+	public void LightWall ()
 	{
 
 	}

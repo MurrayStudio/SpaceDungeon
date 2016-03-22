@@ -6,11 +6,11 @@ public class Rifleman : Friendly
 	/*==================================
 			   Ability Indexes
 	===================================*/
-	private readonly int KICK = 0;
-	private readonly int HEAVY_SWING = 1;
-	private readonly int SLICE = 2;
-	private readonly int WAR_CRY = 3;
-	private readonly int FIFTH = 4;
+	private readonly int RIFLE 			= 0;
+	private readonly int BAYONET	 	= 1;
+	private readonly int SHOTGUN		= 2;
+	private readonly int NET_GUN 		= 3;
+	private readonly int RELOAD 		= 4;
 
 	/*==================================
 			Character stat values
@@ -28,16 +28,20 @@ public class Rifleman : Friendly
 		SPEED = LVL_SPEED[NewLevel];
 		DODGE = LVL_DODGE[NewLevel];
 		BASE_CRIT = LVL_CRIT[NewLevel];
-		BASE_DMG = LVL_DMG[NewLevel];
+		BASE_DMG = new int[] {LVL_DMG[NewLevel, 0], LVL_DMG[NewLevel, 1]};
+		ARMOR = 0;
+		IS_STUNNED = false;
 
-		CRIT_MODS = new int[] {0, 0, 0, 0};
-		DMG_MODS = new float[] {0f, 0f, 0f, 0f};
-		ACC_MODS = new int[] {0, 0, 0, 0};
+		CRIT_MODS = new int[] {10, 0, 0, 0, 0};
+		DMG_MODS = new float[] {0f, 0f, -0.4f, -0.8f, 0f};
+		ACC_MODS = new int[] {85, 85, 85, 85, 0};
 
 		CurrHealth = MAX_HEALTH;
 		Level = 1;
 		Rank = 1;
-		Cat = RIFLEMAN;
+		CAT = RIFLEMAN;
+		IS_MECH = false;
+		XP = 0;
 	}
 
 	public void SetStats (int NewLevel, int NewRank, int NewHealth) 
@@ -47,36 +51,61 @@ public class Rifleman : Friendly
 		SPEED = LVL_SPEED[NewLevel];
 		DODGE = LVL_DODGE[NewLevel];
 		BASE_CRIT = LVL_CRIT[NewLevel];
-		BASE_DMG = LVL_DMG[NewLevel];
+		BASE_DMG = new int[] {LVL_DMG[NewLevel, 0], LVL_DMG[NewLevel, 1]};
+		ARMOR = 0;
+		IS_STUNNED = false;
 
 		CurrHealth = NewHealth;
 		Level = NewLevel;
 		Rank = NewRank;
-		Cat = RIFLEMAN;
 	}
 
-	void Kick (Enemy e) 		// Stats from rampart
+	public bool Rifle (Unit Enemy) 		// Stats from rampart
 	{
-		
+		if (!CheckHit (RIFLE, this, Enemy)) 
+		{
+			return false;
+		}
+
+		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (RIFLE, this)));
+		return true;
 	}
 
-	void HeavySwing (Enemy e) 	// Stats from smite
+	public bool Bayonet (Unit Enemy) 	// Stats from smite
 	{
+		if (!CheckHit (BAYONET, this, Enemy)) 
+		{
+			return false;
+		}
 
+		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (BAYONET, this)));
+		return true;
 	}
 
-	void Slice (Enemy e)		// Stats from open vein
+	public bool Shotgun (Unit Enemy)		// Stats from open vein
 	{
+		if (!CheckHit (SHOTGUN, this, Enemy)) 
+		{
+			return false;
+		}
 
+		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (SHOTGUN, this)));
+		return true;
 	}
 
-	void WarCry ()				// Kinda bulwark of faith?
+	public bool NetGun (Unit Enemy)
 	{
-		
+		if (!CheckHit (SHOTGUN, this, Enemy)) 
+		{
+			return false;
+		}
+
+		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (SHOTGUN, this)));
+		return true;
 	}
 
-	void FIFTHABIL ()
+	public void Reload ()				// Kinda bulwark of faith?
 	{
-
+			
 	}
 }

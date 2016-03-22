@@ -3,8 +3,12 @@ using System.Collections;
 
 public class Enemy : Unit
 {
-	public readonly int ENEMY1 = 0;
-	public readonly int ENEMY2 = 1;
-	public readonly int ENEMY3 = 2;
-	public readonly int ENEMY4 = 3;
+	public readonly int INFECTED = 0;
+	public readonly int FREIGHT = 1;
+	public readonly int SECURITY = 2;
+	public readonly int PSYCHIC = 3;
+	public readonly int MEDIBOT = 4;
+
+	public Enemy () : base()
+	{}
 }
