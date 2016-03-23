@@ -7,8 +7,8 @@ public class Medic : Unit
 			   Ability Indexes
 	===================================*/
 	private readonly int PISTOL 		= 0;
-	private readonly int WAVE		 	= 1;
-	private readonly int BULWARK		= 2;
+	private readonly int WAVE	 		= 1;
+	private readonly int BULWARK 		= 2;
 	private readonly int ADRENALINE		= 3;
 	private readonly int TASER	 		= 4;
 
@@ -24,7 +24,7 @@ public class Medic : Unit
 	public Medic () : base ()
 	{
 		int NewLevel = 0;
-		MAX_HEALTH = LVL_HEALTH[NewLevel];
+		BASE_HEALTH = LVL_HEALTH[NewLevel];
 		BASE_SPEED = LVL_SPEED[NewLevel];
 		BASE_DODGE = LVL_DODGE[NewLevel];
 		BASE_CRIT = LVL_CRIT[NewLevel];
@@ -34,8 +34,9 @@ public class Medic : Unit
 		CRIT_MODS = new int[] {5, 0, 0, 0, 0};
 		DMG_MODS = new float[] {0f, 0f, 0f, 0f, -0.5f};
 		ACC_MODS = new int[] {85, 0, 0, 0, 85};
+		DEBUFF_MODS = new float[] {0f, 0f, 0.25f, 0.15f, -0.15f};
 
-		CurrHealth = MAX_HEALTH;
+		CurrHealth = BASE_HEALTH;
 		Level = 1;
 		Rank = 3;
 		CAT = MEDIC;
@@ -48,7 +49,7 @@ public class Medic : Unit
 	public override void SetStats (int NewLevel, int NewRank, int NewHealth)
 	{
 		NewLevel--;
-		this.MAX_HEALTH = this.LVL_HEALTH[NewLevel];
+		this.BASE_HEALTH = this.LVL_HEALTH[NewLevel];
 		this.BASE_SPEED = this.LVL_SPEED[NewLevel];
 		this.BASE_DODGE = this.LVL_DODGE[NewLevel];
 		this.BASE_CRIT = this.LVL_CRIT[NewLevel];
@@ -60,28 +61,52 @@ public class Medic : Unit
 		this.Rank = NewRank;
 	}
 
-	public void Pistol ()				// Kinda bulwark of faith?
+	public bool Pistol (Unit Enemy) 		
 	{
-		
+		if (!CheckHit (PISTOL, this, Enemy)) 
+		{
+			return false;
+		}
+
+		Enemy.DecreaseHealth (RollDamage (PISTOL, BASE_DMG[0], BASE_DMG[1], Enemy));
+		return true;
 	}
 
-	public void Wave () 		// Stats from rampart
+	public void Wave (Unit[] Allies, Unit Primary)
 	{
-		
+		for (int i = 0; i < Allies.Length; i++) 
+		{
+			Allies [i].AddHealth (1); //TODO Constants
+			if (Allies [i].Equals(Primary))
+			{
+				Allies [i].AddHealth (2); //TODO Constants
+			}
+		}
 	}
 
-	public void Adrenaline ()		// Stats from open vein
+	public void Bulwark (Unit Ally) 	
 	{
-
+		Debuff D = new Debuff(DEBUFF_DUR, DEBUFF_MODS[BULWARK], ARMOR);
+		Ally.AddDebuff (D);
 	}
 
-	public void Rush () 	// Stats from smite
+	public void Adrenaline (Unit Ally)		
 	{
-
+		Debuff D = new Debuff(DEBUFF_DUR, DEBUFF_MODS[ADRENALINE], SPEED);
+		Ally.AddDebuff (D);
 	}
 
-	public void Taser (Unit Enemy)
+	public bool Taser (Unit Enemy)
 	{
+		if (!CheckHit (TASER, this, Enemy)) 
+		{
+			return false;
+		}
 
+		Debuff D = new Debuff(DEBUFF_DUR, DEBUFF_MODS[TASER], DODGE);
+		Enemy.AddDebuff (D);
+
+		Enemy.DecreaseHealth (RollDamage (TASER, BASE_DMG[0], BASE_DMG[1], Enemy));
+		return true;
 	}
 }

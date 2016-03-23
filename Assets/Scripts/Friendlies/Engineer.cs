@@ -24,7 +24,7 @@ public class Engineer : Unit
 	public Engineer () : base ()
 	{
 		int NewLevel = 0;
-		MAX_HEALTH = LVL_HEALTH[NewLevel];
+		BASE_HEALTH = LVL_HEALTH[NewLevel];
 		BASE_SPEED = LVL_SPEED[NewLevel];
 		BASE_DODGE = LVL_DODGE[NewLevel];
 		BASE_CRIT = LVL_CRIT[NewLevel];
@@ -35,7 +35,7 @@ public class Engineer : Unit
 		DMG_MODS = new float[] {0f, -0.30f, -0.80f, -0.50f};
 		ACC_MODS = new int[] {85, 85, 85, 85, 0};
 
-		CurrHealth = MAX_HEALTH;
+		CurrHealth = BASE_HEALTH;
 		Level = 1;
 		Rank = 4;
 		CAT = ENGINEER;
@@ -48,7 +48,7 @@ public class Engineer : Unit
 	public override void SetStats (int NewLevel, int NewRank, int NewHealth)
 	{
 		NewLevel--;
-		this.MAX_HEALTH = this.LVL_HEALTH[NewLevel];
+		this.BASE_HEALTH = this.LVL_HEALTH[NewLevel];
 		this.BASE_SPEED = this.LVL_SPEED[NewLevel];
 		this.BASE_DODGE = this.LVL_DODGE[NewLevel];
 		this.BASE_CRIT = this.LVL_CRIT[NewLevel];
@@ -60,24 +60,24 @@ public class Engineer : Unit
 		this.Rank = NewRank;
 	}
 
-	public void Ratchet (Unit Enemy) 		// Stats from rampart
+	public bool Ratchet (Unit Enemy)
 	{
-		
+		return true;
 	}
 
-	public void Ion (Unit Enemy) 	// Stats from smite
+	public bool Ion (Unit Enemy)
 	{
-
+		return true;
 	}
 
-	public void Flashbang (Unit Enemy)		// Stats from open vein
+	public bool Flashbang (Unit Enemy)
 	{
-
+		return true;
 	}
 
-	public void Snare ()				// Kinda bulwark of faith?
+	public bool Snare (Unit Enemy)
 	{
-		
+		return true;
 	}
 
 	public void LightWall ()

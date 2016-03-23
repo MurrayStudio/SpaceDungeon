@@ -24,7 +24,7 @@ public class Rifleman : Unit
 	public Rifleman () : base ()
 	{
 		int NewLevel = 0;
-		MAX_HEALTH = LVL_HEALTH[NewLevel];
+		BASE_HEALTH = LVL_HEALTH[NewLevel];
 		BASE_SPEED = LVL_SPEED[NewLevel];
 		BASE_DODGE = LVL_DODGE[NewLevel];
 		BASE_CRIT = LVL_CRIT[NewLevel];
@@ -34,8 +34,9 @@ public class Rifleman : Unit
 		CRIT_MODS = new int[] {10, 0, 0, 0, 0};
 		DMG_MODS = new float[] {0f, 0f, -0.4f, -0.8f, 0f};
 		ACC_MODS = new int[] {85, 85, 85, 85, 0};
+		DEBUFF_MODS = new float[] {0f, 0f, 0f, 0f, 0.15f};
 
-		CurrHealth = MAX_HEALTH;
+		CurrHealth = BASE_HEALTH;
 		Level = 1;
 		Rank = 1;
 		CAT = RIFLEMAN;
@@ -48,7 +49,7 @@ public class Rifleman : Unit
 	public override void SetStats (int NewLevel, int NewRank, int NewHealth)
 	{
 		NewLevel--;
-		this.MAX_HEALTH = this.LVL_HEALTH[NewLevel];
+		this.BASE_HEALTH = this.LVL_HEALTH[NewLevel];
 		this.BASE_SPEED = this.LVL_SPEED[NewLevel];
 		this.BASE_DODGE = this.LVL_DODGE[NewLevel];
 		this.BASE_CRIT = this.LVL_CRIT[NewLevel];
@@ -67,45 +68,48 @@ public class Rifleman : Unit
 			return false;
 		}
 
-		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (RIFLE, this)));
+		Enemy.DecreaseHealth (RollDamage (RIFLE, BASE_DMG[0], BASE_DMG[1], Enemy));
 		return true;
 	}
 
-	public bool Bayonet (Unit Enemy) 	// Stats from smite
+	public bool Bayonet (Unit Enemy)
 	{
 		if (!CheckHit (BAYONET, this, Enemy)) 
 		{
 			return false;
 		}
 
-		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (BAYONET, this)));
+		Enemy.DecreaseHealth (RollDamage (BAYONET, BASE_DMG[0], BASE_DMG[1], Enemy));
 		return true;
 	}
 
-	public bool Shotgun (Unit Enemy)		// Stats from open vein
+	public bool Shotgun (Unit Enemy)
 	{
 		if (!CheckHit (SHOTGUN, this, Enemy)) 
 		{
 			return false;
 		}
 
-		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (SHOTGUN, this)));
+		Enemy.DecreaseHealth (RollDamage (SHOTGUN, BASE_DMG[0], BASE_DMG[1], Enemy));
 		return true;
 	}
 
 	public bool NetGun (Unit Enemy)
 	{
-		if (!CheckHit (SHOTGUN, this, Enemy)) 
+		if (!CheckHit (NET_GUN, this, Enemy)) 
 		{
 			return false;
 		}
 
-		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (SHOTGUN, this)));
+		Enemy.DecreaseHealth (RollDamage (NET_GUN, BASE_DMG[0], BASE_DMG[1], Enemy));
 		return true;
 	}
 
-	public void Reload ()				// Kinda bulwark of faith?
+	public void Reload ()
 	{
-			
+		Debuff D1 = new Debuff(DEBUFF_DUR, DEBUFF_MODS[RELOAD], DODGE);
+		Debuff D2 = new Debuff(DEBUFF_DUR, DEBUFF_MODS[RELOAD], DAMAGE);
+		this.AddDebuff (D1);
+		this.AddDebuff (D2);
 	}
 }

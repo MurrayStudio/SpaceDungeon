@@ -22,7 +22,7 @@ public class Security : Unit
 	public Security () : base ()
 	{
 		int NewLevel = 0;
-		MAX_HEALTH = LVL_HEALTH[NewLevel];
+		BASE_HEALTH = LVL_HEALTH[NewLevel];
 		BASE_SPEED = LVL_SPEED[NewLevel];
 		BASE_DODGE = LVL_DODGE[NewLevel];
 		BASE_CRIT = LVL_CRIT[NewLevel];
@@ -33,7 +33,7 @@ public class Security : Unit
 		DMG_MODS = new float[] {0f, -0.50f, 0.5f};
 		ACC_MODS = new int[] {85, 85, 85};
 
-		CurrHealth = MAX_HEALTH;
+		CurrHealth = BASE_HEALTH;
 		Level = 1;
 		Rank = 1;
 		CAT = SECURITY;
@@ -45,7 +45,7 @@ public class Security : Unit
 	public override void SetStats (int NewLevel, int NewRank, int NewHealth)
 	{
 		NewLevel--;
-		this.MAX_HEALTH = this.LVL_HEALTH[NewLevel];
+		this.BASE_HEALTH = this.LVL_HEALTH[NewLevel];
 		this.BASE_SPEED = this.LVL_SPEED[NewLevel];
 		this.BASE_DODGE = this.LVL_DODGE[NewLevel];
 		this.BASE_CRIT = this.LVL_CRIT[NewLevel];
@@ -64,7 +64,7 @@ public class Security : Unit
 			return false;
 		}
 
-		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (CANNON, this)));
+		Enemy.DecreaseHealth (RollDamage (CANNON, BASE_DMG[0], BASE_DMG[1], Enemy));
 		return true;
 	}
 
@@ -75,7 +75,7 @@ public class Security : Unit
 			return false;
 		}
 
-		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (BEAM, this)));
+		Enemy.DecreaseHealth (RollDamage (BEAM, BASE_DMG[0], BASE_DMG[1], Enemy));
 		return true;
 	}
 
@@ -86,7 +86,7 @@ public class Security : Unit
 			return false;
 		}
 
-		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (SELF_DESTRUCT, this)));
+		Enemy.DecreaseHealth (RollDamage (SELF_DESTRUCT, BASE_DMG[0], BASE_DMG[1], Enemy));
 		return true;
 	}
 }

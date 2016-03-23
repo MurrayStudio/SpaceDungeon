@@ -10,14 +10,8 @@ public class Enforcer : Unit
 	private readonly int HEAVY_SWING 	= 0;
 	private readonly int SLICE 			= 1;
 	private readonly int KICK			= 2;
-	private readonly int STEROIDS 		= 3;
-	private readonly int WAR_CRY 		= 4;
-
-	// Reference powers
-	private readonly float STEROIDS_POW	= 0.25f;
-	private readonly int STEROIDS_HEAL 	= 4;
-
-	private readonly float WAR_CRY_POW 	= 0.25f;
+	private readonly int STEROIDS		= 3;
+	private readonly int WAR_CRY		= 4;
 
 	/*==================================
 			Character stat values
@@ -32,7 +26,7 @@ public class Enforcer : Unit
 	public Enforcer () : base ()
 	{
 		int NewLevel = 0;
-		MAX_HEALTH = LVL_HEALTH[NewLevel];
+		BASE_HEALTH = LVL_HEALTH[NewLevel];
 		BASE_SPEED = LVL_SPEED[NewLevel];
 		BASE_DODGE = LVL_DODGE[NewLevel];
 		BASE_CRIT = LVL_CRIT[NewLevel];
@@ -42,8 +36,9 @@ public class Enforcer : Unit
 		CRIT_MODS= new int[] {5, 0, 0, 0, 0};
 		DMG_MODS = new float[] {0.15f, -0.15f, -0.60f, 0f, 0f};
 		ACC_MODS = new int[] {85, 85, 85, 0, 0};
+		DEBUFF_MODS = new float[] {0f, 0f, 0f, 0.25f, 0.25f};
 
-		CurrHealth = MAX_HEALTH;
+		CurrHealth = BASE_HEALTH;
 		Level = 1;
 		Rank = 0;
 		CAT = ENFORCER;
@@ -56,7 +51,7 @@ public class Enforcer : Unit
 	public override void SetStats (int NewLevel, int NewRank, int NewHealth)
 	{
 		NewLevel--;
-		this.MAX_HEALTH = this.LVL_HEALTH[NewLevel];
+		this.BASE_HEALTH = this.LVL_HEALTH[NewLevel];
 		this.BASE_SPEED = this.LVL_SPEED[NewLevel];
 		this.BASE_DODGE = this.LVL_DODGE[NewLevel];
 		this.BASE_CRIT = this.LVL_CRIT[NewLevel];
@@ -75,7 +70,7 @@ public class Enforcer : Unit
 			return false;
 		}
 
-		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (HEAVY_SWING, this)));
+		Enemy.DecreaseHealth (RollDamage (HEAVY_SWING, BASE_DMG[0], BASE_DMG[1], Enemy));
 		return true;
 	}
 
@@ -86,7 +81,10 @@ public class Enforcer : Unit
 			return false;
 		}
 
-		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (SLICE, this)));
+		Debuff D = new Debuff (DOT_DUR, DEBUFF_MODS [SLICE], BLEED);
+		this.AddDebuff (D);
+
+		Enemy.DecreaseHealth (RollDamage (SLICE, BASE_DMG[0], BASE_DMG[1], Enemy));
 		return true;
 	}
 
@@ -97,18 +95,23 @@ public class Enforcer : Unit
 			return false;
 		}
 
-		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (KICK, this)));
+		Enemy.DecreaseHealth (RollDamage (KICK, BASE_DMG[0], BASE_DMG[1], Enemy));
 		return true;
 	}
 
 	public void Steroids ()
 	{
-		this.AddDebuff (SPEED, STEROIDS_POW);
-		this.AddHealth (STEROIDS_HEAL);
+		Debuff D = new Debuff (DEBUFF_DUR, DEBUFF_MODS [STEROIDS], SPEED);
+		this.AddDebuff (D);
+		this.AddHealth (4); //TODO Constants for heal amounts or ranges
 	}
 
-	public void WarCry ()				
+	public void WarCry (Unit[] Allies)				
 	{
-			
+		Debuff D = new Debuff (DEBUFF_DUR, DEBUFF_MODS [WAR_CRY], DAMAGE);
+		for (int i = 0; i < Allies.Length; i++)
+		{
+			Allies [i].AddDebuff (D);
+		}
 	}
 }

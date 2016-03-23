@@ -22,7 +22,7 @@ public class Psychic : Unit
 	public Psychic () : base ()
 	{
 		int NewLevel = 0;
-		MAX_HEALTH = LVL_HEALTH[NewLevel];
+		BASE_HEALTH = LVL_HEALTH[NewLevel];
 		BASE_SPEED = LVL_SPEED[NewLevel];
 		BASE_DODGE = LVL_DODGE[NewLevel];
 		BASE_CRIT = LVL_CRIT[NewLevel];
@@ -33,7 +33,7 @@ public class Psychic : Unit
 		DMG_MODS = new float[] {0f, -0.50f, -0.50f};
 		ACC_MODS = new int[] {85, 85, 85};
 
-		CurrHealth = MAX_HEALTH;
+		CurrHealth = BASE_HEALTH;
 		Level = 1;
 		Rank = 1;
 		CAT = PSYCHIC;
@@ -45,7 +45,7 @@ public class Psychic : Unit
 	public override void SetStats (int NewLevel, int NewRank, int NewHealth)
 	{
 		NewLevel--;
-		this.MAX_HEALTH = this.LVL_HEALTH[NewLevel];
+		this.BASE_HEALTH = this.LVL_HEALTH[NewLevel];
 		this.BASE_SPEED = this.LVL_SPEED[NewLevel];
 		this.BASE_DODGE = this.LVL_DODGE[NewLevel];
 		this.BASE_CRIT = this.LVL_CRIT[NewLevel];
@@ -64,7 +64,7 @@ public class Psychic : Unit
 			return false;
 		}
 
-		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (DRAIN, this)));
+		Enemy.DecreaseHealth (RollDamage (DRAIN, BASE_DMG[0], BASE_DMG[1], Enemy));
 		return true;
 	}
 
@@ -75,7 +75,7 @@ public class Psychic : Unit
 			return false;
 		}
 
-		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (MIND_WIPE, this)));
+		Enemy.DecreaseHealth (RollDamage (MIND_WIPE, BASE_DMG[0], BASE_DMG[1], Enemy));
 		return true;
 	}
 
@@ -86,7 +86,7 @@ public class Psychic : Unit
 			return false;
 		}
 
-		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (CRIPPLE, this)));
+		Enemy.DecreaseHealth (RollDamage (CRIPPLE, BASE_DMG[0], BASE_DMG[1], Enemy));
 		return true;
 	}
 }

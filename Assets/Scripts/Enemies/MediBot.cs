@@ -22,7 +22,7 @@ public class MediBot : Unit
 	public MediBot () : base ()
 	{
 		int NewLevel = 0;
-		MAX_HEALTH = LVL_HEALTH[NewLevel];
+		BASE_HEALTH = LVL_HEALTH[NewLevel];
 		BASE_SPEED = LVL_SPEED[NewLevel];
 		BASE_DODGE = LVL_DODGE[NewLevel];
 		BASE_CRIT = LVL_CRIT[NewLevel];
@@ -33,7 +33,7 @@ public class MediBot : Unit
 		DMG_MODS = new float[] {0f, 0f, 0.5f};
 		ACC_MODS = new int[] {0, 0, 85};
 
-		CurrHealth = MAX_HEALTH;
+		CurrHealth = BASE_HEALTH;
 		Level = 1;
 		Rank = 1;
 		CAT = MEDIBOT;
@@ -45,7 +45,7 @@ public class MediBot : Unit
 	public override void SetStats (int NewLevel, int NewRank, int NewHealth)
 	{
 		NewLevel--;
-		this.MAX_HEALTH = this.LVL_HEALTH[NewLevel];
+		this.BASE_HEALTH = this.LVL_HEALTH[NewLevel];
 		this.BASE_SPEED = this.LVL_SPEED[NewLevel];
 		this.BASE_DODGE = this.LVL_DODGE[NewLevel];
 		this.BASE_CRIT = this.LVL_CRIT[NewLevel];
@@ -57,26 +57,14 @@ public class MediBot : Unit
 		this.Rank = NewRank;
 	}
 
-	public bool Restore (Unit Enemy) 		// Stats from rampart
+	public void Restore () 		// Stats from rampart
 	{
-		if (!CheckHit (RESTORE, this, Enemy)) 
-		{
-			return false;
-		}
 
-		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (RESTORE, this)));
-		return true;
 	}
 
-	public bool Stims (Unit Enemy) 	// Stats from smite
+	public void Stims () 	// Stats from smite
 	{
-		if (!CheckHit (STIMS, this, Enemy)) 
-		{
-			return false;
-		}
 
-		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (STIMS, this)));
-		return true;
 	}
 
 	public bool SelfDestruct (Unit Enemy) 	// Stats from smite
@@ -86,7 +74,7 @@ public class MediBot : Unit
 			return false;
 		}
 
-		Enemy.DecreaseHealth (RollDamage (BASE_DMG[0], BASE_DMG[1], CheckCrit (SELF_DESTRUCT, this)));
+		Enemy.DecreaseHealth (RollDamage (SELF_DESTRUCT, BASE_DMG[0], BASE_DMG[1], Enemy));
 		return true;
 	}
 }

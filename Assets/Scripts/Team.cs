@@ -38,4 +38,14 @@ public class Team : MonoBehaviour
 	{
 	
 	}
+
+	public void MoveUnit (int Magnitude, Unit[] Team)
+	{
+		if (Magnitude > 3 || Magnitude < -3)
+		{
+			return;
+		}
+
+
+	}
 }
