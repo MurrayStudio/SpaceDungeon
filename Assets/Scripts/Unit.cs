@@ -158,7 +158,7 @@ public abstract class Unit
 
 	public bool CheckValidMove (int MoveID, Unit Target)
 	{
-		if (MoveID == ALLIES || MoveID == ENEMIES)
+		if (this.GetAttackRange(MoveID)[0] == ALLIES || this.GetAttackRange(MoveID)[0] == ENEMIES)
 		{
 			return false;
 		}
