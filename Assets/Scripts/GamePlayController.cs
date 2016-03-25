@@ -4,20 +4,29 @@ using System.Collections;
 
 public class GamePlayController : MonoBehaviour {
 
+	public GameObject popUP;
     public Image popUpImage;
     public Text popUpText;
-    public GameObject popUP;
+
+	public GameObject popUPAttack;
+	public Button enemy1Attack, enemy2Attack, enemy3Attack, enemy4Attack;
 
     bool popUPEnabled = false;
 
 	// Use this for initialization
 	void Start () {
         popUP.SetActive(false);
+		popUPAttack.SetActive(false);
     }
 	
 	// Update is called once per frame
 	void Update () {
 	    
+	}
+
+	public void OnClicked(Button button)
+	{
+		print(button.name);
 	}
 
     public void showPopUp ()
