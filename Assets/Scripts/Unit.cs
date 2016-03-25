@@ -189,7 +189,7 @@ public abstract class Unit
 
 	public bool CheckValidMove (int MoveID, Unit[] Targets)
 	{
-		if ( (MoveID <= SELF && MoveID >= ONE) || !this.IsMultiHit(MoveID) ) 
+		if ( !this.IsMultiHit(MoveID) ) 
 		{
 			return false;
 		}
