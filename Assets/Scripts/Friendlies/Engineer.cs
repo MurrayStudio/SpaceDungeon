@@ -37,7 +37,7 @@ public class Engineer : Unit
 
 		CurrHealth = BASE_HEALTH;
 		Level = 1;
-		Rank = 4;
+		Rank = FOUR;
 		CAT = ENGINEER;
 		IS_MECH = false;
 		IS_FRIENDLY = true;
@@ -84,4 +84,6 @@ public class Engineer : Unit
 	{
 
 	}
+
+	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) {return false;}
 }

@@ -57,37 +57,6 @@ public class Psychic : Unit
 		this.Rank = NewRank;
 	}
 
-	public bool Drain (Unit Enemy) 		// Stats from rampart
-	{
-		if (!CheckHit (DRAIN, this, Enemy)) 
-		{
-			return false;
-		}
-
-		Enemy.DecreaseHealth (RollDamage (DRAIN, BASE_DMG[0], BASE_DMG[1], Enemy));
-		return true;
-	}
-
-	public bool MindWipe (Unit Enemy) 	// Stats from smite
-	{
-		if (!CheckHit (MIND_WIPE, this, Enemy)) 
-		{
-			return false;
-		}
-
-		Enemy.DecreaseHealth (RollDamage (MIND_WIPE, BASE_DMG[0], BASE_DMG[1], Enemy));
-		return true;
-	}
-
-	public bool Cripple (Unit Enemy) 	// Stats from smite
-	{
-		if (!CheckHit (CRIPPLE, this, Enemy)) 
-		{
-			return false;
-		}
-
-		Enemy.DecreaseHealth (RollDamage (CRIPPLE, BASE_DMG[0], BASE_DMG[1], Enemy));
-		return true;
-	}
+	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) {return false;}
 }
 

@@ -56,26 +56,6 @@ public class Infected : Unit
 		this.Rank = NewRank;
 	}
 
-	public bool Claw (Unit Enemy) 		// Stats from rampart
-	{
-		if (!CheckHit (CLAW, this, Enemy)) 
-		{
-			return false;
-		}
-
-		Enemy.DecreaseHealth (RollDamage (CLAW, BASE_DMG[0], BASE_DMG[1], Enemy));
-		return true;
-	}
-
-	public bool AcidSpit (Unit Enemy) 	// Stats from smite
-	{
-		if (!CheckHit (ACID_SPIT, this, Enemy)) 
-		{
-			return false;
-		}
-
-		Enemy.DecreaseHealth (RollDamage (ACID_SPIT, BASE_DMG[0], BASE_DMG[1], Enemy));
-		return true;
-	}
+	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) {return false;}
 }
 

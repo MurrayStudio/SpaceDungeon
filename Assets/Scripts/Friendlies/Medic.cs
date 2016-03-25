@@ -38,7 +38,7 @@ public class Medic : Unit
 
 		CurrHealth = BASE_HEALTH;
 		Level = 1;
-		Rank = 3;
+		Rank = THREE;
 		CAT = MEDIC;
 		IS_MECH = false;
 		IS_FRIENDLY = true;
@@ -61,52 +61,6 @@ public class Medic : Unit
 		this.Rank = NewRank;
 	}
 
-	public bool Pistol (Unit Enemy) 		
-	{
-		if (!CheckHit (PISTOL, this, Enemy)) 
-		{
-			return false;
-		}
 
-		Enemy.DecreaseHealth (RollDamage (PISTOL, BASE_DMG[0], BASE_DMG[1], Enemy));
-		return true;
-	}
-
-	public void Wave (Unit[] Allies, Unit Primary)
-	{
-		for (int i = 0; i < Allies.Length; i++) 
-		{
-			Allies [i].AddHealth (1); //TODO Constants
-			if (Allies [i].Equals(Primary))
-			{
-				Allies [i].AddHealth (2); //TODO Constants
-			}
-		}
-	}
-
-	public void Bulwark (Unit Ally) 	
-	{
-		Debuff D = new Debuff(DEBUFF_DUR, DEBUFF_MODS[BULWARK], ARMOR);
-		Ally.AddDebuff (D);
-	}
-
-	public void Adrenaline (Unit Ally)		
-	{
-		Debuff D = new Debuff(DEBUFF_DUR, DEBUFF_MODS[ADRENALINE], SPEED);
-		Ally.AddDebuff (D);
-	}
-
-	public bool Taser (Unit Enemy)
-	{
-		if (!CheckHit (TASER, this, Enemy)) 
-		{
-			return false;
-		}
-
-		Debuff D = new Debuff(DEBUFF_DUR, DEBUFF_MODS[TASER], DODGE);
-		Enemy.AddDebuff (D);
-
-		Enemy.DecreaseHealth (RollDamage (TASER, BASE_DMG[0], BASE_DMG[1], Enemy));
-		return true;
-	}
+	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) {return false;}
 }

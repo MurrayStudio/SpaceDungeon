@@ -13,6 +13,8 @@ public class Enforcer : Unit
 	private readonly int STEROIDS		= 3;
 	private readonly int WAR_CRY		= 4;
 
+	private readonly int STEROIDS_HEAL	= 4;
+
 	/*==================================
 			Character stat values
 	===================================*/
@@ -20,27 +22,34 @@ public class Enforcer : Unit
 	private readonly int[] LVL_HEALTH = new int[] {33, 40, 47, 54, 61};
 	private readonly int[] LVL_DODGE = new int[] {5, 10, 15, 20, 25};
 	private readonly int[] LVL_SPEED = new int[] {1, 1, 2, 2, 3};
-	private readonly int[] LVL_CRIT = new int[] {5, 5, 6, 6, 7};
-
+	private readonly int[] LVL_CRIT = new int[] {5, 5, 6, 6, 7};			
 
 	public Enforcer () : base ()
 	{
 		int NewLevel = 0;
-		BASE_HEALTH = LVL_HEALTH[NewLevel];
-		BASE_SPEED = LVL_SPEED[NewLevel];
-		BASE_DODGE = LVL_DODGE[NewLevel];
-		BASE_CRIT = LVL_CRIT[NewLevel];
-		BASE_DMG = new int[] {LVL_DMG[NewLevel, 0], LVL_DMG[NewLevel, 1]};
+		BASE_HEALTH = LVL_HEALTH [NewLevel];
+		BASE_SPEED = LVL_SPEED [NewLevel];
+		BASE_DODGE = LVL_DODGE [NewLevel];
+		BASE_CRIT = LVL_CRIT [NewLevel];
+		BASE_DMG = new int[] { LVL_DMG [NewLevel, 0], LVL_DMG [NewLevel, 1] };
 		BASE_ARMOR = 0;
 
-		CRIT_MODS= new int[] {5, 0, 0, 0, 0};
-		DMG_MODS = new float[] {0.15f, -0.15f, -0.60f, 0f, 0f};
-		ACC_MODS = new int[] {85, 85, 85, 0, 0};
-		DEBUFF_MODS = new float[] {0f, 0f, 0f, 0.25f, 0.25f};
+		CRIT_MODS = new int[] { 5, 0, 0, 0, 0 };
+		DMG_MODS = new float[] { 0.15f, -0.15f, -0.60f, 0f, 0f };
+		ACC_MODS = new int[] { 85, 85, 85, 0, 0 };
+		DEBUFF_MODS = new float[] { 0f, 0f, 0f, 0.25f, 0.25f };
+		VALID_RANKS = new int[][] {
+			new int [] { ONE, TWO },	// Heavy Swing
+			new int [] { ONE, THREE },	// Slice
+			new int [] { ONE, TWO },	// Kick
+			new int [] { SELF },		// Steroids
+			new int [] { ALLIES }		// War Cry
+		};
+		IS_MULTI_HIT = new bool[] { true, false, false, false, true };
 
 		CurrHealth = BASE_HEALTH;
 		Level = 1;
-		Rank = 0;
+		Rank = ONE;
 		CAT = ENFORCER;
 		IS_MECH = false;
 		IS_FRIENDLY = true;
@@ -63,55 +72,53 @@ public class Enforcer : Unit
 		this.Rank = NewRank;
 	}
 
-	public bool HeavySwing (Unit Enemy) 	
+	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target)
 	{
-		if (!CheckHit (HEAVY_SWING, this, Enemy)) 
-		{
-			return false;
+		if (MoveID == KICK) {
+			this.MoveUnit (Allies, Target, 1);
 		}
 
-		Enemy.DecreaseHealth (RollDamage (HEAVY_SWING, BASE_DMG[0], BASE_DMG[1], Enemy));
-		return true;
-	}
-
-	public bool Slice (Unit Enemy)		
-	{
-		if (!CheckHit (SLICE, this, Enemy)) 
-		{
-			return false;
+		if (MoveID == HEAVY_SWING || MoveID == SLICE || MoveID == KICK) {
+			if (!this.CheckHit(MoveID, Target)) {
+				return false;
+			}
 		}
 
-		Debuff D = new Debuff (DOT_DUR, DEBUFF_MODS [SLICE], BLEED);
-		this.AddDebuff (D);
-
-		Enemy.DecreaseHealth (RollDamage (SLICE, BASE_DMG[0], BASE_DMG[1], Enemy));
-		return true;
-	}
-
-	public bool Kick (Unit Enemy) 		
-	{
-		if (!CheckHit (KICK, this, Enemy)) 
+		if (MoveID == HEAVY_SWING) 
 		{
-			return false;
+			Target.RemoveHealth (RollDamage (MoveID, this.BASE_DMG [0], this.BASE_DMG [1], Target));
+			return true;
 		}
-
-		Enemy.DecreaseHealth (RollDamage (KICK, BASE_DMG[0], BASE_DMG[1], Enemy));
-		return true;
-	}
-
-	public void Steroids ()
-	{
-		Debuff D = new Debuff (DEBUFF_DUR, DEBUFF_MODS [STEROIDS], SPEED);
-		this.AddDebuff (D);
-		this.AddHealth (4); //TODO Constants for heal amounts or ranges
-	}
-
-	public void WarCry (Unit[] Allies)				
-	{
-		Debuff D = new Debuff (DEBUFF_DUR, DEBUFF_MODS [WAR_CRY], DAMAGE);
-		for (int i = 0; i < Allies.Length; i++)
+		else if (MoveID == SLICE)
 		{
-			Allies [i].AddDebuff (D);
+			Debuff D1 = new Debuff (DOT_DUR, DEBUFF_MODS [SLICE], BLEED);
+			Target.AddDebuff (D1);
+			Target.RemoveHealth (RollDamage (MoveID, this.BASE_DMG [0], this.BASE_DMG [1], Target));
+			return true;
 		}
+		else if (MoveID == KICK)
+		{
+			Target.MoveUnit (Enemies, Target, -1);
+			Target.RemoveHealth (RollDamage (MoveID, this.BASE_DMG [0], this.BASE_DMG [1], Target));
+			return true;
+		}
+		else if (MoveID == STEROIDS)
+		{
+			Debuff D2 = new Debuff (DEBUFF_DUR, DEBUFF_MODS [STEROIDS], SPEED);
+			this.AddDebuff (D2);
+			CheckCrit (STEROIDS, this);
+			this.AddHealth (4); //TODO Constants for heal amounts or ranges
+			return true;
+		}
+		else if (MoveID == WAR_CRY)
+		{
+			Debuff D3 = new Debuff (DEBUFF_DUR, DEBUFF_MODS [WAR_CRY], DAMAGE);
+			for (int i = 0; i < Allies.Length; i++)
+			{
+				Allies [i].AddDebuff (D3);
+			}
+			return true;
+		}
+		return false;
 	}
 }

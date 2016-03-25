@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 
 public class Debuff
 {
@@ -32,31 +32,6 @@ public class Debuff
 		this.DURATION = NewDuration;
 		this.POWER = NewPower;
 		this.CATEGORY = NewType;
-	}
-
-	public void ActivateDebuff (Debuff D)
-	{
-		
-	}
-
-	public void Tick ()
-	{
-		this.DURATION--;
-	}
-
-	public int GetDuration ()
-	{
-		return this.DURATION;
-	}
-
-	public float GetPower ()
-	{
-		return this.POWER;
-	}
-
-	public int GetCetegory ()
-	{
-		return this.CATEGORY;
 	}
 }
 

@@ -57,37 +57,6 @@ public class Security : Unit
 		this.Rank = NewRank;
 	}
 
-	public bool Cannon (Unit Enemy) 		// Stats from rampart
-	{
-		if (!CheckHit (CANNON, this, Enemy)) 
-		{
-			return false;
-		}
-
-		Enemy.DecreaseHealth (RollDamage (CANNON, BASE_DMG[0], BASE_DMG[1], Enemy));
-		return true;
-	}
-
-	public bool Beam (Unit Enemy) 	// Stats from smite
-	{
-		if (!CheckHit (BEAM, this, Enemy)) 
-		{
-			return false;
-		}
-
-		Enemy.DecreaseHealth (RollDamage (BEAM, BASE_DMG[0], BASE_DMG[1], Enemy));
-		return true;
-	}
-
-	public bool SelfDestruct (Unit Enemy) 	// Stats from smite
-	{
-		if (!CheckHit (SELF_DESTRUCT, this, Enemy)) 
-		{
-			return false;
-		}
-
-		Enemy.DecreaseHealth (RollDamage (SELF_DESTRUCT, BASE_DMG[0], BASE_DMG[1], Enemy));
-		return true;
-	}
+	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) {return false;}
 }
 

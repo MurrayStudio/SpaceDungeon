@@ -57,25 +57,6 @@ public class MediBot : Unit
 		this.Rank = NewRank;
 	}
 
-	public void Restore () 		// Stats from rampart
-	{
-
-	}
-
-	public void Stims () 	// Stats from smite
-	{
-
-	}
-
-	public bool SelfDestruct (Unit Enemy) 	// Stats from smite
-	{
-		if (!CheckHit (SELF_DESTRUCT, this, Enemy)) 
-		{
-			return false;
-		}
-
-		Enemy.DecreaseHealth (RollDamage (SELF_DESTRUCT, BASE_DMG[0], BASE_DMG[1], Enemy));
-		return true;
-	}
+	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) {return false;}
 }
 

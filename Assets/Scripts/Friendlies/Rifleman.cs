@@ -34,11 +34,19 @@ public class Rifleman : Unit
 		CRIT_MODS = new int[] {10, 0, 0, 0, 0};
 		DMG_MODS = new float[] {0f, 0f, -0.4f, -0.8f, 0f};
 		ACC_MODS = new int[] {85, 85, 85, 85, 0};
-		DEBUFF_MODS = new float[] {0f, 0f, 0f, 0f, 0.15f};
+		DEBUFF_MODS = new float[] {0f, 0f, 0f, -0.15f, 0.15f};
+		VALID_RANKS = new int[][] {
+			new int [] { TWO, FOUR },
+			new int [] { ONE, THREE },
+			new int [] { ONE, TWO },
+			new int [] { SELF },
+			new int [] { ALLIES }
+		};
+		IS_MULTI_HIT = new bool[] { true, false, false, false, true };
 
 		CurrHealth = BASE_HEALTH;
 		Level = 1;
-		Rank = 1;
+		Rank = TWO;
 		CAT = RIFLEMAN;
 		IS_MECH = false;
 		IS_FRIENDLY = true;
@@ -61,55 +69,5 @@ public class Rifleman : Unit
 		this.Rank = NewRank;
 	}
 
-	public bool Rifle (Unit Enemy) 		// Stats from rampart
-	{
-		if (!CheckHit (RIFLE, this, Enemy)) 
-		{
-			return false;
-		}
-
-		Enemy.DecreaseHealth (RollDamage (RIFLE, BASE_DMG[0], BASE_DMG[1], Enemy));
-		return true;
-	}
-
-	public bool Bayonet (Unit Enemy)
-	{
-		if (!CheckHit (BAYONET, this, Enemy)) 
-		{
-			return false;
-		}
-
-		Enemy.DecreaseHealth (RollDamage (BAYONET, BASE_DMG[0], BASE_DMG[1], Enemy));
-		return true;
-	}
-
-	public bool Shotgun (Unit Enemy)
-	{
-		if (!CheckHit (SHOTGUN, this, Enemy)) 
-		{
-			return false;
-		}
-
-		Enemy.DecreaseHealth (RollDamage (SHOTGUN, BASE_DMG[0], BASE_DMG[1], Enemy));
-		return true;
-	}
-
-	public bool NetGun (Unit Enemy)
-	{
-		if (!CheckHit (NET_GUN, this, Enemy)) 
-		{
-			return false;
-		}
-
-		Enemy.DecreaseHealth (RollDamage (NET_GUN, BASE_DMG[0], BASE_DMG[1], Enemy));
-		return true;
-	}
-
-	public void Reload ()
-	{
-		Debuff D1 = new Debuff(DEBUFF_DUR, DEBUFF_MODS[RELOAD], DODGE);
-		Debuff D2 = new Debuff(DEBUFF_DUR, DEBUFF_MODS[RELOAD], DAMAGE);
-		this.AddDebuff (D1);
-		this.AddDebuff (D2);
-	}
+	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) {return false;}
 }
