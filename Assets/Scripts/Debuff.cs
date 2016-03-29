@@ -20,6 +20,7 @@ public class Debuff
 	public readonly int DAMAGE 		= 6;
 	public readonly int WALL 		= 7;
 
+
 	public Debuff ()
 	{
 		DURATION = 0;
@@ -27,11 +28,41 @@ public class Debuff
 		CATEGORY = 0;
 	}
 
+
 	public Debuff (int NewDuration, float NewPower, int NewType)
 	{
 		this.DURATION = NewDuration;
 		this.POWER = NewPower;
 		this.CATEGORY = NewType;
+	}	
+
+
+ 	public void ActivateDebuff (Debuff D)		
+ 	{		
+ 				
+ 	}		
+
+
+ 	public void Tick ()		
+ 	{		
+ 		this.DURATION--;		
+ 	}		
+ 		
+ 	public int GetDuration ()		
+ 	{		
+ 		return this.DURATION;		
+ 	}		
+
+
+ 	public float GetPower ()		
+ 	{		
+ 		return this.POWER;		
+ 	}		
+
+
+ 	public int GetCetegory ()		
+ 	{		
+ 		return this.CATEGORY;		
 	}
 }
 

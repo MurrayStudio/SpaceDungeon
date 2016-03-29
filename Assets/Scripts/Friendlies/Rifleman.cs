@@ -34,15 +34,15 @@ public class Rifleman : Unit
 		CRIT_MODS = new int[] {10, 0, 0, 0, 0};
 		DMG_MODS = new float[] {0f, 0f, -0.4f, -0.8f, 0f};
 		ACC_MODS = new int[] {85, 85, 85, 85, 0};
-		DEBUFF_MODS = new float[] {0f, 0f, 0f, -0.15f, 0.15f};
+		DEBUFF_MODS = new float[] {0f, 0f, 0f, -0.15f, 0.10f};
 		VALID_RANKS = new int[][] {
 			new int [] { TWO, FOUR },
-			new int [] { ONE, THREE },
 			new int [] { ONE, TWO },
-			new int [] { SELF },
-			new int [] { ALLIES }
+			new int [] { ONE, THREE },
+			new int [] { ONE, FOUR },
+			new int [] { SELF }
 		};
-		IS_MULTI_HIT = new bool[] { true, false, false, false, true };
+		IS_MULTI_HIT = new bool[] { false, false, true, false, false };
 
 		CurrHealth = BASE_HEALTH;
 		Level = 1;
@@ -69,5 +69,77 @@ public class Rifleman : Unit
 		this.Rank = NewRank;
 	}
 
-	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) {return false;}
+	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target)
+	{	
+		if (MoveID == BAYONET)
+		{
+			MoveUnit (Allies, this, 1);
+		}
+
+		if (MoveID == RIFLE || MoveID == BAYONET || MoveID == NET_GUN) 
+		{
+			if (!this.CheckHit(MoveID, Target)) 
+			{
+				return false;
+			}
+		}
+
+		if (MoveID == RIFLE)
+		{
+			Target.RemoveHealth (RollDamage (MoveID, this.BASE_DMG, Target));
+			return SUCCESS;
+		}
+		else if (MoveID == BAYONET)
+		{
+			Target.RemoveHealth (RollDamage (MoveID, this.BASE_DMG, Target));
+			return SUCCESS;
+		}
+		else if (MoveID == NET_GUN)
+		{
+			Debuff D1 = new Debuff (DEBUFF_DUR, DEBUFF_MODS [NET_GUN], SPEED);
+			Debuff D2 = new Debuff (DEBUFF_DUR, DEBUFF_MODS [NET_GUN], DODGE);
+			Target.AddDebuff (D1);
+			Target.AddDebuff (D2);
+			return SUCCESS;
+		}
+		else if (MoveID == RELOAD)
+		{
+			Debuff D3 = new Debuff (DEBUFF_DUR, DEBUFF_MODS [RELOAD], SPEED);
+			Debuff D4 = new Debuff (DEBUFF_DUR, DEBUFF_MODS [RELOAD], DAMAGE);
+			Debuff D5 = new Debuff (DEBUFF_DUR, DEBUFF_MODS [RELOAD] * -1, ARMOR);
+			this.AddDebuff (D3);
+			this.AddDebuff (D4);
+			this.AddDebuff (D5);
+			return SUCCESS;
+		}
+
+		return FAILURE;
+	}
+
+
+	public override bool[] MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit[] Targets)
+	{
+		if (MoveID == SHOTGUN)
+		{
+			bool[] Hit = new bool[Targets.Length];
+			for (int i = 0; i < Targets.Length; i++)
+			{
+				if (this.CheckHit(MoveID, Targets[i]))
+				{
+					Targets[i].RemoveHealth (RollDamage (MoveID, this.BASE_DMG, Targets[i]));
+					Hit [i] = SUCCESS;
+					continue;
+				}
+				Hit [i] = FAILURE;
+			}
+			return Hit;
+		}
+
+		bool[] Default = new bool[Targets.Length];
+		for (int i = 0; i < Targets.Length; i++) 
+		{
+			Default [i] = FAILURE;
+		}
+		return Default;
+	}
 }

@@ -50,6 +50,10 @@ public abstract class Unit
 	public readonly int DEBUFF_DUR 	= 3;
 	public readonly int DOT_DUR		= 4;
 
+	// Hit Indicators
+	public readonly bool SUCCESS 	= true;
+	public readonly bool FAILURE 	= false;
+
 	/*==================================
 	 Vars that CANNOT be changed safely
 	===================================*/
@@ -93,8 +97,13 @@ public abstract class Unit
 
 	public virtual void SetStats (int NewLevel, int NewRank, int NewHealth) {}
 
-
+	// Use this one for:
+	//		- One Target
 	public virtual bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) {return false;}
+
+	// Use this one for:
+	// 		- Set of targets
+	public virtual bool[] MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit[] Targets) {return new bool[] {false};}
 
 	/*
 	public void Encounter (Unit[] Allies, Unit[] Enemies)
@@ -158,60 +167,20 @@ public abstract class Unit
 
 	public bool CheckValidMove (int MoveID, Unit Target)
 	{
-		if (this.GetAttackRange(MoveID)[0] == ALLIES || this.GetAttackRange(MoveID)[0] == ENEMIES)
+		if (this.GetAttackRange (MoveID) [0] == SELF && this.Equals (Target))
 		{
-			return false;
+			return true;
 		}
 
-		if ((this.GetFriendly() && !Target.GetFriendly()) || 
-			(!this.GetFriendly() && Target.GetFriendly())) 
+		int MaxRank = this.GetAttackRange (MoveID) [1];
+		int MinRank = this.GetAttackRange (MoveID) [0];
+		for (int i = MinRank; i <= MaxRank; i++)
 		{
-			if (this.GetAttackRange (MoveID) [0] == SELF && this.Equals (Target))
+			if (Target.GetRank () == i)
 			{
 				return true;
 			}
-
-			int MaxRank = this.GetAttackRange (MoveID) [1];
-			int MinRank = this.GetAttackRange (MoveID) [0];
-
-			int TempRange = MaxRank - MinRank;
-			for (int i = 0; i < TempRange; i++)
-			{
-				if (Target.GetRank () == i)
-				{
-					return true;
-				}
-			} 
-		}
-		return false;
-	}
-
-
-	public bool CheckValidMove (int MoveID, Unit[] Targets)
-	{
-		if ( !this.IsMultiHit(MoveID) ) 
-		{
-			return false;
-		}
-
-		if ((this.GetFriendly () && !Targets [0].GetFriendly ()) ||
-		    (!this.GetFriendly () && Targets [0].GetFriendly ())) 
-		{
-			int MaxRank = this.GetAttackRange (MoveID) [1];
-			int MinRank = this.GetAttackRange (MoveID) [0];
-
-			foreach (Unit Target in Targets)
-			{
-				for (int i = GetMinRank(Targets); i < GetMaxRank(Targets); i++) 
-				{
-					if (Target.GetRank () != i) 
-					{
-						return false;
-					}
-				}
-			}	 
-			return true;
-		}
+		} 
 		return false;
 	}
 
@@ -260,9 +229,11 @@ public abstract class Unit
 	}
 
 
-	internal int RollDamage (int MoveID, int Min, int Max, Unit Enemy)
+	internal int RollDamage (int MoveID, int[] DmgRange, Unit Target)
 	{
 		int DmgTemp;
+		int Min = DmgRange[0];
+		int Max = DmgRange[1];
 		Random roll = new Random ();
 
 		float Mod = this.GetDmgMods ()[MoveID];
@@ -278,7 +249,7 @@ public abstract class Unit
 			DmgTemp = DmgTemp * 2;
 		}
 
-		DmgTemp -= (int) (DmgTemp * Enemy.GetArmor());
+		DmgTemp -= (int) (DmgTemp * Target.GetArmor());
 
 		return DmgTemp;
 	}
@@ -484,5 +455,25 @@ public abstract class Unit
 	public bool IsMultiHit (int MoveID)
 	{
 		return this.IS_MULTI_HIT [MoveID];
+	}
+
+
+	public int GetLevel ()
+	{
+		return this.Level;
+	}
+
+
+	public int GetXP ()
+	{
+		return this.XP;
+	}
+
+
+	public void GiveXP (int Amount)
+	{
+		this.XP += Amount;
+
+		// TODO Handle level ups here
 	}
 }

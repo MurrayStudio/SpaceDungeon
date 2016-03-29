@@ -74,33 +74,31 @@ public class Enforcer : Unit
 
 	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target)
 	{
-		if (MoveID == KICK) {
+		if (MoveID == KICK) 
+		{
 			this.MoveUnit (Allies, Target, 1);
 		}
 
-		if (MoveID == HEAVY_SWING || MoveID == SLICE || MoveID == KICK) {
-			if (!this.CheckHit(MoveID, Target)) {
-				return false;
+		if (MoveID == SLICE || MoveID == KICK) 
+		{
+			if (!this.CheckHit(MoveID, Target)) 
+			{
+				return FAILURE;
 			}
 		}
 
-		if (MoveID == HEAVY_SWING) 
-		{
-			Target.RemoveHealth (RollDamage (MoveID, this.BASE_DMG [0], this.BASE_DMG [1], Target));
-			return true;
-		}
-		else if (MoveID == SLICE)
+		if (MoveID == SLICE)
 		{
 			Debuff D1 = new Debuff (DOT_DUR, DEBUFF_MODS [SLICE], BLEED);
 			Target.AddDebuff (D1);
-			Target.RemoveHealth (RollDamage (MoveID, this.BASE_DMG [0], this.BASE_DMG [1], Target));
-			return true;
+			Target.RemoveHealth (RollDamage (MoveID, this.BASE_DMG, Target));
+			return SUCCESS;
 		}
 		else if (MoveID == KICK)
 		{
 			Target.MoveUnit (Enemies, Target, -1);
-			Target.RemoveHealth (RollDamage (MoveID, this.BASE_DMG [0], this.BASE_DMG [1], Target));
-			return true;
+			Target.RemoveHealth (RollDamage (MoveID, this.BASE_DMG, Target));
+			return SUCCESS;
 		}
 		else if (MoveID == STEROIDS)
 		{
@@ -108,7 +106,7 @@ public class Enforcer : Unit
 			this.AddDebuff (D2);
 			CheckCrit (STEROIDS, this);
 			this.AddHealth (4); //TODO Constants for heal amounts or ranges
-			return true;
+			return SUCCESS;
 		}
 		else if (MoveID == WAR_CRY)
 		{
@@ -117,8 +115,34 @@ public class Enforcer : Unit
 			{
 				Allies [i].AddDebuff (D3);
 			}
-			return true;
+			return SUCCESS;
 		}
-		return false;
+		return FAILURE;
+	}
+
+	public override bool[] MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit[] Targets)
+	{
+		if (MoveID == HEAVY_SWING)
+		{
+			bool[] Hit = new bool[Targets.Length];
+			for (int i = 0; i < Targets.Length; i++)
+			{
+				if (this.CheckHit(MoveID, Targets[i]))
+				{
+					Targets [i].RemoveHealth (RollDamage (MoveID, this.BASE_DMG, Targets [i]));
+					Hit [i] = true;
+					continue;
+				}
+				Hit [i] = false;
+			}
+			return Hit;
+		}
+
+		bool[] Default = new bool[Targets.Length];
+		for (int i = 0; i < Targets.Length; i++) 
+		{
+			Default [i] = false;
+		}
+		return Default;
 	}
 }
