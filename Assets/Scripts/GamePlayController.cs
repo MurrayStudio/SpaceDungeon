@@ -68,7 +68,7 @@ public class GamePlayController : MonoBehaviour {
 		enemies = new Unit[] { enforcer, medic, rifleman, engineer };
 
 		//hardcode setup for level 1
-		unitClass = new Unit();
+		//unitClass = new Unit();
 		order = unitClass.Order(allies, enemies);
 
 		//enforcer to start
@@ -78,8 +78,16 @@ public class GamePlayController : MonoBehaviour {
         popUP.SetActive(false);
 		popUPAttack.SetActive(false);
 
-        //Assign health to each enemy
+        //Assign health to each enemy + ally
+        ally1Health.text = allies[0].GetHealth().ToString();
+        ally2Health.text = allies[1].GetHealth().ToString();
+        ally3Health.text = allies[2].GetHealth().ToString();
+        ally4Health.text = allies[3].GetHealth().ToString();
 
+        enemy1Health.text = enemies[0].GetHealth().ToString();
+        enemy2Health.text = enemies[1].GetHealth().ToString();
+        enemy3Health.text = enemies[2].GetHealth().ToString();
+        enemy4Health.text = enemies[3].GetHealth().ToString();
       
         
 
@@ -93,7 +101,19 @@ public class GamePlayController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    
+       
+        //Assign health to each enemy + ally and constantly update
+        ally1Health.text = allies[0].GetHealth().ToString();
+        ally2Health.text = allies[1].GetHealth().ToString();
+        ally3Health.text = allies[2].GetHealth().ToString();
+        ally4Health.text = allies[3].GetHealth().ToString();
+
+        enemy1Health.text = enemies[0].GetHealth().ToString();
+        enemy2Health.text = enemies[1].GetHealth().ToString();
+        enemy3Health.text = enemies[2].GetHealth().ToString();
+        enemy4Health.text = enemies[3].GetHealth().ToString();
+      
+        
 	}
 
 	public void buttonClicked()
