@@ -34,6 +34,23 @@ public class GamePlayController : MonoBehaviour {
 
     private string currentButtonClicked;
 
+
+    //This is assuming that there will be 4 enemies at 
+    public Text enemy1Health;
+    public Text enemy2Health;
+    public Text enemy3Health;
+    public Text enemy4Health;
+
+
+    //This is assuming there will be four ally units
+    public Text ally1Health;
+    public Text ally2Health;
+    public Text ally3Health;
+    public Text ally4Health;
+    
+    
+
+
     // Use this for initialization
     void Start () {
 		//init units
@@ -59,6 +76,19 @@ public class GamePlayController : MonoBehaviour {
         popUP.SetActive(false);
 		popUPAttack.SetActive(false);
 
+        //Assign health to each enemy + ally
+        ally1Health.text = allies[0].GetHealth().ToString();
+        ally2Health.text = allies[1].GetHealth().ToString();
+        ally3Health.text = allies[2].GetHealth().ToString();
+        ally4Health.text = allies[3].GetHealth().ToString();
+
+        enemy1Health.text = enemies[0].GetHealth().ToString();
+        enemy2Health.text = enemies[1].GetHealth().ToString();
+        enemy3Health.text = enemies[2].GetHealth().ToString();
+        enemy4Health.text = enemies[3].GetHealth().ToString();
+      
+        
+
         //for now, just have ability character attack configs enabled in this way
 		ability1EnableArray = currentCharacter.GetAttackRange(0);
 		ability2EnableArray = currentCharacter.GetAttackRange(1);
@@ -69,7 +99,19 @@ public class GamePlayController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    
+       
+        //Assign health to each enemy + ally and constantly update
+        ally1Health.text = allies[0].GetHealth().ToString();
+        ally2Health.text = allies[1].GetHealth().ToString();
+        ally3Health.text = allies[2].GetHealth().ToString();
+        ally4Health.text = allies[3].GetHealth().ToString();
+
+        enemy1Health.text = enemies[0].GetHealth().ToString();
+        enemy2Health.text = enemies[1].GetHealth().ToString();
+        enemy3Health.text = enemies[2].GetHealth().ToString();
+        enemy4Health.text = enemies[3].GetHealth().ToString();
+      
+        
 	}
 
 	public void buttonClicked()
