@@ -21,6 +21,12 @@ public class GamePlayController : MonoBehaviour {
 	private Rifleman rifleman;
 	private Engineer engineer;
 
+	private Freight freightEnemy;
+	private Infected infectedEnemy;
+	private MediBot mediBotEnemy;
+	private Psychic psychicEnemy;
+	private Security securityEnemy;
+
 	public GameObject popUPAttack;
     public Button[] enemyAttackButtons = new Button[4];
 
@@ -62,9 +68,10 @@ public class GamePlayController : MonoBehaviour {
 		rifleman.SetStats (1, 1, 100);
 		engineer = new Engineer ();
 		engineer.SetStats (1, 1, 100);
+		freightEnemy = new Freight();
 
 		allies = new Unit[] { enforcer, medic, rifleman, engineer };
-		enemies = new Unit[] { enforcer, medic, rifleman, engineer };
+		enemies = new Unit[] { freightEnemy, freightEnemy, freightEnemy, freightEnemy };
 
 		//hardcode setup for level 1
 		order = enforcer.Order(allies, enemies);
@@ -73,8 +80,10 @@ public class GamePlayController : MonoBehaviour {
 		currentCharacter = allies [0];
 
 
-        popUP.SetActive(false);
-		popUPAttack.SetActive(false);
+        //popUP.SetActive(false);
+		//popUPAttack.SetActive(false);
+		hidePopUp();
+		hidePopUpAttack ();
 
         //Assign health to each enemy + ally
         ally1Health.text = allies[0].GetHealth().ToString();
@@ -106,7 +115,8 @@ public class GamePlayController : MonoBehaviour {
         ally3Health.text = allies[2].GetHealth().ToString();
         ally4Health.text = allies[3].GetHealth().ToString();
 
-        enemy1Health.text = enemies[0].GetHealth().ToString();
+        
+		enemy1Health.text = enemies[0].GetHealth().ToString();
         enemy2Health.text = enemies[1].GetHealth().ToString();
         enemy3Health.text = enemies[2].GetHealth().ToString();
         enemy4Health.text = enemies[3].GetHealth().ToString();
@@ -140,9 +150,12 @@ public class GamePlayController : MonoBehaviour {
                 showPopUpAttack();
                 hidePopUp();
                 break;
-            case "Enemy1":
-                hidePopUpAttack();
-                hidePopUp();
+			//clicking to attack characters
+		case "Enemy1":
+			hidePopUpAttack ();
+			hidePopUp ();
+			currentCharacter.MakeMove (2, allies, enemies, enemies [0]);
+			Debug.Log (enemies [0].GetHealth ());
                 break;
             case "Enemy2":
                 hidePopUpAttack();
