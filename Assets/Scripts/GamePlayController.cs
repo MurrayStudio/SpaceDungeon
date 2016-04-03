@@ -11,7 +11,6 @@ public class GamePlayController : MonoBehaviour {
 
 	private Unit[] order;
 	private Unit currentCharacter;
-	private Unit unitClass;
 
 
 	private Unit[] allies;
@@ -51,8 +50,7 @@ public class GamePlayController : MonoBehaviour {
 		enemies = new Unit[] { enforcer, medic, rifleman, engineer };
 
 		//hardcode setup for level 1
-		unitClass = new Unit();
-		order = unitClass.Order(allies, enemies);
+		order = enforcer.Order(allies, enemies);
 
 		//enforcer to start
 		currentCharacter = allies [0];
@@ -62,11 +60,11 @@ public class GamePlayController : MonoBehaviour {
 		popUPAttack.SetActive(false);
 
         //for now, just have ability character attack configs enabled in this way
-		ability1EnableArray = new bool[] { true, true, false, true, false, false, false };
-		ability2EnableArray = new bool[] { false, false, false, true, false, false, false };
-		ability3EnableArray = new bool[] { true, true, true, true, false, false, false };
-		ability4EnableArray = new bool[] { true, true, false, false, false, false, false };
-		ability5EnableArray = new bool[] { true, false, false, false, false, false, false };
+		ability1EnableArray = currentCharacter.GetAttackRange(0);
+		ability2EnableArray = currentCharacter.GetAttackRange(1);
+		ability3EnableArray = currentCharacter.GetAttackRange(2);
+		ability4EnableArray = currentCharacter.GetAttackRange(3);
+		ability5EnableArray = currentCharacter.GetAttackRange(4);
     }
 	
 	// Update is called once per frame
