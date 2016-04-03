@@ -111,6 +111,11 @@ public class GamePlayController : MonoBehaviour
         hidePopUp();
         hidePopUpAttack();
 
+        ability1EnableArray = currentCharacter.GetAttackRange(0);
+        ability2EnableArray = currentCharacter.GetAttackRange(1);
+        ability3EnableArray = currentCharacter.GetAttackRange(2);
+        ability4EnableArray = currentCharacter.GetAttackRange(3);
+        ability5EnableArray = currentCharacter.GetAttackRange(4);
 
     }
 
@@ -169,11 +174,11 @@ public class GamePlayController : MonoBehaviour
                 abilityButtons[4].image.sprite = riflemanAbilityImages[4];
             }
 
-            ability1EnableArray = currentCharacter.GetAttackRange(0);
-            ability2EnableArray = currentCharacter.GetAttackRange(1);
-            ability3EnableArray = currentCharacter.GetAttackRange(2);
-            ability4EnableArray = currentCharacter.GetAttackRange(3);
-            ability5EnableArray = currentCharacter.GetAttackRange(4);
+            //ability1EnableArray = currentCharacter.GetAttackRange(0);
+            //ability2EnableArray = currentCharacter.GetAttackRange(1);
+            //ability3EnableArray = currentCharacter.GetAttackRange(2);
+            //ability4EnableArray = currentCharacter.GetAttackRange(3);
+            //ability5EnableArray = currentCharacter.GetAttackRange(4);
         }
 
         Debug.Log("after attack ranges: " + ability1EnableArray[0]);
