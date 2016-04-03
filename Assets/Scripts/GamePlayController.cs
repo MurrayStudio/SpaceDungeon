@@ -9,6 +9,19 @@ public class GamePlayController : MonoBehaviour {
     public Image popUpImage;
     public Text popUpText;
 
+	private Unit[] order;
+	private Unit currentCharacter;
+	private Unit unitClass;
+
+
+	private Unit[] allies;
+	private Unit[] enemies;
+
+	private Enforcer enforcer;
+	private Medic medic;
+	private Rifleman rifleman;
+	private Engineer engineer;
+
 	public GameObject popUPAttack;
     public Button[] enemyAttackButtons = new Button[4];
 
@@ -24,15 +37,36 @@ public class GamePlayController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+		//init units
+		enforcer = new Enforcer();
+		enforcer.SetStats (1, 1, 100);
+		medic = new Medic ();
+		medic.SetStats (1, 1, 100);
+		rifleman = new Rifleman ();
+		rifleman.SetStats (1, 1, 100);
+		engineer = new Engineer ();
+		engineer.SetStats (1, 1, 100);
+
+		allies = new Unit[] { enforcer, medic, rifleman, engineer };
+		enemies = new Unit[] { enforcer, medic, rifleman, engineer };
+
+		//hardcode setup for level 1
+		unitClass = new Unit();
+		order = unitClass.Order(allies, enemies);
+
+		//enforcer to start
+		currentCharacter = allies [0];
+
+
         popUP.SetActive(false);
 		popUPAttack.SetActive(false);
 
         //for now, just have ability character attack configs enabled in this way
-        ability1EnableArray = new bool[] { true, true, false, true };
-        ability2EnableArray = new bool[] { false, false, false, true };
-        ability3EnableArray = new bool[] { true, true, true, true };
-        ability4EnableArray = new bool[] { true, true, false, false };
-        ability5EnableArray = new bool[] { true, false, false, false };
+		ability1EnableArray = new bool[] { true, true, false, true, false, false, false };
+		ability2EnableArray = new bool[] { false, false, false, true, false, false, false };
+		ability3EnableArray = new bool[] { true, true, true, true, false, false, false };
+		ability4EnableArray = new bool[] { true, true, false, false, false, false, false };
+		ability5EnableArray = new bool[] { true, false, false, false, false, false, false };
     }
 	
 	// Update is called once per frame
@@ -69,22 +103,18 @@ public class GamePlayController : MonoBehaviour {
             case "Enemy1":
                 hidePopUpAttack();
                 hidePopUp();
-                attack(1);
                 break;
             case "Enemy2":
                 hidePopUpAttack();
                 hidePopUp();
-                attack(2);
                 break;
             case "Enemy3":
                 hidePopUpAttack();
                 hidePopUp();
-                attack(3);
                 break;
             case "Enemy4":
                 hidePopUpAttack();
                 hidePopUp();
-                attack(4);
                 break;
         }
     }
@@ -104,7 +134,7 @@ public class GamePlayController : MonoBehaviour {
         switch (currentButtonClicked)
         {
             case "ability1":
-                for(int i=0; i < ability1EnableArray.Length; i++)
+                for(int i=0; i < 4; i++)
                 {
                     if (ability1EnableArray[i] == true) {
                         enemyAttackButtons[i].interactable = true;
@@ -118,7 +148,7 @@ public class GamePlayController : MonoBehaviour {
                 }
                 break;
             case "ability2":
-                for (int i = 0; i < ability2EnableArray.Length; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     if (ability2EnableArray[i] == true)
                     {
@@ -133,7 +163,7 @@ public class GamePlayController : MonoBehaviour {
                 }
                 break;
             case "ability3":
-                for (int i = 0; i < ability3EnableArray.Length; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     if (ability3EnableArray[i] == true)
                     {
@@ -148,7 +178,7 @@ public class GamePlayController : MonoBehaviour {
                 }
                 break;
             case "ability4":
-                for (int i = 0; i < ability4EnableArray.Length; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     if (ability4EnableArray[i] == true)
                     {
@@ -163,7 +193,7 @@ public class GamePlayController : MonoBehaviour {
                 }
                 break;
             case "ability5":
-                for (int i = 0; i < ability5EnableArray.Length; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     if (ability5EnableArray[i] == true)
                     {
@@ -201,24 +231,5 @@ public class GamePlayController : MonoBehaviour {
     {
         popUP.SetActive(false);
         popUPEnabled = false;
-    }
-
-    public void attack(int character)
-    {
-        switch (character)
-        {
-            case 1:
-                //attack enemy character 1
-                break;
-            case 2:
-                //attack enemy character 2
-                break;
-            case 3:
-                //attack enemy character 3
-                break;
-            case 4:
-                //attack enemy character 4
-                break;
-        }
     }
 }
