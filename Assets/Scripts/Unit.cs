@@ -76,7 +76,7 @@ public abstract class Unit
 	protected float[] DMG_MODS;		// Damage modifiers for each ability
 	protected int[] ACC_MODS;		// Accuracy mods for each ability
 	protected float[] DEBUFF_MODS;	// Strength of individual debuffs
-	protected int[][] VALID_RANKS;	// Ranks that can be hit by ability
+	protected bool[][] VALID_RANKS;	// Ranks that can be hit by ability
 	protected bool[] IS_MULTI_HIT;	// Whether or not the ability can hit all targets or one
 
 	/*==================================
@@ -105,20 +105,8 @@ public abstract class Unit
 	// 		- Set of targets
 	public virtual bool[] MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit[] Targets) {return new bool[] {false};}
 
-	/*
-	public void Encounter (Unit[] Allies, Unit[] Enemies)
-	{
-		if (Allies.Length > 4 || Allies.Length < 1 || Enemies.Length > 4 || Enemies.Length < 1)
-		{
-			return;
-		}
-		Unit[] TurnOrder = Order (Allies, Enemies);
 
-		//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	}
-	*/
-
-	internal Unit[] Order (Unit[] Allies, Unit[] Enemies) //TODO Clean this up, can be done without the Rolls array
+	public Unit[] Order (Unit[] Allies, Unit[] Enemies) //TODO Clean this up, can be done without the Rolls array
 	{
 		int NumUnits = Allies.Length + Enemies.Length;
 		Unit[] TempOrder = new Unit[NumUnits];
@@ -167,20 +155,13 @@ public abstract class Unit
 
 	public bool CheckValidMove (int MoveID, Unit Target)
 	{
-		if (this.GetAttackRange (MoveID) [0] == SELF && this.Equals (Target))
+		if (this.GetAttackRange (MoveID) [SELF] && this.Equals (Target))
 		{
 			return true;
 		}
 
-		int MaxRank = this.GetAttackRange (MoveID) [1];
-		int MinRank = this.GetAttackRange (MoveID) [0];
-		for (int i = MinRank; i <= MaxRank; i++)
-		{
-			if (Target.GetRank () == i)
-			{
-				return true;
-			}
-		} 
+
+
 		return false;
 	}
 
@@ -446,7 +427,7 @@ public abstract class Unit
 	}
 
 
-	public int[] GetAttackRange (int MoveID)
+	public bool[] GetAttackRange (int MoveID)
 	{
 		return this.VALID_RANKS[MoveID];
 	} 
