@@ -11,7 +11,6 @@ public class GamePlayController : MonoBehaviour {
 
 	private Unit[] order;
 	private Unit currentCharacter;
-	private Unit unitClass;
 
 
 	private Unit[] allies;
@@ -21,6 +20,12 @@ public class GamePlayController : MonoBehaviour {
 	private Medic medic;
 	private Rifleman rifleman;
 	private Engineer engineer;
+
+	private Freight freightEnemy;
+	private Infected infectedEnemy;
+	private MediBot mediBotEnemy;
+	private Psychic psychicEnemy;
+	private Security securityEnemy;
 
 	public GameObject popUPAttack;
     public Button[] enemyAttackButtons = new Button[4];
@@ -63,20 +68,22 @@ public class GamePlayController : MonoBehaviour {
 		rifleman.SetStats (1, 1, 100);
 		engineer = new Engineer ();
 		engineer.SetStats (1, 1, 100);
+		freightEnemy = new Freight();
 
 		allies = new Unit[] { enforcer, medic, rifleman, engineer };
-		enemies = new Unit[] { enforcer, medic, rifleman, engineer };
+		enemies = new Unit[] { freightEnemy, freightEnemy, freightEnemy, freightEnemy };
 
 		//hardcode setup for level 1
-		//unitClass = new Unit();
-		order = unitClass.Order(allies, enemies);
+		order = enforcer.Order(allies, enemies);
 
 		//enforcer to start
 		currentCharacter = allies [0];
 
 
-        popUP.SetActive(false);
-		popUPAttack.SetActive(false);
+        //popUP.SetActive(false);
+		//popUPAttack.SetActive(false);
+		hidePopUp();
+		hidePopUpAttack ();
 
         //Assign health to each enemy + ally
         ally1Health.text = allies[0].GetHealth().ToString();
@@ -92,11 +99,11 @@ public class GamePlayController : MonoBehaviour {
         
 
         //for now, just have ability character attack configs enabled in this way
-		ability1EnableArray = new bool[] { true, true, false, true, false, false, false };
-		ability2EnableArray = new bool[] { false, false, false, true, false, false, false };
-		ability3EnableArray = new bool[] { true, true, true, true, false, false, false };
-		ability4EnableArray = new bool[] { true, true, false, false, false, false, false };
-		ability5EnableArray = new bool[] { true, false, false, false, false, false, false };
+		ability1EnableArray = currentCharacter.GetAttackRange(0);
+		ability2EnableArray = currentCharacter.GetAttackRange(1);
+		ability3EnableArray = currentCharacter.GetAttackRange(2);
+		ability4EnableArray = currentCharacter.GetAttackRange(3);
+		ability5EnableArray = currentCharacter.GetAttackRange(4);
     }
 	
 	// Update is called once per frame
@@ -108,7 +115,8 @@ public class GamePlayController : MonoBehaviour {
         ally3Health.text = allies[2].GetHealth().ToString();
         ally4Health.text = allies[3].GetHealth().ToString();
 
-        enemy1Health.text = enemies[0].GetHealth().ToString();
+        
+		enemy1Health.text = enemies[0].GetHealth().ToString();
         enemy2Health.text = enemies[1].GetHealth().ToString();
         enemy3Health.text = enemies[2].GetHealth().ToString();
         enemy4Health.text = enemies[3].GetHealth().ToString();
@@ -142,9 +150,12 @@ public class GamePlayController : MonoBehaviour {
                 showPopUpAttack();
                 hidePopUp();
                 break;
-            case "Enemy1":
-                hidePopUpAttack();
-                hidePopUp();
+			//clicking to attack characters
+		case "Enemy1":
+			hidePopUpAttack ();
+			hidePopUp ();
+			currentCharacter.MakeMove (2, allies, enemies, enemies [0]);
+			Debug.Log (enemies [0].GetHealth ());
                 break;
             case "Enemy2":
                 hidePopUpAttack();
