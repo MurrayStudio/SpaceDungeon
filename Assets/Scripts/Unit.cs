@@ -118,7 +118,7 @@ public abstract class Unit
 			if (i >= Allies.Length)
 			{
 				Rolls[i] = Enemies[i - Allies.Length].RollSpeed();
-				TempOrder [i - Allies.Length] = Enemies [i];
+				TempOrder [i] = Enemies [i - Allies.Length];
 				continue;
 			}
 			Rolls [i] = Allies [i].RollSpeed();
