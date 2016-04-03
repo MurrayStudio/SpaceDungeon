@@ -35,12 +35,19 @@ public class Rifleman : Unit
 		DMG_MODS = new float[] {0f, 0f, -0.4f, -0.8f, 0f};
 		ACC_MODS = new int[] {85, 85, 85, 85, 0};
 		DEBUFF_MODS = new float[] {0f, 0f, 0f, -0.15f, 0.10f};
-		VALID_RANKS = new int[][] {
-			new int [] { TWO, FOUR },
-			new int [] { ONE, TWO },
-			new int [] { ONE, THREE },
-			new int [] { ONE, FOUR },
-			new int [] { SELF }
+//		VALID_RANKS = new bool[][] {
+//			new bool [] { TWO, FOUR },
+//			new bool [] { ONE, TWO },
+//			new bool [] { ONE, THREE },
+//			new bool [] { ONE, FOUR },
+//			new bool [] { SELF }
+//		};
+		VALID_RANKS = new bool[][] {
+			new bool [] { true, true, false, false, false, false, false },	// Heavy Swing
+			new bool [] { true, true, true, false, false, false, false },	// Slice
+			new bool [] { true, true, false, false, false, false, false },	// Kick
+			new bool [] { false, false, false, false, true, false, false },		// Steroids
+			new bool [] { false, false, false, false, false, true, false }		// War Cry
 		};
 		IS_MULTI_HIT = new bool[] { false, false, true, false, false };
 

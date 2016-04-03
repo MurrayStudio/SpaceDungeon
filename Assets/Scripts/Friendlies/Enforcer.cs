@@ -38,12 +38,12 @@ public class Enforcer : Unit
 		DMG_MODS = new float[] { 0.15f, -0.15f, -0.60f, 0f, 0f };
 		ACC_MODS = new int[] { 85, 85, 85, 0, 0 };
 		DEBUFF_MODS = new float[] { 0f, 0f, 0f, 0.25f, 0.25f };
-		VALID_RANKS = new int[][] {
-			new int [] { ONE, TWO },	// Heavy Swing
-			new int [] { ONE, THREE },	// Slice
-			new int [] { ONE, TWO },	// Kick
-			new int [] { SELF },		// Steroids
-			new int [] { ALLIES }		// War Cry
+		VALID_RANKS = new bool[][] {
+			new bool [] { true, true, false, false, false, false, false },	// Heavy Swing
+			new bool [] { true, true, true, false, false, false, false },	// Slice
+			new bool [] { true, true, false, false, false, false, false },	// Kick
+			new bool [] { false, false, false, false, true, false, false },		// Steroids
+			new bool [] { false, false, false, false, false, true, false }		// War Cry
 		};
 		IS_MULTI_HIT = new bool[] { true, false, false, false, true };
 

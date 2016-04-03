@@ -9,6 +9,24 @@ public class GamePlayController : MonoBehaviour {
     public Image popUpImage;
     public Text popUpText;
 
+	private Unit[] order;
+	private Unit currentCharacter;
+
+
+	private Unit[] allies;
+	private Unit[] enemies;
+
+	private Enforcer enforcer;
+	private Medic medic;
+	private Rifleman rifleman;
+	private Engineer engineer;
+
+	private Freight freightEnemy;
+	private Infected infectedEnemy;
+	private MediBot mediBotEnemy;
+	private Psychic psychicEnemy;
+	private Security securityEnemy;
+
 	public GameObject popUPAttack;
     public Button[] enemyAttackButtons = new Button[4];
 
@@ -22,22 +40,88 @@ public class GamePlayController : MonoBehaviour {
 
     private string currentButtonClicked;
 
+
+    //This is assuming that there will be 4 enemies at 
+    public Text enemy1Health;
+    public Text enemy2Health;
+    public Text enemy3Health;
+    public Text enemy4Health;
+
+
+    //This is assuming there will be four ally units
+    public Text ally1Health;
+    public Text ally2Health;
+    public Text ally3Health;
+    public Text ally4Health;
+    
+    
+
+
     // Use this for initialization
     void Start () {
-        popUP.SetActive(false);
-		popUPAttack.SetActive(false);
+		//init units
+		enforcer = new Enforcer();
+		enforcer.SetStats (1, 1, 100);
+		medic = new Medic ();
+		medic.SetStats (1, 1, 100);
+		rifleman = new Rifleman ();
+		rifleman.SetStats (1, 1, 100);
+		engineer = new Engineer ();
+		engineer.SetStats (1, 1, 100);
+		freightEnemy = new Freight();
+
+		allies = new Unit[] { enforcer, medic, rifleman, engineer };
+		enemies = new Unit[] { freightEnemy, freightEnemy, freightEnemy, freightEnemy };
+
+		//hardcode setup for level 1
+		order = enforcer.Order(allies, enemies);
+
+		//enforcer to start
+		currentCharacter = allies [0];
+
+
+        //popUP.SetActive(false);
+		//popUPAttack.SetActive(false);
+		hidePopUp();
+		hidePopUpAttack ();
+
+        //Assign health to each enemy + ally
+        ally1Health.text = allies[0].GetHealth().ToString();
+        ally2Health.text = allies[1].GetHealth().ToString();
+        ally3Health.text = allies[2].GetHealth().ToString();
+        ally4Health.text = allies[3].GetHealth().ToString();
+
+        enemy1Health.text = enemies[0].GetHealth().ToString();
+        enemy2Health.text = enemies[1].GetHealth().ToString();
+        enemy3Health.text = enemies[2].GetHealth().ToString();
+        enemy4Health.text = enemies[3].GetHealth().ToString();
+      
+        
 
         //for now, just have ability character attack configs enabled in this way
-        ability1EnableArray = new bool[] { true, true, false, true };
-        ability2EnableArray = new bool[] { false, false, false, true };
-        ability3EnableArray = new bool[] { true, true, true, true };
-        ability4EnableArray = new bool[] { true, true, false, false };
-        ability5EnableArray = new bool[] { true, false, false, false };
+		ability1EnableArray = currentCharacter.GetAttackRange(0);
+		ability2EnableArray = currentCharacter.GetAttackRange(1);
+		ability3EnableArray = currentCharacter.GetAttackRange(2);
+		ability4EnableArray = currentCharacter.GetAttackRange(3);
+		ability5EnableArray = currentCharacter.GetAttackRange(4);
     }
 	
 	// Update is called once per frame
 	void Update () {
-	    
+       
+        //Assign health to each enemy + ally and constantly update
+        ally1Health.text = allies[0].GetHealth().ToString();
+        ally2Health.text = allies[1].GetHealth().ToString();
+        ally3Health.text = allies[2].GetHealth().ToString();
+        ally4Health.text = allies[3].GetHealth().ToString();
+
+        
+		enemy1Health.text = enemies[0].GetHealth().ToString();
+        enemy2Health.text = enemies[1].GetHealth().ToString();
+        enemy3Health.text = enemies[2].GetHealth().ToString();
+        enemy4Health.text = enemies[3].GetHealth().ToString();
+      
+        
 	}
 
 	public void buttonClicked()
@@ -66,25 +150,24 @@ public class GamePlayController : MonoBehaviour {
                 showPopUpAttack();
                 hidePopUp();
                 break;
-            case "Enemy1":
-                hidePopUpAttack();
-                hidePopUp();
-                attack(1);
+			//clicking to attack characters
+		case "Enemy1":
+			hidePopUpAttack ();
+			hidePopUp ();
+			currentCharacter.MakeMove (2, allies, enemies, enemies [0]);
+			Debug.Log (enemies [0].GetHealth ());
                 break;
             case "Enemy2":
                 hidePopUpAttack();
                 hidePopUp();
-                attack(2);
                 break;
             case "Enemy3":
                 hidePopUpAttack();
                 hidePopUp();
-                attack(3);
                 break;
             case "Enemy4":
                 hidePopUpAttack();
                 hidePopUp();
-                attack(4);
                 break;
         }
     }
@@ -104,7 +187,7 @@ public class GamePlayController : MonoBehaviour {
         switch (currentButtonClicked)
         {
             case "ability1":
-                for(int i=0; i < ability1EnableArray.Length; i++)
+                for(int i=0; i < 4; i++)
                 {
                     if (ability1EnableArray[i] == true) {
                         enemyAttackButtons[i].interactable = true;
@@ -118,7 +201,7 @@ public class GamePlayController : MonoBehaviour {
                 }
                 break;
             case "ability2":
-                for (int i = 0; i < ability2EnableArray.Length; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     if (ability2EnableArray[i] == true)
                     {
@@ -133,7 +216,7 @@ public class GamePlayController : MonoBehaviour {
                 }
                 break;
             case "ability3":
-                for (int i = 0; i < ability3EnableArray.Length; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     if (ability3EnableArray[i] == true)
                     {
@@ -148,7 +231,7 @@ public class GamePlayController : MonoBehaviour {
                 }
                 break;
             case "ability4":
-                for (int i = 0; i < ability4EnableArray.Length; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     if (ability4EnableArray[i] == true)
                     {
@@ -163,7 +246,7 @@ public class GamePlayController : MonoBehaviour {
                 }
                 break;
             case "ability5":
-                for (int i = 0; i < ability5EnableArray.Length; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     if (ability5EnableArray[i] == true)
                     {
@@ -201,24 +284,5 @@ public class GamePlayController : MonoBehaviour {
     {
         popUP.SetActive(false);
         popUPEnabled = false;
-    }
-
-    public void attack(int character)
-    {
-        switch (character)
-        {
-            case 1:
-                //attack enemy character 1
-                break;
-            case 2:
-                //attack enemy character 2
-                break;
-            case 3:
-                //attack enemy character 3
-                break;
-            case 4:
-                //attack enemy character 4
-                break;
-        }
     }
 }
