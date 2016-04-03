@@ -35,6 +35,23 @@ public class GamePlayController : MonoBehaviour {
 
     private string currentButtonClicked;
 
+
+    //This is assuming that there will be 4 enemies at 
+    public Text enemy1Health;
+    public Text enemy2Health;
+    public Text enemy3Health;
+    public Text enemy4Health;
+
+
+    //This is assuming there will be four ally units
+    public Text ally1Health;
+    public Text ally2Health;
+    public Text ally3Health;
+    public Text ally4Health;
+    
+    
+
+
     // Use this for initialization
     void Start () {
 		//init units
@@ -60,6 +77,11 @@ public class GamePlayController : MonoBehaviour {
 
         popUP.SetActive(false);
 		popUPAttack.SetActive(false);
+
+        //Assign health to each enemy
+
+      
+        
 
         //for now, just have ability character attack configs enabled in this way
 		ability1EnableArray = new bool[] { true, true, false, true, false, false, false };
