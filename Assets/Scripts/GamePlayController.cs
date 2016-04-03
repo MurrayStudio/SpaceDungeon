@@ -189,7 +189,9 @@ public class GamePlayController : MonoBehaviour
         if (currentCharacter.GetFriendly() == false)
         {
             //make a simple ai move
-            currentCharacter.MakeMove(0, allies, enemies, allies[0]);
+            int move = Random.Range(0, 5);
+            int allyHit = Random.Range(0, 4);
+            currentCharacter.MakeMove(move, allies, enemies, allies[allyHit]);
             if (indexOfOrder < order.Length - 1)
             {
                 ++indexOfOrder;
