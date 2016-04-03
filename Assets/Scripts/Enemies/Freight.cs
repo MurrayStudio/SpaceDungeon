@@ -57,6 +57,18 @@ public class Freight : Unit
 		this.Rank = NewRank;
 	}
 
-	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) {return false;}
+	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) 
+	{
+		if (MoveID == SLAM || MoveID == CHARGE)
+		{
+			if (!this.CheckHit(MoveID, Target)) 
+			{
+				return FAILURE;
+			}
+		}
+
+		Target.RemoveHealth (RollDamage (MoveID, this.BASE_DMG, Target));
+		return SUCCESS;
+	}
 }
 
