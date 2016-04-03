@@ -118,7 +118,7 @@ public abstract class Unit
 	}
 	*/
 
-	internal Unit[] Order (Unit[] Allies, Unit[] Enemies) //TODO Clean this up, can be done without the Rolls array
+	public Unit[] Order (Unit[] Allies, Unit[] Enemies) //TODO Clean this up, can be done without the Rolls array
 	{
 		int NumUnits = Allies.Length + Enemies.Length;
 		Unit[] TempOrder = new Unit[NumUnits];
