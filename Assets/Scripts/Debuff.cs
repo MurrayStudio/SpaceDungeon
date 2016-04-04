@@ -31,9 +31,9 @@ public class Debuff
 
 	public Debuff (int NewDuration, float NewPower, int NewType)
 	{
-		this.DURATION = NewDuration;
-		this.POWER = NewPower;
-		this.CATEGORY = NewType;
+		DURATION = NewDuration;
+		POWER = NewPower;
+		CATEGORY = NewType;
 	}	
 
 
@@ -45,24 +45,33 @@ public class Debuff
 
  	public void Tick ()		
  	{		
- 		this.DURATION--;		
+ 		DURATION--;		
  	}		
  		
- 	public int GetDuration ()		
+ 	public int Duration		
  	{		
- 		return this.DURATION;		
+ 		get
+        {
+            return DURATION;
+        }
  	}		
 
 
- 	public float GetPower ()		
+ 	public float Power		
  	{		
- 		return this.POWER;		
+ 		get
+        {
+            return POWER;
+        }
  	}		
 
 
- 	public int GetCetegory ()		
+ 	public int Cetegory
  	{		
- 		return this.CATEGORY;		
+ 		get
+        {
+            return CATEGORY;
+        }
 	}
 }
 

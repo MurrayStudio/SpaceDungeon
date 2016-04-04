@@ -86,9 +86,9 @@ public abstract class Unit
 	protected int CurrSpeed;	// Keeps track of the units current speed
 	protected int CurrDodge;	// Keeps track of the units current dodge
 	protected int CurrArmor;	// Keeps track of the units current armor
-	protected int Level;		// Keeps track of the units level
-	protected int Rank;			// Keeps track of the units rank (position in line)
-	protected int XP;			// Keeps track of the units XP
+	protected int level;		// Keeps track of the units level
+	protected int rank;			// Keeps track of the units rank (position in line)
+	protected int xp;			// Keeps track of the units XP
 	protected bool HasPlayed;	// Keeps track of if the unit has performed an action this turn
 
 
@@ -117,11 +117,11 @@ public abstract class Unit
 		{
 			if (i >= Allies.Length)
 			{
-				Rolls[i] = Enemies[i - Allies.Length].RollSpeed() + this.GetSpeed();
+				Rolls[i] = Enemies[i - Allies.Length].RollSpeed() + CurrSpeed;
 				TempOrder [i] = Enemies [i - Allies.Length];
 				continue;
 			}
-			Rolls [i] = Allies [i].RollSpeed() + this.GetSpeed();
+			Rolls [i] = Allies [i].RollSpeed() + CurrSpeed;
 			TempOrder [i] = Allies [i];
 		}
 
@@ -149,7 +149,7 @@ public abstract class Unit
 	internal int RollSpeed ()
 	{
 		Random roll = new Random ();
-		return this.GetSpeed () + roll.Next(10);
+		return CurrSpeed + roll.Next(10);
 	}
 
 
@@ -171,9 +171,9 @@ public abstract class Unit
 		int TempMin = 99999;
 		foreach (Unit U in Units)
 		{
-			if (U.GetRank() < TempMin)
+			if (U.Rank < TempMin)
 			{
-				TempMin = U.GetRank ();
+				TempMin = U.Rank;
 			}
 		}
 		return TempMin;
@@ -185,9 +185,9 @@ public abstract class Unit
 		int TempMax = -99999;
 		foreach (Unit U in Units)
 		{
-			if (U.GetRank() > TempMax)
+			if (U.Rank > TempMax)
 			{
-				TempMax = U.GetRank ();
+				TempMax = U.Rank;
 			}
 		}
 		return TempMax;
@@ -217,7 +217,7 @@ public abstract class Unit
 		int Max = DmgRange[1];
 		Random roll = new Random ();
 
-		float Mod = this.GetDmgMods ()[MoveID];
+		float Mod = DMG_MODS[MoveID];
 		Max += (int) (Max * Mod);
 		Min += (int) (Min * Mod);
 
@@ -230,7 +230,7 @@ public abstract class Unit
 			DmgTemp = DmgTemp * 2;
 		}
 
-		DmgTemp -= (int) (DmgTemp * Target.GetArmor());
+		DmgTemp -= (int) (DmgTemp * Target.Armor);
 
 		return DmgTemp;
 	}
@@ -249,29 +249,29 @@ public abstract class Unit
 
 	internal void AddHealth (int Amount)
 	{
-		this.CurrHealth = this.CurrHealth + Amount;
+		CurrHealth = CurrHealth + Amount;
 
-		if (this.CurrHealth > this.GetBaseHealth ()) 
+		if (CurrHealth > BASE_HEALTH) 
 		{
-			this.CurrHealth = this.GetBaseHealth ();
+			CurrHealth = BASE_HEALTH;
 		}
 	}
 
 
 	internal void RemoveHealth (int Amount)
 	{
-		this.CurrHealth = this.CurrHealth - Amount;
+		CurrHealth = CurrHealth - Amount;
 
-		if (this.CurrHealth < 0) 
+		if (CurrHealth < 0) 
 		{
-			this.CurrHealth = 0;
+			CurrHealth = 0;
 		}
 	}
 
 
 	internal void MoveUnit (Unit[] Team, Unit Target, int Magnitude)
 	{
-		int StartRank = Target.GetRank ();
+		int StartRank = Target.Rank;
 		int EndRank = StartRank + Magnitude;
 
 	    if (StartRank == EndRank || 
@@ -297,14 +297,14 @@ public abstract class Unit
 
 	internal void BackwardOne (Unit[] Team)
 	{
-		int StartRank = this.GetRank ();
-		this.SetRank (this.GetRank () - 1);
+		int StartRank = rank;
+		rank -= 1;
 
 	    foreach (Unit U in Team)
 	    {
-			if (!U.Equals (this) && U.GetRank () == this.GetRank ())
+			if (!U.Equals (this) && U.Rank == rank)
 	    	{
-				U.SetRank (StartRank);
+				U.Rank = StartRank;
 	    	}
 	    }
 	}
@@ -312,14 +312,14 @@ public abstract class Unit
 
 	internal void ForwardOne (Unit[] Team)
 	{
-		int StartRank = this.GetRank ();
-		this.SetRank (this.GetRank () + 1);
+		int StartRank = rank;
+        rank += 1;
 
 	    foreach (Unit U in Team)
 	    {
-			if (!U.Equals (this) && U.GetRank () == this.GetRank ())
+			if (!U.Equals (this) && U.Rank == rank)
 	    	{
-				U.SetRank (StartRank);
+				U.Rank = StartRank;
 	    	}
 	    }
 	}
@@ -327,134 +327,176 @@ public abstract class Unit
 
 	internal void AddDebuff (Debuff D)
 	{
-		this.DEBUFFS.Add (D);
+		DEBUFFS.Add (D);
 	}
 
 
 	internal void RemoveDebuff (Debuff D)
 	{
-		this.DEBUFFS.Remove(D);
+		DEBUFFS.Remove(D);
 	}
 
 
-	public List<Debuff> GetDebuffs ()
+	public List<Debuff> Debuffs
 	{
-		return this.DEBUFFS;
+        get {
+            return DEBUFFS;
+        }
+    }
+
+
+	public int BaseHealth
+	{
+		get
+        {
+            return BASE_HEALTH;
+        }
 	}
 
 
-	public int GetBaseHealth ()
+	public int Health
 	{
-		return this.BASE_HEALTH;
+		get
+        {
+            return this.CurrHealth;
+        }
 	}
 
 
-	public int GetHealth ()
+	public int BaseSpeed
 	{
-		return this.CurrHealth;
+		get
+        {
+            return BASE_SPEED;
+        }
 	}
 
 
-	public int GetBaseSpeed ()
+	public int Speed
 	{
-		return this.BASE_SPEED;
+		get
+        {
+            return CurrSpeed;
+        }
 	}
 
 
-	public int GetSpeed ()
+	public int BaseDodge
 	{
-		return this.CurrSpeed;
+		get
+        {
+            return BASE_DODGE;
+        }
 	}
 
 
-	public int GetBaseDodge ()
+	public int Dodge
 	{
-		return this.BASE_DODGE;
+		get
+        {
+            return CurrDodge;
+        }
 	}
 
 
-	public int GetDodge ()
+	public int BaseCrit
 	{
-		return this.CurrDodge;
-	}
-
-
-	public int GetBaseCrit ()
-	{
-		return this.BASE_CRIT;
+		get
+        {
+            return BASE_CRIT;
+        }
 	}
 
 
 	public int GetCrit (int Ability)
 	{
-		return this.BASE_CRIT + this.CRIT_MODS [Ability];
+		return BASE_CRIT + CRIT_MODS [Ability];
 	}
 
 
-	public float GetBaseArmor ()
+	public float BaseArmor
 	{
-		return this.BASE_ARMOR;
+		get
+        {
+            return BASE_ARMOR;
+        }
 	}
 
 
-	public float GetArmor ()
+	public float Armor
 	{
-		return this.CurrArmor;
+		get
+        {
+            return CurrArmor;
+        }
 	}
 
 
-	public float[] GetDmgMods ()
+	public float[] DmgMods
 	{
-		return this.DMG_MODS;
+		get
+        {
+            return DMG_MODS;
+        }
 	}
 
 
-	public bool GetFriendly ()
+	public bool Friendly
 	{
-		return this.IS_FRIENDLY;
+		get
+        {
+            return IS_FRIENDLY;
+        }
 	}
 
 
-	public int GetRank ()
+	public int Rank
 	{
-		return this.Rank;
-	}
-
-
-	protected void SetRank (int NewRank)
-	{
-		this.Rank = NewRank;
+		get
+        {
+            return rank;
+        }
+        set
+        {
+            rank = value;
+        }
 	}
 
 
 	public bool[] GetAttackRange (int MoveID)
 	{
-		return this.VALID_RANKS[MoveID];
+		return VALID_RANKS[MoveID];
 	} 
 
 
 	public bool IsMultiHit (int MoveID)
 	{
-		return this.IS_MULTI_HIT [MoveID];
+		return IS_MULTI_HIT [MoveID];
 	}
 
 
-	public int GetLevel ()
+	public int Level
 	{
-		return this.Level;
+		get
+        {
+            return level;
+        }
 	}
 
 
-	public int GetXP ()
+	public int XP
 	{
-		return this.XP;
-	}
+		get
+        {
+            return xp;
+        }
+    }
 
 
 	public void GiveXP (int Amount)
 	{
-		this.XP += Amount;
+		xp += Amount;
 
-		// TODO Handle level ups here
-	}
+        // TODO Handle level ups here
+    }
 }
