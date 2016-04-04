@@ -70,6 +70,13 @@ public class GamePlayController : MonoBehaviour
     public Text ally4Health;
 
 
+    //ability info
+    public Text ability1;
+    public Text ability2;
+    public Text ability3;
+    public Text ability4;
+    public Text ability5;
+
     // Use this for initialization
     void Start()
     {
