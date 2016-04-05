@@ -217,110 +217,27 @@ public class GamePlayController : MonoBehaviour
         Debug.Log(currentButtonClicked);
         switch (currentButtonClicked)
         {
-            case "ability1":
-            if (currentCharacter.GetType().ToString() == "Enforcer")
-            {
-                 ability1.text = "HEAVY SWING"+"\n"+ "Crit: " + enforcer.CRIT_MODS[0].ToString() + "%" +"\n" +"Damage: " +(enforcer.DMG_MODS[0]*100).ToString()+ "\n" +"Accuracy: " + enforcer.ACC_MODS[0].ToString();
-            }
-            if (currentCharacter.GetType().ToString() == "Medic")
-            {
-                ability1.text = "ADRENALINE"+"\n"+ "Crit: " + medic.CRIT_MODS[0].ToString() + "\n" +"Damage: " +(medic.DMG_MODS[0]*100).ToString()+"\n"+"Accuracy: " + medic.ACC_MODS[0].ToString();
-            }
-            if (currentCharacter.GetType().ToString() == "Engineer")
-            {
-                ability1.text = "FLASH BANG"+"\n"+ "Crit: " + engineer.CRIT_MODS[0].ToString() + "\n" +"Damage: " +(engineer.DMG_MODS[0]*100).ToString()+"\n"+"Accuracy: " + engineer.ACC_MODS[0].ToString();
-            }
-            if (currentCharacter.GetType().ToString() == "Rifleman")
-            {
-                ability1.text = "BAYONET STAB"+"\n"+ "Crit: " + rifleman.CRIT_MODS[0].ToString() + "\n" +"Damage: " +(rifleman.DMG_MODS[0]*100).ToString()+"\n"+"Accuracy: " + rifleman.ACC_MODS[0].ToString();
-            }
-
-               
+            case "ability1":           
                 showPopUpAttack();
                 hidePopUp();
                 currentAbility = 0;
                 break;
             case "ability2":
-
-            if (currentCharacter.GetType().ToString() == "Enforcer")
-            {
-                 ability2.text = "KICK"+"\n"+ "Crit: " + enforcer.CRIT_MODS[1].ToString() + "%" +"\n" +"Damage: " +(enforcer.DMG_MODS[1]*100).ToString()+ "\n" +"Accuracy: " + enforcer.ACC_MODS[1].ToString();
-            }
-            if (currentCharacter.GetType().ToString() == "Medic")
-            {
-                ability2.text = "BULWARK"+"\n"+ "Crit: " + medic.CRIT_MODS[1].ToString() + "\n" +"Damage: " +(medic.DMG_MODS[1]*100).ToString()+"\n"+"Accuracy: " + medic.ACC_MODS[1].ToString();
-            }
-            if (currentCharacter.GetType().ToString() == "Engineer")
-            {
-                ability2.text = "ION PULSE"+"\n"+ "Crit: " + engineer.CRIT_MODS[1].ToString() + "\n" +"Damage: " +(engineer.DMG_MODS[1]*100).ToString()+"\n"+"Accuracy: " + engineer.ACC_MODS[1].ToString();
-            }
-            if (currentCharacter.GetType().ToString() == "Rifleman")
-            {
-                ability2.text = "NET"+"\n"+ "Crit: " + rifleman.CRIT_MODS[1].ToString() + "\n" +"Damage: " +(rifleman.DMG_MODS[1]*100).ToString()+"\n"+"Accuracy: " + rifleman.ACC_MODS[1].ToString();
-            }
                 showPopUpAttack();
                 hidePopUp();
                 currentAbility = 1;
                 break;
             case "ability3":
-            if (currentCharacter.GetType().ToString() == "Enforcer")
-            {
-                 ability3.text = "SLICE"+"\n"+ "Crit: " + enforcer.CRIT_MODS[2].ToString() + "%" +"\n" +"Damage: " +(enforcer.DMG_MODS[2]*100).ToString()+ "\n" +"Accuracy: " + enforcer.ACC_MODS[2].ToString();
-            }
-            if (currentCharacter.GetType().ToString() == "Medic")
-            {
-                ability3.text = "HEALING WAVE"+"\n"+ "Crit: " + medic.CRIT_MODS[2].ToString() + "\n" +"Damage: " +(medic.DMG_MODS[2]*100).ToString()+"\n"+"Accuracy: " + medic.ACC_MODS[2].ToString();
-            }
-            if (currentCharacter.GetType().ToString() == "Engineer")
-            {
-                ability3.text = "LIGHT WALL"+"\n"+ "Crit: " + engineer.CRIT_MODS[2].ToString() + "\n" +"Damage: " +(engineer.DMG_MODS[2]*100).ToString()+"\n"+"Accuracy: " + engineer.ACC_MODS[2].ToString();
-            }
-            if (currentCharacter.GetType().ToString() == "Rifleman")
-            {
-                ability3.text = "RELOAD"+"\n"+ "Crit: " + rifleman.CRIT_MODS[2].ToString() + "\n" +"Damage: " +(rifleman.DMG_MODS[2]*100).ToString()+"\n"+"Accuracy: " + rifleman.ACC_MODS[2].ToString();
-            }
                 showPopUpAttack();
                 hidePopUp();
                 currentAbility = 2;
                 break;
             case "ability4":
-            if (currentCharacter.GetType().ToString() == "Enforcer")
-            {
-                 ability4.text = "STEROIDS"+"\n"+ "Crit: " + enforcer.CRIT_MODS[3].ToString() + "%" +"\n" +"Damage: " +(enforcer.DMG_MODS[3]*100).ToString()+ "\n" +"Accuracy: " + enforcer.ACC_MODS[3].ToString();
-            }
-            if (currentCharacter.GetType().ToString() == "Medic")
-            {
-                ability4.text = "PISTOL SHOT"+"\n"+ "Crit: " + medic.CRIT_MODS[3].ToString() + "\n" +"Damage: " +(medic.DMG_MODS[3]*100).ToString()+"\n"+"Accuracy: " + medic.ACC_MODS[3].ToString();
-            }
-            if (currentCharacter.GetType().ToString() == "Engineer")
-            {
-                ability4.text = "RATCHET GUN"+"\n"+ "Crit: " + engineer.CRIT_MODS[3].ToString() + "\n" +"Damage: " +(engineer.DMG_MODS[3]*100).ToString()+"\n"+"Accuracy: " + engineer.ACC_MODS[3].ToString();
-            }
-            if (currentCharacter.GetType().ToString() == "Rifleman")
-            {
-                ability4.text = "RIFLE SHOT"+"\n"+ "Crit: " + rifleman.CRIT_MODS[3].ToString() + "\n" +"Damage: " +(rifleman.DMG_MODS[3]*100).ToString()+"\n"+"Accuracy: " + rifleman.ACC_MODS[3].ToString();
-            }
                 showPopUpAttack();
                 hidePopUp();
                 currentAbility = 3;
                 break;
             case "ability5":
-            if (currentCharacter.GetType().ToString() == "Enforcer")
-            {
-                 ability5.text = "WAR CHANT"+"\n"+ "Crit: " + enforcer.CRIT_MODS[4].ToString() + "%" +"\n" +"Damage: " +(enforcer.DMG_MODS[4]*100).ToString()+ "\n" +"Accuracy: " + enforcer.ACC_MODS[4].ToString();
-            }
-            if (currentCharacter.GetType().ToString() == "Medic")
-            {
-                ability5.text = "TASER"+"\n"+ "Crit: " + medic.CRIT_MODS[4].ToString() + "\n" +"Damage: " +(medic.DMG_MODS[4]*100).ToString()+"\n"+"Accuracy: " + medic.ACC_MODS[4].ToString();
-            }
-            if (currentCharacter.GetType().ToString() == "Engineer")
-            {
-                ability5.text = "SNARE"+"\n"+ "Crit: " + engineer.CRIT_MODS[4].ToString() + "\n" +"Damage: " +(engineer.DMG_MODS[4]*100).ToString()+"\n"+"Accuracy: " + engineer.ACC_MODS[4].ToString();
-            }
-            if (currentCharacter.GetType().ToString() == "Rifleman")
-            {
-                ability5.text = "SHOTGUN"+"\n"+ "Crit: " + rifleman.CRIT_MODS[4].ToString() + "\n" +"Damage: " +(rifleman.DMG_MODS[4]*100).ToString()+"\n"+"Accuracy: " + rifleman.ACC_MODS[4].ToString();
-            }
                 showPopUpAttack();
                 hidePopUp();
                 currentAbility = 4;
@@ -464,8 +381,110 @@ public class GamePlayController : MonoBehaviour
         popUPAttackEnabled = false;
     }
 
-    public void showPopUp()
+    public void showPopUp(int ability)
     {
+        if (ability == 0)
+        {
+            if (currentCharacter.GetType().ToString() == "Enforcer")
+            {
+                ability1.text = "HEAVY SWING" + "\n" + "Crit: " + enforcer.CRIT_MODS[0].ToString() + "%" + "\n" + "Damage: " + (enforcer.DMG_MODS[0] * 100).ToString() + "\n" + "Accuracy: " + enforcer.ACC_MODS[0].ToString();
+            }
+            if (currentCharacter.GetType().ToString() == "Medic")
+            {
+                ability1.text = "ADRENALINE" + "\n" + "Crit: " + medic.CRIT_MODS[0].ToString() + "\n" + "Damage: " + (medic.DMG_MODS[0] * 100).ToString() + "\n" + "Accuracy: " + medic.ACC_MODS[0].ToString();
+            }
+            if (currentCharacter.GetType().ToString() == "Engineer")
+            {
+                ability1.text = "FLASH BANG" + "\n" + "Crit: " + engineer.CRIT_MODS[0].ToString() + "\n" + "Damage: " + (engineer.DMG_MODS[0] * 100).ToString() + "\n" + "Accuracy: " + engineer.ACC_MODS[0].ToString();
+            }
+            if (currentCharacter.GetType().ToString() == "Rifleman")
+            {
+                ability1.text = "BAYONET STAB" + "\n" + "Crit: " + rifleman.CRIT_MODS[0].ToString() + "\n" + "Damage: " + (rifleman.DMG_MODS[0] * 100).ToString() + "\n" + "Accuracy: " + rifleman.ACC_MODS[0].ToString();
+            }
+        }
+
+        if (ability == 1)
+        {
+            if (currentCharacter.GetType().ToString() == "Enforcer")
+            {
+                ability2.text = "KICK" + "\n" + "Crit: " + enforcer.CRIT_MODS[1].ToString() + "%" + "\n" + "Damage: " + (enforcer.DMG_MODS[1] * 100).ToString() + "\n" + "Accuracy: " + enforcer.ACC_MODS[1].ToString();
+            }
+            if (currentCharacter.GetType().ToString() == "Medic")
+            {
+                ability2.text = "BULWARK" + "\n" + "Crit: " + medic.CRIT_MODS[1].ToString() + "\n" + "Damage: " + (medic.DMG_MODS[1] * 100).ToString() + "\n" + "Accuracy: " + medic.ACC_MODS[1].ToString();
+            }
+            if (currentCharacter.GetType().ToString() == "Engineer")
+            {
+                ability2.text = "ION PULSE" + "\n" + "Crit: " + engineer.CRIT_MODS[1].ToString() + "\n" + "Damage: " + (engineer.DMG_MODS[1] * 100).ToString() + "\n" + "Accuracy: " + engineer.ACC_MODS[1].ToString();
+            }
+            if (currentCharacter.GetType().ToString() == "Rifleman")
+            {
+                ability2.text = "NET" + "\n" + "Crit: " + rifleman.CRIT_MODS[1].ToString() + "\n" + "Damage: " + (rifleman.DMG_MODS[1] * 100).ToString() + "\n" + "Accuracy: " + rifleman.ACC_MODS[1].ToString();
+            }
+        }
+
+
+        if (ability == 2)
+        {
+            if (currentCharacter.GetType().ToString() == "Enforcer")
+            {
+                ability3.text = "SLICE" + "\n" + "Crit: " + enforcer.CRIT_MODS[2].ToString() + "%" + "\n" + "Damage: " + (enforcer.DMG_MODS[2] * 100).ToString() + "\n" + "Accuracy: " + enforcer.ACC_MODS[2].ToString();
+            }
+            if (currentCharacter.GetType().ToString() == "Medic")
+            {
+                ability3.text = "HEALING WAVE" + "\n" + "Crit: " + medic.CRIT_MODS[2].ToString() + "\n" + "Damage: " + (medic.DMG_MODS[2] * 100).ToString() + "\n" + "Accuracy: " + medic.ACC_MODS[2].ToString();
+            }
+            if (currentCharacter.GetType().ToString() == "Engineer")
+            {
+                ability3.text = "LIGHT WALL" + "\n" + "Crit: " + engineer.CRIT_MODS[2].ToString() + "\n" + "Damage: " + (engineer.DMG_MODS[2] * 100).ToString() + "\n" + "Accuracy: " + engineer.ACC_MODS[2].ToString();
+            }
+            if (currentCharacter.GetType().ToString() == "Rifleman")
+            {
+                ability3.text = "RELOAD" + "\n" + "Crit: " + rifleman.CRIT_MODS[2].ToString() + "\n" + "Damage: " + (rifleman.DMG_MODS[2] * 100).ToString() + "\n" + "Accuracy: " + rifleman.ACC_MODS[2].ToString();
+            }
+        }
+
+        if (ability == 3)
+        {
+            if (currentCharacter.GetType().ToString() == "Enforcer")
+            {
+                ability4.text = "STEROIDS" + "\n" + "Crit: " + enforcer.CRIT_MODS[3].ToString() + "%" + "\n" + "Damage: " + (enforcer.DMG_MODS[3] * 100).ToString() + "\n" + "Accuracy: " + enforcer.ACC_MODS[3].ToString();
+            }
+            if (currentCharacter.GetType().ToString() == "Medic")
+            {
+                ability4.text = "PISTOL SHOT" + "\n" + "Crit: " + medic.CRIT_MODS[3].ToString() + "\n" + "Damage: " + (medic.DMG_MODS[3] * 100).ToString() + "\n" + "Accuracy: " + medic.ACC_MODS[3].ToString();
+            }
+            if (currentCharacter.GetType().ToString() == "Engineer")
+            {
+                ability4.text = "RATCHET GUN" + "\n" + "Crit: " + engineer.CRIT_MODS[3].ToString() + "\n" + "Damage: " + (engineer.DMG_MODS[3] * 100).ToString() + "\n" + "Accuracy: " + engineer.ACC_MODS[3].ToString();
+            }
+            if (currentCharacter.GetType().ToString() == "Rifleman")
+            {
+                ability4.text = "RIFLE SHOT" + "\n" + "Crit: " + rifleman.CRIT_MODS[3].ToString() + "\n" + "Damage: " + (rifleman.DMG_MODS[3] * 100).ToString() + "\n" + "Accuracy: " + rifleman.ACC_MODS[3].ToString();
+            }
+        }
+
+
+        if (ability == 4)
+        {
+            if (currentCharacter.GetType().ToString() == "Enforcer")
+            {
+                ability5.text = "WAR CHANT" + "\n" + "Crit: " + enforcer.CRIT_MODS[4].ToString() + "%" + "\n" + "Damage: " + (enforcer.DMG_MODS[4] * 100).ToString() + "\n" + "Accuracy: " + enforcer.ACC_MODS[4].ToString();
+            }
+            if (currentCharacter.GetType().ToString() == "Medic")
+            {
+                ability5.text = "TASER" + "\n" + "Crit: " + medic.CRIT_MODS[4].ToString() + "\n" + "Damage: " + (medic.DMG_MODS[4] * 100).ToString() + "\n" + "Accuracy: " + medic.ACC_MODS[4].ToString();
+            }
+            if (currentCharacter.GetType().ToString() == "Engineer")
+            {
+                ability5.text = "SNARE" + "\n" + "Crit: " + engineer.CRIT_MODS[4].ToString() + "\n" + "Damage: " + (engineer.DMG_MODS[4] * 100).ToString() + "\n" + "Accuracy: " + engineer.ACC_MODS[4].ToString();
+            }
+            if (currentCharacter.GetType().ToString() == "Rifleman")
+            {
+                ability5.text = "SHOTGUN" + "\n" + "Crit: " + rifleman.CRIT_MODS[4].ToString() + "\n" + "Damage: " + (rifleman.DMG_MODS[4] * 100).ToString() + "\n" + "Accuracy: " + rifleman.ACC_MODS[4].ToString();
+            }
+        }
+
         if (!popUPEnabled)
         {
             popUP.SetActive(true);
