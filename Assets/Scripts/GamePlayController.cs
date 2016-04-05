@@ -296,29 +296,44 @@ public class GamePlayController : MonoBehaviour
 		//config what buttons are enabled based off what ability selected:
 		switch (currentButtonClicked) {
 		case "ability1":
-			if (ability1EnableArray [SELF]) {
-				attackButtons [currentCharacter.GetRank ()].interactable = true;
-				attackButtons [currentCharacter.GetRank ()].image.sprite = enabledButtonImageAlly;
+			if (ability1EnableArray [SELF]) 
+			{
+				for (int i = 0; i < 3; i++) 
+				{
+					if (i == currentCharacter.GetRank ()) 
+					{
+						attackButtons [i].interactable = true;
+						attackButtons [i].image.sprite = enabledButtonImageAlly;
+					}
+					else 
+					{
+						attackButtons [i].interactable = false;
+						attackButtons [i].image.sprite = disabledButtonImage;
+					}
+				}
 				break;
 			}
-			if (ability1EnableArray [ALLIES]) {
-				for (int i = 0; i < 4; i++)
+			if (ability1EnableArray [ALLIES]) 
+			{
+				for (int i = 0; i < 3; i++)
 				{
 					attackButtons [i].interactable = true;
 					attackButtons [i].image.sprite = enabledButtonImageAlly;
 				}
 				break;
 			}
-			if (ability1EnableArray [ENEMIES]) {
-				for (int i = 0; i < 4; i++)
+			if (ability1EnableArray [ENEMIES]) 
+			{
+				for (int i = 0; i < 3; i++)
 				{
 					attackButtons [i].interactable = true;
 					attackButtons [i].image.sprite = enabledButtonImageEnemy;
 				}
 				break;
 			}
-			for (int i = 0; i < 4; i++) {
-				if (ability1EnableArray [i] == true) {
+			for (int i = 0; i < 3; i++) {
+				if (ability1EnableArray [i] == true) 
+				{
 					attackButtons [i].interactable = true;
 					attackButtons [i].image.sprite = enabledButtonImageEnemy;
 				} else {
@@ -329,12 +344,23 @@ public class GamePlayController : MonoBehaviour
 			break;
 		case "ability2":
 			if (ability2EnableArray [SELF]) {
-				attackButtons [currentCharacter.GetRank ()].interactable = true;
-				attackButtons [currentCharacter.GetRank ()].image.sprite = enabledButtonImageAlly;
+				for (int i = 0; i < 3; i++) 
+				{
+					if (i == currentCharacter.GetRank ()) 
+					{
+						attackButtons [i].interactable = true;
+						attackButtons [i].image.sprite = enabledButtonImageAlly;
+					}
+					else 
+					{
+						attackButtons [i].interactable = false;
+						attackButtons [i].image.sprite = disabledButtonImage;
+					}
+				}
 				break;
 			}
 			if (ability2EnableArray [ALLIES]) {
-				for (int i = 0; i < 4; i++)
+				for (int i = 0; i < 3; i++)
 				{
 					attackButtons [i].interactable = true;
 					attackButtons [i].image.sprite = enabledButtonImageAlly;
@@ -342,14 +368,14 @@ public class GamePlayController : MonoBehaviour
 				break;
 			}
 			if (ability2EnableArray [ENEMIES]) {
-				for (int i = 0; i < 4; i++)
+				for (int i = 0; i < 3; i++)
 				{
 					attackButtons [i].interactable = true;
 					attackButtons [i].image.sprite = enabledButtonImageEnemy;
 				}
 				break;
 			}
-			for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < 3; i++) {
 				if (ability2EnableArray [i] == true) {
 					attackButtons [i].interactable = true;
 					attackButtons [i].image.sprite = enabledButtonImageEnemy;
@@ -361,8 +387,19 @@ public class GamePlayController : MonoBehaviour
 			break;
 		case "ability3":
 			if (ability3EnableArray [SELF]) {
-				attackButtons [currentCharacter.GetRank ()].interactable = true;
-				attackButtons [currentCharacter.GetRank ()].image.sprite = enabledButtonImageAlly;
+				for (int i = 0; i < 3; i++) 
+				{
+					if (i == currentCharacter.GetRank ()) 
+					{
+						attackButtons [i].interactable = true;
+						attackButtons [i].image.sprite = enabledButtonImageAlly;
+					}
+					else 
+					{
+						attackButtons [i].interactable = false;
+						attackButtons [i].image.sprite = disabledButtonImage;
+					}
+				}
 				break;
 			}
 			if (ability3EnableArray [ALLIES]) {
@@ -393,8 +430,19 @@ public class GamePlayController : MonoBehaviour
 			break;
 		case "ability4":
 			if (ability4EnableArray [SELF]) {
-				attackButtons [currentCharacter.GetRank ()].interactable = true;
-				attackButtons [currentCharacter.GetRank ()].image.sprite = enabledButtonImageAlly;
+				for (int i = 0; i < 3; i++) 
+				{
+					if (i == currentCharacter.GetRank ()) 
+					{
+						attackButtons [i].interactable = true;
+						attackButtons [i].image.sprite = enabledButtonImageAlly;
+					}
+					else 
+					{
+						attackButtons [i].interactable = false;
+						attackButtons [i].image.sprite = disabledButtonImage;
+					}
+				}
 				break;
 			}
 			if (ability4EnableArray [ALLIES]) {
@@ -425,8 +473,19 @@ public class GamePlayController : MonoBehaviour
 			break;
 		case "ability5":
 			if (ability5EnableArray [SELF]) {
-				attackButtons [currentCharacter.GetRank ()].interactable = true;
-				attackButtons [currentCharacter.GetRank ()].image.sprite = enabledButtonImageAlly;
+				for (int i = 0; i < 3; i++) 
+				{
+					if (i == currentCharacter.GetRank ()) 
+					{
+						attackButtons [i].interactable = true;
+						attackButtons [i].image.sprite = enabledButtonImageAlly;
+					}
+					else 
+					{
+						attackButtons [i].interactable = false;
+						attackButtons [i].image.sprite = disabledButtonImage;
+					}
+				}
 				break;
 			}
 			if (ability5EnableArray [ALLIES]) {
