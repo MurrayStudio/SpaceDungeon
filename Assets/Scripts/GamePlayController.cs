@@ -75,6 +75,10 @@ public class GamePlayController : MonoBehaviour
 
 	//current button
 	private string currentButtonClicked;
+	public GameObject currentCharacterArrow;
+
+	//get coordinate info about characters on screen
+	public GameObject[] characters;
 
 
 	//This is assuming that there will be 4 enemies at
@@ -144,6 +148,8 @@ public class GamePlayController : MonoBehaviour
 	{
 
 		currentCharacter = order [indexOfOrder];
+
+		currentCharacterArrow.transform.position = new Vector3(characters [indexOfOrder].transform.position.x, characters [indexOfOrder].transform.position.y + 1.5f, characters [indexOfOrder].transform.position.z);
 
 		currentCharacterText.text = "Current Character: " + currentCharacter.GetType ().ToString ();
 
