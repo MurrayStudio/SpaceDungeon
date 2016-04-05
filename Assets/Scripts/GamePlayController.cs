@@ -5,11 +5,6 @@ using UnityEngine.EventSystems;
 
 public class GamePlayController : MonoBehaviour
 {
-
-    public GameObject popUP;
-    public Image popUpImage;
-    public Text popUpText;
-
     //holds order of Units
     private Unit[] order;
 
@@ -31,28 +26,44 @@ public class GamePlayController : MonoBehaviour
     private Rifleman rifleman;
     private Engineer engineer;
 
+    //Enemy Unit Classes
     private Freight freightEnemy1, freightEnemy2, freightEnemy3, freightEnemy4;
     private Infected infectedEnemy;
     private MediBot mediBotEnemy;
     private Psychic psychicEnemy;
     private Security securityEnemy;
 
+    //UI Buttons
     public Button[] enemyAttackButtons = new Button[4];
     public Button[] abilityButtons = new Button[5];
+
+    //what array to enable in pop up attack
+    private bool[] ability1EnableArray, ability2EnableArray, ability3EnableArray, ability4EnableArray, ability5EnableArray;
+
+    //Images for UI
     public Sprite[] enforcerAbilityImages = new Sprite[5];
     public Sprite[] medicAbilityImages = new Sprite[5];
     public Sprite[] riflemanAbilityImages = new Sprite[5];
     public Sprite[] engineerAbilityImages = new Sprite[5];
-
     public Sprite enabledButtonImage;
     public Sprite disabledButtonImage;
 
+    //popUp window and components
+    public GameObject popUP;
+    public Image popUpImage;
+    public Text popUpText;
+
+    //holds text of current character
+    public Text currentCharacterText;
+
+    //popup attack window
     public GameObject popUPAttack;
+
+    //UI pop up bools
     private bool popUPEnabled = false;
     private bool popUPAttackEnabled = false;
 
-    private bool[] ability1EnableArray, ability2EnableArray, ability3EnableArray, ability4EnableArray, ability5EnableArray;
-
+    //current button
     private string currentButtonClicked;
 
 
@@ -133,6 +144,8 @@ public class GamePlayController : MonoBehaviour
 
         currentCharacter = order[indexOfOrder];
 
+        currentCharacterText.text = "Current Character: " + currentCharacter.GetType().ToString();
+
         //Assign health to each enemy + ally and constantly update
         ally1Health.text = allies[0].GetHealth().ToString();
         ally2Health.text = allies[1].GetHealth().ToString();
@@ -181,6 +194,8 @@ public class GamePlayController : MonoBehaviour
                 abilityButtons[3].image.sprite = riflemanAbilityImages[3];
                 abilityButtons[4].image.sprite = riflemanAbilityImages[4];
             }
+
+            //lucas needs to fix unit classes first
 
             //ability1EnableArray = currentCharacter.GetAttackRange(0);
             //ability2EnableArray = currentCharacter.GetAttackRange(1);

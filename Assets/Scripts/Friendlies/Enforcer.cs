@@ -8,8 +8,8 @@ public class Enforcer : Unit
 	===================================*/
 	// Reference numbers
 	private readonly int HEAVY_SWING 	= 0;
-	private readonly int SLICE 			= 1;
-	private readonly int KICK			= 2;
+    private readonly int KICK           = 1;
+    private readonly int SLICE 			= 2;
 	private readonly int STEROIDS		= 3;
 	private readonly int WAR_CRY		= 4;
 

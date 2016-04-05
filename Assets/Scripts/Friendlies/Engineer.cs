@@ -3,14 +3,14 @@ using System.Collections;
 
 public class Engineer : Unit
 {
-	/*==================================
+    /*==================================
 			   Ability Indexes
 	===================================*/
-	private readonly int RATCHET		= 0;
-	private readonly int ION		 	= 1;
-	private readonly int FLASHBANG		= 2;
-	private readonly int SNARE	 		= 3;
-	private readonly int LIGHT_WALL		= 4;
+    private readonly int FLASHBANG      = 0;
+    private readonly int ION            = 1;
+    private readonly int LIGHT_WALL     = 2;
+    private readonly int RATCHET		= 3;
+	private readonly int SNARE	 		= 4;
 
 	/*==================================
 			Character stat values

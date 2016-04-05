@@ -3,14 +3,14 @@ using System.Collections;
 
 public class Rifleman : Unit
 {
-	/*==================================
+    /*==================================
 			   Ability Indexes
 	===================================*/
-	private readonly int RIFLE 			= 0;
-	private readonly int BAYONET	 	= 1;
-	private readonly int SHOTGUN		= 2;
-	private readonly int NET_GUN 		= 3;
-	private readonly int RELOAD 		= 4;
+    private readonly int BAYONET        = 0;
+    private readonly int NET_GUN        = 1;
+    private readonly int RELOAD         = 2;
+    private readonly int RIFLE 			= 3;
+	private readonly int SHOTGUN		= 4;
 
 	/*==================================
 			Character stat values

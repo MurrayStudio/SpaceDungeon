@@ -3,13 +3,13 @@ using System.Collections;
 
 public class Medic : Unit
 {
-	/*==================================
+    /*==================================
 			   Ability Indexes
 	===================================*/
-	private readonly int PISTOL 		= 0;
-	private readonly int WAVE	 		= 1;
-	private readonly int BULWARK 		= 2;
-	private readonly int ADRENALINE		= 3;
+    private readonly int ADRENALINE     = 0;
+    private readonly int BULWARK        = 1;
+    private readonly int WAVE           = 2;
+    private readonly int PISTOL 		= 3;
 	private readonly int TASER	 		= 4;
 
 	/*==================================
