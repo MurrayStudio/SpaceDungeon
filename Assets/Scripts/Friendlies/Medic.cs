@@ -3,13 +3,13 @@ using System.Collections;
 
 public class Medic : Unit
 {
-	/*==================================
+    /*==================================
 			   Ability Indexes
 	===================================*/
-	private readonly int PISTOL 		= 0;
-	private readonly int WAVE	 		= 1;
-	private readonly int BULWARK 		= 2;
-	private readonly int ADRENALINE		= 3;
+    private readonly int ADRENALINE     = 0;
+    private readonly int BULWARK        = 1;
+    private readonly int WAVE           = 2;
+    private readonly int PISTOL 		= 3;
 	private readonly int TASER	 		= 4;
 
 	private readonly int WAVE_HEAL		= 3;
@@ -107,13 +107,7 @@ public class Medic : Unit
 		}
 		else if (MoveID == TASER)
 		{
-			Debuff D3 = new Debuff (DEBUFF_DUR, DebuffMods [RELOAD], SPEED);
-			Debuff D4 = new Debuff (DEBUFF_DUR, DebuffMods [RELOAD], DAMAGE);
-			Debuff D5 = new Debuff (DEBUFF_DUR, DebuffMods [RELOAD] * -1, ARMOR);
-			this.AddDebuff (D3);
-			this.AddDebuff (D4);
-			this.AddDebuff (D5);
-			return SUCCESS;
+
 		}
 
 		return FAILURE;
