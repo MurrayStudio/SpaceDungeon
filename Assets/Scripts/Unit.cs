@@ -72,9 +72,9 @@ public abstract class Unit
 	protected List<Debuff> DEBUFFS;	// List to keep track of buffs and debuffs (USE INDICES FROM ABOVE) 
 								
 	// Ability specific stats
-	protected int[] CRIT_MODS;		// Crit modifiers for each ability
-	protected float[] DMG_MODS;		// Damage modifiers for each ability
-	protected int[] ACC_MODS;		// Accuracy mods for each ability
+	public int[] CRIT_MODS;		// Crit modifiers for each ability
+	public float[] DMG_MODS;		// Damage modifiers for each ability
+	public int[] ACC_MODS;		// Accuracy mods for each ability
 	protected float[] DEBUFF_MODS;	// Strength of individual debuffs
 	protected bool[][] VALID_RANKS;	// Ranks that can be hit by ability
 	protected bool[] IS_MULTI_HIT;	// Whether or not the ability can hit all targets or one

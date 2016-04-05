@@ -22,7 +22,7 @@ public class Enforcer : Unit
 	private readonly int[] LVL_HEALTH = new int[] {33, 40, 47, 54, 61};
 	private readonly int[] LVL_DODGE = new int[] {5, 10, 15, 20, 25};
 	private readonly int[] LVL_SPEED = new int[] {1, 1, 2, 2, 3};
-	private readonly int[] LVL_CRIT = new int[] {5, 5, 6, 6, 7};			
+	public readonly int[] LVL_CRIT = new int[] {5, 5, 6, 6, 7};			
 
 	public Enforcer () : base ()
 	{
