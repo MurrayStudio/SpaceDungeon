@@ -89,6 +89,11 @@ public class GamePlayController : MonoBehaviour
     public Text ability5;
 
 
+	public Image currentCharacterArrow;
+
+	//get coordinate info about characters on screen
+	public GameObject[] characters;
+
     // Use this for initialization
     void Start()
     {
@@ -143,6 +148,10 @@ public class GamePlayController : MonoBehaviour
     {
 
         currentCharacter = order[indexOfOrder];
+
+		//currentCharacterArrow.transform.localPosition
+
+		Debug.Log (characters [indexOfOrder].transform.position);
 
         currentCharacterText.text = "Current Character: " + currentCharacter.GetType().ToString();
 
