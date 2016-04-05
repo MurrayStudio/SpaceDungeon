@@ -89,7 +89,7 @@ public class GamePlayController : MonoBehaviour
     public Text ability5;
 
 
-	public Image currentCharacterArrow;
+	public GameObject currentCharacterArrow;
 
 	//get coordinate info about characters on screen
 	public GameObject[] characters;
@@ -149,7 +149,7 @@ public class GamePlayController : MonoBehaviour
 
         currentCharacter = order[indexOfOrder];
 
-		//currentCharacterArrow.transform.localPosition
+		currentCharacterArrow.transform.position = new Vector3(characters [indexOfOrder].transform.position.x, characters [indexOfOrder].transform.position.y + 1.5f, characters [indexOfOrder].transform.position.z);
 
 		Debug.Log (characters [indexOfOrder].transform.position);
 
