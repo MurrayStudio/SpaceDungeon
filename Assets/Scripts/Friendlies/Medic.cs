@@ -12,6 +12,8 @@ public class Medic : Unit
 	private readonly int ADRENALINE		= 3;
 	private readonly int TASER	 		= 4;
 
+	private readonly int WAVE_HEAL		= 3;
+
 	/*==================================
 			Character stat values
 	===================================*/
@@ -24,24 +26,31 @@ public class Medic : Unit
 	public Medic () : base ()
 	{
 		int NewLevel = 0;
-		BASE_HEALTH = LVL_HEALTH[NewLevel];
-		BASE_SPEED = LVL_SPEED[NewLevel];
-		BASE_DODGE = LVL_DODGE[NewLevel];
-		BASE_CRIT = LVL_CRIT[NewLevel];
-		BASE_DMG = new int[] {LVL_DMG[NewLevel, 0], LVL_DMG[NewLevel, 1]};
-		BASE_ARMOR = 0;
+		BaseHealth = LVL_HEALTH[NewLevel];
+		BaseSpeed = LVL_SPEED[NewLevel];
+		BaseDodge = LVL_DODGE[NewLevel];
+		BaseCrit = LVL_CRIT[NewLevel];
+		BaseDmg = new int[] {LVL_DMG[NewLevel, 0], LVL_DMG[NewLevel, 1]};
+		BaseArmor = 0;
 
-		CRIT_MODS = new int[] {5, 0, 0, 0, 0};
-		DMG_MODS = new float[] {0f, 0f, 0f, 0f, -0.5f};
-		ACC_MODS = new int[] {85, 0, 0, 0, 85};
-		DEBUFF_MODS = new float[] {0f, 0f, 0.25f, 0.15f, -0.15f};
+		CritMods = new int[] {5, 0, 0, 0, 0};
+		DmgMods = new float[] {0f, 0f, 0f, 0f, -0.5f};
+		AccMods = new int[] {85, 0, 0, 0, 85};
+		DebuffMods = new float[] {0f, 0f, 0.25f, 0.15f, -0.15f};
+		ValidRanks = new bool[][] {
+			new bool [] { true, true, true, true, false, false, false },	// Pistol 		1-4
+			new bool [] { false, false, false, false, false, true, false },	// Healing Wave	Allies
+			new bool [] { false, false, false, false, true, false, false },	// Bulwark		Self	
+			new bool [] { false, false, false, false, false, true, false },	// Adrenaline	one ally
+			new bool [] { true, true, false, false, true, false, false }	// Taser		1-2
+		};
 
-		CurrHealth = BASE_HEALTH;
+		CurrHealth = BaseHealth;
 		Level = 1;
 		Rank = THREE;
-		CAT = MEDIC;
-		IS_MECH = false;
-		IS_FRIENDLY = true;
+		Category = "Medic";
+		IsMech = false;
+		IsFriendly = true;
 		XP = 0;
 		HasPlayed = false;
 	}
@@ -49,18 +58,64 @@ public class Medic : Unit
 	public override void SetStats (int NewLevel, int NewRank, int NewHealth)
 	{
 		NewLevel--;
-		this.BASE_HEALTH = this.LVL_HEALTH[NewLevel];
-		this.BASE_SPEED = this.LVL_SPEED[NewLevel];
-		this.BASE_DODGE = this.LVL_DODGE[NewLevel];
-		this.BASE_CRIT = this.LVL_CRIT[NewLevel];
-		this.BASE_DMG = new int[] {this.LVL_DMG[NewLevel, 0], this.LVL_DMG[NewLevel, 1]};
-		this.BASE_ARMOR = 0;
+		this.BaseHealth = this.LVL_HEALTH[NewLevel];
+		this.BaseSpeed = this.LVL_SPEED[NewLevel];
+		this.BaseDodge = this.LVL_DODGE[NewLevel];
+		this.BaseCrit = this.LVL_CRIT[NewLevel];
+		this.BaseDmg = new int[] {this.LVL_DMG[NewLevel, 0], this.LVL_DMG[NewLevel, 1]};
+		this.BaseArmor = 0;
 
 		this.CurrHealth = NewHealth;
 		this.Level = NewLevel;
 		this.Rank = NewRank;
 	}
 
+	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target)
+	{	
+		if (MoveID == PISTOL || MoveID == TASER) 
+		{
+			if (!this.CheckHit(MoveID, Target)) 
+			{
+				return false;
+			}
+		}
 
-	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) {return false;}
+		if (MoveID == PISTOL)
+		{
+			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			return SUCCESS;
+		}
+		else if (MoveID == WAVE)
+		{
+			foreach (Unit U in Allies)
+			{
+				U.AddHealth (WAVE_HEAL);
+			}
+			return SUCCESS;
+		}
+		else if (MoveID == BULWARK)
+		{
+			Debuff D1 = new Debuff (DEBUFF_DUR, DebuffMods[BULWARK], ARMOR);
+			this.AddDebuff (D1);
+			return SUCCESS;
+		}
+		else if (MoveID == ADRENALINE)
+		{
+			Debuff D2 = new Debuff (DEBUFF_DUR, DebuffMods [ADRENALINE], SPEED);
+			Target.AddDebuff (D2);
+			return SUCCESS;
+		}
+		else if (MoveID == TASER)
+		{
+			Debuff D3 = new Debuff (DEBUFF_DUR, DebuffMods [RELOAD], SPEED);
+			Debuff D4 = new Debuff (DEBUFF_DUR, DebuffMods [RELOAD], DAMAGE);
+			Debuff D5 = new Debuff (DEBUFF_DUR, DebuffMods [RELOAD] * -1, ARMOR);
+			this.AddDebuff (D3);
+			this.AddDebuff (D4);
+			this.AddDebuff (D5);
+			return SUCCESS;
+		}
+
+		return FAILURE;
+	}
 }

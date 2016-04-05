@@ -58,26 +58,27 @@ public abstract class Unit
 	 Vars that CANNOT be changed safely
 	===================================*/
 	// Character Base stats
-	protected int BASE_HEALTH;	// Starting/max health
-	protected int BASE_SPEED;	// Speed to determine turn order
-	protected int BASE_DODGE;	// Dodge rating to determine incomiing hits
-	protected int BASE_CRIT;	// Global crit chance
-	protected int[] BASE_DMG;	// Minimum and Maximum damage range
-	protected float BASE_ARMOR;	// Amount of physical damage protection
+	protected int BaseHealth;	// Starting/max health
+	protected int BaseSpeed;	// Speed to determine turn order
+	protected int BaseDodge;	// Dodge rating to determine incomiing hits
+	protected int BaseCrit;	// Global crit chance
+	protected int[] BaseDmg;	// Minimum and Maximum damage range
+	protected float BaseArmor;	// Amount of physical damage protection
 
 	// Character extra stats
-	protected int CAT;			// Category of character (class)
-	protected bool IS_MECH;		// Tells whether or not the unit is mechanical
-	protected bool IS_FRIENDLY;	// Tells whether the unit is friendly (to the player)
-	protected List<Debuff> DEBUFFS;	// List to keep track of buffs and debuffs (USE INDICES FROM ABOVE) 
+	protected String Category;			// Category of character (class)
+	protected bool IsMech;		// Tells whether or not the unit is mechanical
+	protected bool IsFriendly;	// Tells whether the unit is friendly (to the player)
+	protected List<Debuff> Debuffs;	// List to keep track of buffs and debuffs (USE INDICES FROM ABOVE) 
 								
 	// Ability specific stats
-	public int[] CRIT_MODS;		// Crit modifiers for each ability
-	public float[] DMG_MODS;		// Damage modifiers for each ability
-	public int[] ACC_MODS;		// Accuracy mods for each ability
-	protected float[] DEBUFF_MODS;	// Strength of individual debuffs
-	protected bool[][] VALID_RANKS;	// Ranks that can be hit by ability
-	protected bool[] IS_MULTI_HIT;	// Whether or not the ability can hit all targets or one
+	public int[] CritMods;		// Crit modifiers for each ability
+	public float[] DmgMods;		// Damage modifiers for each ability
+	public int[] AccMods;		// Accuracy mods for each ability
+	protected float[] DebuffMods;	// Strength of individual debuffs
+	protected bool[][] ValidRanks;	// Ranks that can be hit by ability
+	protected bool[] IsMultiHit;	// Whether or not the ability can hit all targets or one
+	protected String[] AbilNames;
 
 	/*==================================
 	Vars that CAN/WILL be changed safely
@@ -100,10 +101,6 @@ public abstract class Unit
 	// Use this one for:
 	//		- One Target
 	public virtual bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) {return false;}
-
-	// Use this one for:
-	// 		- Set of targets
-	public virtual bool[] MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit[] Targets) {return new bool[] {false};}
 
 
 	public Unit[] Order (Unit[] Allies, Unit[] Enemies) //TODO Clean this up, can be done without the Rolls array
@@ -197,7 +194,7 @@ public abstract class Unit
 	internal bool CheckHit (int MoveID, Unit Target)
 	{
 		Random roll = new Random ();
-		int AccTemp = this.ACC_MODS [MoveID] - Target.BASE_DODGE;
+		int AccTemp = this.AccMods [MoveID] - Target.BaseDodge;
 
 		if (AccTemp > 90)
 			AccTemp = 90;
@@ -327,25 +324,25 @@ public abstract class Unit
 
 	internal void AddDebuff (Debuff D)
 	{
-		this.DEBUFFS.Add (D);
+		this.Debuffs.Add (D);
 	}
 
 
 	internal void RemoveDebuff (Debuff D)
 	{
-		this.DEBUFFS.Remove(D);
+		this.Debuffs.Remove(D);
 	}
 
 
 	public List<Debuff> GetDebuffs ()
 	{
-		return this.DEBUFFS;
+		return this.Debuffs;
 	}
 
 
 	public int GetBaseHealth ()
 	{
-		return this.BASE_HEALTH;
+		return this.BaseHealth;
 	}
 
 
@@ -357,7 +354,7 @@ public abstract class Unit
 
 	public int GetBaseSpeed ()
 	{
-		return this.BASE_SPEED;
+		return this.BaseSpeed;
 	}
 
 
@@ -369,7 +366,7 @@ public abstract class Unit
 
 	public int GetBaseDodge ()
 	{
-		return this.BASE_DODGE;
+		return this.BaseDodge;
 	}
 
 
@@ -381,19 +378,19 @@ public abstract class Unit
 
 	public int GetBaseCrit ()
 	{
-		return this.BASE_CRIT;
+		return this.BaseCrit;
 	}
 
 
 	public int GetCrit (int Ability)
 	{
-		return this.BASE_CRIT + this.CRIT_MODS [Ability];
+		return this.BaseCrit + this.CritMods [Ability];
 	}
 
 
 	public float GetBaseArmor ()
 	{
-		return this.BASE_ARMOR;
+		return this.BaseArmor;
 	}
 
 
@@ -405,13 +402,13 @@ public abstract class Unit
 
 	public float[] GetDmgMods ()
 	{
-		return this.DMG_MODS;
+		return this.DmgMods;
 	}
 
 
 	public bool GetFriendly ()
 	{
-		return this.IS_FRIENDLY;
+		return this.IsFriendly;
 	}
 
 
@@ -429,13 +426,13 @@ public abstract class Unit
 
 	public bool[] GetAttackRange (int MoveID)
 	{
-		return this.VALID_RANKS[MoveID];
+		return this.ValidRanks[MoveID];
 	} 
 
 
-	public bool IsMultiHit (int MoveID)
+	public bool GetIsMultiHit (int MoveID)
 	{
-		return this.IS_MULTI_HIT [MoveID];
+		return this.IsMultiHit [MoveID];
 	}
 
 
@@ -456,5 +453,10 @@ public abstract class Unit
 		this.XP += Amount;
 
 		// TODO Handle level ups here
+	}
+
+	public String GetCategory ()
+	{
+		return this.Category;
 	}
 }

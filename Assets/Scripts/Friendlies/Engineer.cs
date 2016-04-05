@@ -24,23 +24,30 @@ public class Engineer : Unit
 	public Engineer () : base ()
 	{
 		int NewLevel = 0;
-		BASE_HEALTH = LVL_HEALTH[NewLevel];
-		BASE_SPEED = LVL_SPEED[NewLevel];
-		BASE_DODGE = LVL_DODGE[NewLevel];
-		BASE_CRIT = LVL_CRIT[NewLevel];
-		BASE_DMG = new int[] {LVL_DMG[NewLevel, 0], LVL_DMG[NewLevel, 1]};
-		BASE_ARMOR = 0;
+		BaseHealth = LVL_HEALTH[NewLevel];
+		BaseSpeed = LVL_SPEED[NewLevel];
+		BaseDodge = LVL_DODGE[NewLevel];
+		BaseCrit = LVL_CRIT[NewLevel];
+		BaseDmg = new int[] {LVL_DMG[NewLevel, 0], LVL_DMG[NewLevel, 1]};
+		BaseArmor = 0;
 
-		CRIT_MODS = new int[] {3, 0, 0, 0, 0};
-		DMG_MODS = new float[] {0f, -0.30f, -0.80f, -0.50f};
-		ACC_MODS = new int[] {85, 85, 85, 85, 0};
+		CritMods = new int[] {3, 0, 0, 0, 0};
+		DmgMods = new float[] {0f, -0.30f, -0.80f, -0.50f};
+		AccMods = new int[] {85, 85, 85, 85, 0};
+		ValidRanks = new bool[][] {
+			new bool [] { true, true, true, true, false, false, false },	// Ratchet Gun	1-4
+			new bool [] { true, true, false, false, false, false, false },	// Ion Pulse	enemies
+			new bool [] { true, true, true, false, false, false, false },	// Flashbang	2-4 
+			new bool [] { true, true, true, true, false, false, false },	// Snare		3-4
+			new bool [] { false, false, false, false, true, false, false }	// Light Wall	allies
+		};
 
-		CurrHealth = BASE_HEALTH;
+		CurrHealth = BaseHealth;
 		Level = 1;
 		Rank = FOUR;
-		CAT = ENGINEER;
-		IS_MECH = false;
-		IS_FRIENDLY = true;
+		Category = "Engineer";
+		IsMech = false;
+		IsFriendly = true;
 		XP = 0;
 		HasPlayed = false;
 	}
@@ -48,42 +55,18 @@ public class Engineer : Unit
 	public override void SetStats (int NewLevel, int NewRank, int NewHealth)
 	{
 		NewLevel--;
-		this.BASE_HEALTH = this.LVL_HEALTH[NewLevel];
-		this.BASE_SPEED = this.LVL_SPEED[NewLevel];
-		this.BASE_DODGE = this.LVL_DODGE[NewLevel];
-		this.BASE_CRIT = this.LVL_CRIT[NewLevel];
-		this.BASE_DMG = new int[] {this.LVL_DMG[NewLevel, 0], this.LVL_DMG[NewLevel, 1]};
-		this.BASE_ARMOR = 0;
+		this.BaseHealth = this.LVL_HEALTH[NewLevel];
+		this.BaseSpeed = this.LVL_SPEED[NewLevel];
+		this.BaseDodge = this.LVL_DODGE[NewLevel];
+		this.BaseCrit = this.LVL_CRIT[NewLevel];
+		this.BaseDmg = new int[] {this.LVL_DMG[NewLevel, 0], this.LVL_DMG[NewLevel, 1]};
+		this.BaseArmor = 0;
 
 		this.CurrHealth = NewHealth;
 		this.Level = NewLevel;
 		this.Rank = NewRank;
 	}
 
-	public bool Ratchet (Unit Enemy)
-	{
-		return true;
-	}
-
-	public bool Ion (Unit Enemy)
-	{
-		return true;
-	}
-
-	public bool Flashbang (Unit Enemy)
-	{
-		return true;
-	}
-
-	public bool Snare (Unit Enemy)
-	{
-		return true;
-	}
-
-	public void LightWall ()
-	{
-
-	}
 
 	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) {return false;}
 }

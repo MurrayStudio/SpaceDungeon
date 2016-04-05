@@ -83,13 +83,10 @@ public class GamePlayController : MonoBehaviour
     {
         //init units
         enforcer = new Enforcer();
-        enforcer.SetStats(1, 1, 100);
         medic = new Medic();
-        medic.SetStats(1, 1, 100);
         rifleman = new Rifleman();
-        rifleman.SetStats(1, 1, 100);
         engineer = new Engineer();
-        engineer.SetStats(1, 1, 100);
+
         freightEnemy1 = new Freight();
         freightEnemy2 = new Freight();
         freightEnemy3 = new Freight();
@@ -149,7 +146,7 @@ public class GamePlayController : MonoBehaviour
         if (currentCharacter.GetFriendly() == true)
         {
             Debug.Log("current character: " + currentCharacter.GetType().ToString());
-            if (currentCharacter.GetType().ToString() == "Enforcer")
+            if (currentCharacter.GetCategory() == "Enforcer")
             {
                 abilityButtons[0].image.sprite = enforcerAbilityImages[0];
                 abilityButtons[1].image.sprite = enforcerAbilityImages[1];
@@ -157,7 +154,7 @@ public class GamePlayController : MonoBehaviour
                 abilityButtons[3].image.sprite = enforcerAbilityImages[3];
                 abilityButtons[4].image.sprite = enforcerAbilityImages[4];
             }
-            if (currentCharacter.GetType().ToString() == "Medic")
+			if (currentCharacter.GetCategory() == "Medic")
             {
                 abilityButtons[0].image.sprite = medicAbilityImages[0];
                 abilityButtons[1].image.sprite = medicAbilityImages[1];
@@ -165,7 +162,7 @@ public class GamePlayController : MonoBehaviour
                 abilityButtons[3].image.sprite = medicAbilityImages[3];
                 abilityButtons[4].image.sprite = medicAbilityImages[4];
             }
-            if (currentCharacter.GetType().ToString() == "Engineer")
+			if (currentCharacter.GetCategory() == "Engineer")
             {
                 abilityButtons[0].image.sprite = engineerAbilityImages[0];
                 abilityButtons[1].image.sprite = engineerAbilityImages[1];
@@ -173,7 +170,7 @@ public class GamePlayController : MonoBehaviour
                 abilityButtons[3].image.sprite = engineerAbilityImages[3];
                 abilityButtons[4].image.sprite = engineerAbilityImages[4];
             }
-            if (currentCharacter.GetType().ToString() == "Rifleman")
+			if (currentCharacter.GetCategory() == "Rifleman")
             {
                 abilityButtons[0].image.sprite = riflemanAbilityImages[0];
                 abilityButtons[1].image.sprite = riflemanAbilityImages[1];
@@ -387,19 +384,19 @@ public class GamePlayController : MonoBehaviour
         {
             if (currentCharacter.GetType().ToString() == "Enforcer")
             {
-                ability1.text = "HEAVY SWING" + "\n" + "Crit: " + enforcer.CRIT_MODS[0].ToString() + "%" + "\n" + "Damage: " + (enforcer.DMG_MODS[0] * 100).ToString() + "\n" + "Accuracy: " + enforcer.ACC_MODS[0].ToString();
+                ability1.text = "HEAVY SWING" + "\n" + "Crit: " + enforcer.CritMods[0].ToString() + "%" + "\n" + "Damage: " + (enforcer.DmgMods[0] * 100).ToString() + "\n" + "Accuracy: " + enforcer.AccMods[0].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Medic")
             {
-                ability1.text = "ADRENALINE" + "\n" + "Crit: " + medic.CRIT_MODS[0].ToString() + "%"+"\n" + "Damage: " + (medic.DMG_MODS[0] * 100).ToString() + "\n" + "Accuracy: " + medic.ACC_MODS[0].ToString();
+                ability1.text = "ADRENALINE" + "\n" + "Crit: " + medic.CritMods[0].ToString() + "%"+"\n" + "Damage: " + (medic.DmgMods[0] * 100).ToString() + "\n" + "Accuracy: " + medic.AccMods[0].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Engineer")
             {
-                ability1.text = "FLASH BANG" + "\n" + "Crit: " + engineer.CRIT_MODS[0].ToString() + "%"+"\n" + "Damage: " + (engineer.DMG_MODS[0] * 100).ToString() + "\n" + "Accuracy: " + engineer.ACC_MODS[0].ToString();
+                ability1.text = "FLASH BANG" + "\n" + "Crit: " + engineer.CritMods[0].ToString() + "%"+"\n" + "Damage: " + (engineer.DmgMods[0] * 100).ToString() + "\n" + "Accuracy: " + engineer.AccMods[0].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Rifleman")
             {
-                ability1.text = "BAYONET STAB" + "\n" + "Crit: " + rifleman.CRIT_MODS[0].ToString() + "%"+"\n" + "Damage: " + (rifleman.DMG_MODS[0] * 100).ToString() + "\n" + "Accuracy: " + rifleman.ACC_MODS[0].ToString();
+                ability1.text = "BAYONET STAB" + "\n" + "Crit: " + rifleman.CritMods[0].ToString() + "%"+"\n" + "Damage: " + (rifleman.DmgMods[0] * 100).ToString() + "\n" + "Accuracy: " + rifleman.AccMods[0].ToString();
             }
         }
 
@@ -407,19 +404,19 @@ public class GamePlayController : MonoBehaviour
         {
             if (currentCharacter.GetType().ToString() == "Enforcer")
             {
-                ability2.text = "KICK" + "\n" + "Crit: " + enforcer.CRIT_MODS[1].ToString() + "%" + "\n" + "Damage: " + (enforcer.DMG_MODS[1] * 100).ToString() + "\n" + "Accuracy: " + enforcer.ACC_MODS[1].ToString();
+                ability2.text = "KICK" + "\n" + "Crit: " + enforcer.CritMods[1].ToString() + "%" + "\n" + "Damage: " + (enforcer.DmgMods[1] * 100).ToString() + "\n" + "Accuracy: " + enforcer.AccMods[1].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Medic")
             {
-                ability2.text = "BULWARK" + "\n" + "Crit: " + medic.CRIT_MODS[1].ToString() + "%"+"\n" + "Damage: " + (medic.DMG_MODS[1] * 100).ToString() + "\n" + "Accuracy: " + medic.ACC_MODS[1].ToString();
+                ability2.text = "BULWARK" + "\n" + "Crit: " + medic.CritMods[1].ToString() + "%"+"\n" + "Damage: " + (medic.DmgMods[1] * 100).ToString() + "\n" + "Accuracy: " + medic.AccMods[1].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Engineer")
             {
-                ability2.text = "ION PULSE" + "\n" + "Crit: " + engineer.CRIT_MODS[1].ToString() +"%"+ "\n" + "Damage: " + (engineer.DMG_MODS[1] * 100).ToString() + "\n" + "Accuracy: " + engineer.ACC_MODS[1].ToString();
+                ability2.text = "ION PULSE" + "\n" + "Crit: " + engineer.CritMods[1].ToString() +"%"+ "\n" + "Damage: " + (engineer.DmgMods[1] * 100).ToString() + "\n" + "Accuracy: " + engineer.AccMods[1].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Rifleman")
             {
-                ability2.text = "NET" + "\n" + "Crit: " + rifleman.CRIT_MODS[1].ToString() + "%"+"\n" + "Damage: " + (rifleman.DMG_MODS[1] * 100).ToString() + "\n" + "Accuracy: " + rifleman.ACC_MODS[1].ToString();
+                ability2.text = "NET" + "\n" + "Crit: " + rifleman.CritMods[1].ToString() + "%"+"\n" + "Damage: " + (rifleman.DmgMods[1] * 100).ToString() + "\n" + "Accuracy: " + rifleman.AccMods[1].ToString();
             }
         }
 
@@ -428,19 +425,19 @@ public class GamePlayController : MonoBehaviour
         {
             if (currentCharacter.GetType().ToString() == "Enforcer")
             {
-                ability3.text = "SLICE" + "\n" + "Crit: " + enforcer.CRIT_MODS[2].ToString() + "%" + "\n" + "Damage: " + (enforcer.DMG_MODS[2] * 100).ToString() + "\n" + "Accuracy: " + enforcer.ACC_MODS[2].ToString();
+                ability3.text = "SLICE" + "\n" + "Crit: " + enforcer.CritMods[2].ToString() + "%" + "\n" + "Damage: " + (enforcer.DmgMods[2] * 100).ToString() + "\n" + "Accuracy: " + enforcer.AccMods[2].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Medic")
             {
-                ability3.text = "HEALING WAVE" + "\n" + "Crit: " + medic.CRIT_MODS[2].ToString() + "%"+"\n" + "Damage: " + (medic.DMG_MODS[2] * 100).ToString() + "\n" + "Accuracy: " + medic.ACC_MODS[2].ToString();
+                ability3.text = "HEALING WAVE" + "\n" + "Crit: " + medic.CritMods[2].ToString() + "%"+"\n" + "Damage: " + (medic.DmgMods[2] * 100).ToString() + "\n" + "Accuracy: " + medic.AccMods[2].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Engineer")
             {
-                ability3.text = "LIGHT WALL" + "\n" + "Crit: " + engineer.CRIT_MODS[2].ToString() + "%"+"\n" + "Damage: " + (engineer.DMG_MODS[2] * 100).ToString() + "\n" + "Accuracy: " + engineer.ACC_MODS[2].ToString();
+                ability3.text = "LIGHT WALL" + "\n" + "Crit: " + engineer.CritMods[2].ToString() + "%"+"\n" + "Damage: " + (engineer.DmgMods[2] * 100).ToString() + "\n" + "Accuracy: " + engineer.AccMods[2].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Rifleman")
             {
-                ability3.text = "RELOAD" + "\n" + "Crit: " + rifleman.CRIT_MODS[2].ToString() + "%"+"\n" + "Damage: " + (rifleman.DMG_MODS[2] * 100).ToString() + "\n" + "Accuracy: " + rifleman.ACC_MODS[2].ToString();
+                ability3.text = "RELOAD" + "\n" + "Crit: " + rifleman.CritMods[2].ToString() + "%"+"\n" + "Damage: " + (rifleman.DmgMods[2] * 100).ToString() + "\n" + "Accuracy: " + rifleman.AccMods[2].ToString();
             }
         }
 
@@ -448,19 +445,19 @@ public class GamePlayController : MonoBehaviour
         {
             if (currentCharacter.GetType().ToString() == "Enforcer")
             {
-                ability4.text = "STEROIDS" + "\n" + "Crit: " + enforcer.CRIT_MODS[3].ToString() + "%" + "\n" + "Damage: " + (enforcer.DMG_MODS[3] * 100).ToString() + "\n" + "Accuracy: " + enforcer.ACC_MODS[3].ToString();
+                ability4.text = "STEROIDS" + "\n" + "Crit: " + enforcer.CritMods[3].ToString() + "%" + "\n" + "Damage: " + (enforcer.DmgMods[3] * 100).ToString() + "\n" + "Accuracy: " + enforcer.AccMods[3].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Medic")
             {
-                ability4.text = "PISTOL SHOT" + "\n" + "Crit: " + medic.CRIT_MODS[3].ToString() + "%"+"\n" + "Damage: " + (medic.DMG_MODS[3] * 100).ToString() + "\n" + "Accuracy: " + medic.ACC_MODS[3].ToString();
+                ability4.text = "PISTOL SHOT" + "\n" + "Crit: " + medic.CritMods[3].ToString() + "%"+"\n" + "Damage: " + (medic.DmgMods[3] * 100).ToString() + "\n" + "Accuracy: " + medic.AccMods[3].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Engineer")
             {
-                ability4.text = "RATCHET GUN" + "\n" + "Crit: " + engineer.CRIT_MODS[3].ToString() + "%"+"\n" + "Damage: " + (engineer.DMG_MODS[3] * 100).ToString() + "\n" + "Accuracy: " + engineer.ACC_MODS[3].ToString();
+                ability4.text = "RATCHET GUN" + "\n" + "Crit: " + engineer.CritMods[3].ToString() + "%"+"\n" + "Damage: " + (engineer.DmgMods[3] * 100).ToString() + "\n" + "Accuracy: " + engineer.AccMods[3].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Rifleman")
             {
-                ability4.text = "RIFLE SHOT" + "\n" + "Crit: " + rifleman.CRIT_MODS[3].ToString() + "%"+"\n" + "Damage: " + (rifleman.DMG_MODS[3] * 100).ToString() + "\n" + "Accuracy: " + rifleman.ACC_MODS[3].ToString();
+                ability4.text = "RIFLE SHOT" + "\n" + "Crit: " + rifleman.CritMods[3].ToString() + "%"+"\n" + "Damage: " + (rifleman.DmgMods[3] * 100).ToString() + "\n" + "Accuracy: " + rifleman.AccMods[3].ToString();
             }
         }
 
@@ -469,19 +466,19 @@ public class GamePlayController : MonoBehaviour
         {
             if (currentCharacter.GetType().ToString() == "Enforcer")
             {
-                ability5.text = "WAR CHANT" + "\n" + "Crit: " + enforcer.CRIT_MODS[4].ToString() + "%" + "\n" + "Damage: " + (enforcer.DMG_MODS[4] * 100).ToString() + "\n" + "Accuracy: " + enforcer.ACC_MODS[4].ToString();
+                ability5.text = "WAR CHANT" + "\n" + "Crit: " + enforcer.CritMods[4].ToString() + "%" + "\n" + "Damage: " + (enforcer.DmgMods[4] * 100).ToString() + "\n" + "Accuracy: " + enforcer.AccMods[4].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Medic")
             {
-                ability5.text = "TASER" + "\n" + "Crit: " + medic.CRIT_MODS[4].ToString() + "%"+"\n" + "Damage: " + (medic.DMG_MODS[4] * 100).ToString() + "\n" + "Accuracy: " + medic.ACC_MODS[4].ToString();
+                ability5.text = "TASER" + "\n" + "Crit: " + medic.CritMods[4].ToString() + "%"+"\n" + "Damage: " + (medic.DmgMods[4] * 100).ToString() + "\n" + "Accuracy: " + medic.AccMods[4].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Engineer")
             {
-                ability5.text = "SNARE" + "\n" + "Crit: " + engineer.CRIT_MODS[4].ToString() + "%"+"\n" + "Damage: " + (engineer.DMG_MODS[4] * 100).ToString() + "\n" + "Accuracy: " + engineer.ACC_MODS[4].ToString();
+                ability5.text = "SNARE" + "\n" + "Crit: " + engineer.CritMods[4].ToString() + "%"+"\n" + "Damage: " + (engineer.DmgMods[4] * 100).ToString() + "\n" + "Accuracy: " + engineer.AccMods[4].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Rifleman")
             {
-                ability5.text = "SHOTGUN" + "\n" + "Crit: " + rifleman.CRIT_MODS[4].ToString() + "%"+"\n" + "Damage: " + (rifleman.DMG_MODS[4] * 100).ToString() + "\n" + "Accuracy: " + rifleman.ACC_MODS[4].ToString();
+                ability5.text = "SHOTGUN" + "\n" + "Crit: " + rifleman.CritMods[4].ToString() + "%"+"\n" + "Damage: " + (rifleman.DmgMods[4] * 100).ToString() + "\n" + "Accuracy: " + rifleman.AccMods[4].ToString();
             }
         }
 

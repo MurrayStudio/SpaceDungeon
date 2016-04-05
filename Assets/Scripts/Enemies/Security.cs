@@ -22,35 +22,35 @@ public class Security : Unit
 	public Security () : base ()
 	{
 		int NewLevel = 0;
-		BASE_HEALTH = LVL_HEALTH[NewLevel];
-		BASE_SPEED = LVL_SPEED[NewLevel];
-		BASE_DODGE = LVL_DODGE[NewLevel];
-		BASE_CRIT = LVL_CRIT[NewLevel];
-		BASE_DMG = new int[] {LVL_DMG[NewLevel, 0], LVL_DMG[NewLevel, 1]};
-		BASE_ARMOR = 0;
+		BaseHealth = LVL_HEALTH[NewLevel];
+		BaseSpeed = LVL_SPEED[NewLevel];
+		BaseDodge = LVL_DODGE[NewLevel];
+		BaseCrit = LVL_CRIT[NewLevel];
+		BaseDmg = new int[] {LVL_DMG[NewLevel, 0], LVL_DMG[NewLevel, 1]};
+		BaseArmor = 0;
 
-		CRIT_MODS = new int[] {0, 0, 0};
-		DMG_MODS = new float[] {0f, -0.50f, 0.5f};
-		ACC_MODS = new int[] {85, 85, 85};
+		CritMods = new int[] {0, 0, 0};
+		DmgMods = new float[] {0f, -0.50f, 0.5f};
+		AccMods = new int[] {85, 85, 85};
 
-		CurrHealth = BASE_HEALTH;
+		CurrHealth = BaseHealth;
 		Level = 1;
 		Rank = 1;
-		CAT = SECURITY;
-		IS_MECH = true;
-		IS_FRIENDLY = false;
+		Category = "Security";
+		IsMech = true;
+		IsFriendly = false;
 		HasPlayed = false;
 	}
 
 	public override void SetStats (int NewLevel, int NewRank, int NewHealth)
 	{
 		NewLevel--;
-		this.BASE_HEALTH = this.LVL_HEALTH[NewLevel];
-		this.BASE_SPEED = this.LVL_SPEED[NewLevel];
-		this.BASE_DODGE = this.LVL_DODGE[NewLevel];
-		this.BASE_CRIT = this.LVL_CRIT[NewLevel];
-		this.BASE_DMG = new int[] {this.LVL_DMG[NewLevel, 0], this.LVL_DMG[NewLevel, 1]};
-		this.BASE_ARMOR = 0;
+		this.BaseHealth = this.LVL_HEALTH[NewLevel];
+		this.BaseSpeed = this.LVL_SPEED[NewLevel];
+		this.BaseDodge = this.LVL_DODGE[NewLevel];
+		this.BaseCrit = this.LVL_CRIT[NewLevel];
+		this.BaseDmg = new int[] {this.LVL_DMG[NewLevel, 0], this.LVL_DMG[NewLevel, 1]};
+		this.BaseArmor = 0;
 
 		this.CurrHealth = NewHealth;
 		this.Level = NewLevel;
