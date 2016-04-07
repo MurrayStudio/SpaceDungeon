@@ -115,8 +115,11 @@ public class GamePlayController : MonoBehaviour
 
 		freightEnemy1 = new Freight ();
 		freightEnemy2 = new Freight ();
+		freightEnemy2.SetStats (freightEnemy2.GetLevel (), 1, freightEnemy2.GetHealth ());
 		freightEnemy3 = new Freight ();
+		freightEnemy2.SetStats (freightEnemy3.GetLevel (), 2, freightEnemy3.GetHealth ());
 		freightEnemy4 = new Freight ();
+		freightEnemy2.SetStats (freightEnemy4.GetLevel (), 3, freightEnemy4.GetHealth ());
 
 		allies = new Unit[] { enforcer, medic, rifleman, engineer };
 		enemies = new Unit[] { freightEnemy1, freightEnemy2, freightEnemy3, freightEnemy4 };
@@ -148,6 +151,14 @@ public class GamePlayController : MonoBehaviour
 	{
 
 		currentCharacter = order [indexOfOrder];
+
+		foreach (Unit U in order)
+		{
+			if (U.GetHealth() <= 0)
+			{
+				// TODO Remove unit here
+			}
+		}
 
 		currentCharacterArrow.transform.position = new Vector3(characters [indexOfOrder].transform.position.x, characters [indexOfOrder].transform.position.y + 1.5f, characters [indexOfOrder].transform.position.z);
 

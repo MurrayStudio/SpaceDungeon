@@ -1,13 +1,13 @@
 fileFormatVersion: 2
 guid: fbfc487d82bd33a4d998c9c33ada0bb7
-timeCreated: 1459885845
+timeCreated: 1460058183
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - enabledButtonImageEnemy: {fileID: 21300000, guid: 90ead24fc35b8c247b0aa3d43955ce69,
       type: 3}
-  - enabledButtonImageAlly: {fileID: 21300000, guid: 90ed5241a37a24c879c9a6a869df7da5,
+  - enabledButtonImageAlly: {fileID: 21300000, guid: eb5f6e2757c821940b69cf1456f7865a,
       type: 3}
   - disabledButtonImage: {fileID: 21300000, guid: 6a5f5f5ab26089d4aaeabca49304ec63,
       type: 3}
@@ -16,6 +16,7 @@ MonoImporter:
   - popUpText: {instanceID: 0}
   - currentCharacterText: {instanceID: 0}
   - popUPAttack: {instanceID: 0}
+  - currentCharacterArrow: {instanceID: 0}
   - enemy1Health: {instanceID: 0}
   - enemy2Health: {instanceID: 0}
   - enemy3Health: {instanceID: 0}

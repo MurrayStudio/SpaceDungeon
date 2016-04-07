@@ -45,7 +45,11 @@ public class Debuff
 
  	public void Tick ()		
  	{		
- 		this.DURATION--;		
+ 		this.DURATION--;
+		if (this.CATEGORY == BLEED || this.CATEGORY == ACID)
+		{
+			
+		}		
  	}		
  		
  	public int GetDuration ()		
@@ -60,7 +64,7 @@ public class Debuff
  	}		
 
 
- 	public int GetCetegory ()		
+ 	public int GetCategory ()		
  	{		
  		return this.CATEGORY;		
 	}
