@@ -43,7 +43,7 @@ public class GamePlayController : MonoBehaviour
 	private Security securityEnemy;
 
 	//UI Buttons
-	public Button[] enemyAttackButtons = new Button[4];
+	public Button[] enemyAttackButtons = new Button[7]; //first 4 are enemy, 5 is self heal, 6 is heal other, 7 is damage all
 	public Button[] abilityButtons = new Button[5];
 
 	//what array to enable in pop up attack
@@ -56,6 +56,7 @@ public class GamePlayController : MonoBehaviour
 	public Sprite[] engineerAbilityImages = new Sprite[5];
 	public Sprite enabledButtonImageEnemy;
 	public Sprite enabledButtonImageAlly;
+	public Sprite enabledButtonImageHealAlly;
 	public Sprite disabledButtonImage;
 
 	//popUp window and components
@@ -127,14 +128,6 @@ public class GamePlayController : MonoBehaviour
 		//hardcode setup for level 1
 		order = enforcer.Order (allies, enemies);
 
-		Debug.Log (order [0].GetType ().ToString ());
-		Debug.Log (order [1].GetType ().ToString ());
-		Debug.Log (order [2].GetType ().ToString ());
-		Debug.Log (order [3].GetType ().ToString ());
-		Debug.Log (order [4].GetType ().ToString ());
-		Debug.Log (order [5].GetType ().ToString ());
-		Debug.Log (order [6].GetType ().ToString ());
-
 		//enforcer to start
 		indexOfOrder = 0;
 		currentCharacter = order [indexOfOrder];
@@ -159,6 +152,7 @@ public class GamePlayController : MonoBehaviour
 				// TODO Remove unit here
 			}
 		}
+		configAbilityRanges (); //every button click load up new ability array for attacking
 
 		currentCharacterArrow.transform.position = new Vector3(characters [indexOfOrder].transform.position.x, characters [indexOfOrder].transform.position.y + 1.5f, characters [indexOfOrder].transform.position.z);
 
@@ -177,7 +171,6 @@ public class GamePlayController : MonoBehaviour
 
 		//get attack ranges
 		if (currentCharacter.GetFriendly () == true) {
-			Debug.Log ("current character: " + currentCharacter.GetType ().ToString ());
 			if (currentCharacter.GetCategory () == "Enforcer") {
 				abilityButtons [0].image.sprite = enforcerAbilityImages [0];
 				abilityButtons [1].image.sprite = enforcerAbilityImages [1];
@@ -208,17 +201,13 @@ public class GamePlayController : MonoBehaviour
 			}
 				
 			ability1EnableArray = currentCharacter.GetAttackRange(0);
-			//Debug.Log ("attack range: " + ability1EnableArray[0] + ability1EnableArray[1] + ability1EnableArray[2] + ability1EnableArray[3]);
 			ability2EnableArray = currentCharacter.GetAttackRange(1);
 			ability3EnableArray = currentCharacter.GetAttackRange(2);
 			ability4EnableArray = currentCharacter.GetAttackRange(3);
 			ability5EnableArray = currentCharacter.GetAttackRange(4);
-		}
 
-		//Debug.Log ("after attack ranges: " + ability1EnableArray [0]);
-		//Debug.Log ("after attack ranges: " + ability1EnableArray [1]);
-		//Debug.Log ("after attack ranges: " + ability1EnableArray [2]);
-		//Debug.Log ("after attack ranges: " + ability1EnableArray [3]);
+			//Debug.Log (ability4EnableArray[4]);
+		}
 
 		if (currentCharacter.GetFriendly () == false) {
 			//make a simple ai move
@@ -232,9 +221,10 @@ public class GamePlayController : MonoBehaviour
 			}
 		}
 	}
-
+		
 	public void buttonClicked ()
 	{
+
 		currentButtonClicked = EventSystem.current.currentSelectedGameObject.name;
 		Debug.Log (currentButtonClicked);
 		switch (currentButtonClicked) {
@@ -299,6 +289,114 @@ public class GamePlayController : MonoBehaviour
 		}
 	}
 
+	private void configAbilityRanges(){
+		//config what buttons are enabled based off what ability selected:
+		switch (currentButtonClicked)
+		{
+		case "ability1":
+				for (int i = 0; i < 7; i++) {
+					if (ability1EnableArray [i] == true) {
+						enemyAttackButtons [i].interactable = true;
+						if (i == 4) { 
+						enemyAttackButtons [i].image.sprite = enabledButtonImageAlly; //self heal
+						} else if (i == 5) { 
+						enemyAttackButtons [i].image.sprite = enabledButtonImageHealAlly; //heal other
+						} else {
+						enemyAttackButtons [i].image.sprite = enabledButtonImageEnemy; //enemy
+						}
+					} else {
+						enemyAttackButtons [i].interactable = false;
+						enemyAttackButtons [i].image.sprite = disabledButtonImage;
+					}
+				}
+			break;
+		case "ability2":
+			for (int i = 0; i < 7; i++)
+			{
+				if (ability2EnableArray[i] == true)
+				{
+					enemyAttackButtons [i].interactable = true;
+					if (i == 4) { 
+						enemyAttackButtons [i].image.sprite = enabledButtonImageAlly; //self heal
+					} else if (i == 5) { 
+						enemyAttackButtons [i].image.sprite = enabledButtonImageHealAlly; //heal other
+					} else {
+						enemyAttackButtons [i].image.sprite = enabledButtonImageEnemy; //enemy
+					}
+				}
+				else
+				{
+					enemyAttackButtons[i].interactable = false;
+					enemyAttackButtons[i].image.sprite = disabledButtonImage;
+				}
+			}
+			break;
+		case "ability3":
+			for (int i = 0; i < 7; i++)
+			{
+				if (ability3EnableArray[i] == true)
+				{
+					enemyAttackButtons [i].interactable = true;
+					if (i == 4) { 
+						enemyAttackButtons [i].image.sprite = enabledButtonImageAlly; //self heal
+					} else if (i == 5) { 
+						enemyAttackButtons [i].image.sprite = enabledButtonImageHealAlly; //heal other
+					} else {
+						enemyAttackButtons [i].image.sprite = enabledButtonImageEnemy; //enemy
+					}
+				}
+				else
+				{
+					enemyAttackButtons[i].interactable = false;
+					enemyAttackButtons[i].image.sprite = disabledButtonImage;
+				}
+			}
+			break;
+		case "ability4":
+			for (int i = 0; i < 7; i++)
+			{
+				if (ability4EnableArray[i] == true)
+				{
+					enemyAttackButtons [i].interactable = true;
+					if (i == 4) { 
+						enemyAttackButtons [i].image.sprite = enabledButtonImageAlly; //self heal
+					} else if (i == 5) { 
+						enemyAttackButtons [i].image.sprite = enabledButtonImageHealAlly; //heal other
+					} else {
+						enemyAttackButtons [i].image.sprite = enabledButtonImageEnemy; //enemy
+					}
+				}
+				else
+				{
+					enemyAttackButtons[i].interactable = false;
+					enemyAttackButtons[i].image.sprite = disabledButtonImage;
+				}
+			}
+			break;
+		case "ability5":
+			for (int i = 0; i < 7; i++)
+			{
+				if (ability5EnableArray[i] == true)
+				{
+					enemyAttackButtons [i].interactable = true;
+					if (i == 4) { 
+						enemyAttackButtons [i].image.sprite = enabledButtonImageAlly; //self heal
+					} else if (i == 5) { 
+						enemyAttackButtons [i].image.sprite = enabledButtonImageHealAlly; //heal other
+					} else {
+						enemyAttackButtons [i].image.sprite = enabledButtonImageEnemy; //enemy
+					}
+				}
+				else
+				{
+					enemyAttackButtons[i].interactable = false;
+					enemyAttackButtons[i].image.sprite = disabledButtonImage;
+				}
+			}
+			break;
+		}
+	}
+
 	public void showPopUpAttack ()
 	{
 		//always move popUpAttack when clicked
@@ -309,86 +407,6 @@ public class GamePlayController : MonoBehaviour
 			popUPAttack.SetActive (true);
 			popUPAttackEnabled = true;
 		}
-		//config what buttons are enabled based off what ability selected:
-		//config what buttons are enabled based off what ability selected:
-		        switch (currentButtonClicked)
-		        {
-		            case "ability1":
-			                for (int i = 0; i < 4; i++)
-				                {
-				                    if (ability1EnableArray[i] == true)
-					                    {
-					                        enemyAttackButtons[i].interactable = true;
-					                        enemyAttackButtons[i].image.sprite = enabledButtonImageEnemy;
-					                    }
-				                    else
-					                    {
-					                        enemyAttackButtons[i].interactable = false;
-					                        enemyAttackButtons[i].image.sprite = disabledButtonImage;
-					                    }
-				                }
-			                break;
-		            case "ability2":
-			                for (int i = 0; i < 4; i++)
-				                {
-				                    if (ability2EnableArray[i] == true)
-					                    {
-					                        enemyAttackButtons[i].interactable = true;
-					enemyAttackButtons[i].image.sprite = enabledButtonImageEnemy;
-					                    }
-				                    else
-					                    {
-					                        enemyAttackButtons[i].interactable = false;
-					                        enemyAttackButtons[i].image.sprite = disabledButtonImage;
-					                    }
-				                }
-			                break;
-		            case "ability3":
-			                for (int i = 0; i < 4; i++)
-				                {
-				                    if (ability3EnableArray[i] == true)
-					                    {
-					                        enemyAttackButtons[i].interactable = true;
-					enemyAttackButtons[i].image.sprite = enabledButtonImageEnemy;
-					                    }
-				                    else
-					                    {
-					                        enemyAttackButtons[i].interactable = false;
-					                        enemyAttackButtons[i].image.sprite = disabledButtonImage;
-					                    }
-				                }
-			                break;
-		            case "ability4":
-			                for (int i = 0; i < 4; i++)
-				                {
-				                    if (ability4EnableArray[i] == true)
-					                    {
-					                        enemyAttackButtons[i].interactable = true;
-					enemyAttackButtons[i].image.sprite = enabledButtonImageEnemy;
-					                    }
-				                    else
-					                    {
-					                        enemyAttackButtons[i].interactable = false;
-					                        enemyAttackButtons[i].image.sprite = disabledButtonImage;
-					                    }
-				                }
-			                break;
-		            case "ability5":
-			                for (int i = 0; i < 4; i++)
-				                {
-				                    if (ability5EnableArray[i] == true)
-					                    {
-					                        enemyAttackButtons[i].interactable = true;
-					enemyAttackButtons[i].image.sprite = enabledButtonImageEnemy;
-					                    }
-				                    else
-					                    {
-					                        enemyAttackButtons[i].interactable = false;
-					                        enemyAttackButtons[i].image.sprite = disabledButtonImage;
-					                    }
-				                }
-			                break;
-		        }
 
 	}
 
