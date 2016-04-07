@@ -286,7 +286,34 @@ public class GamePlayController : MonoBehaviour
 				++indexOfOrder;
 			}
 			break;
-		}
+		case "selfHeal":
+			hidePopUpAttack ();
+			hidePopUp ();
+			if (currentCharacter.GetFriendly () == true) {
+				currentCharacter.MakeMove (currentAbility, allies, enemies, allies [indexOfOrder]);
+				++indexOfOrder;
+			}
+			break;
+		case "healOther":
+			hidePopUpAttack ();
+			hidePopUp ();
+			if (currentCharacter.GetFriendly () == true) {
+				currentCharacter.MakeMove (currentAbility, allies, enemies, allies [0]); //make this 0 for now
+				++indexOfOrder;
+			}
+			break;
+		case "allEnemy":
+			hidePopUpAttack ();
+			hidePopUp ();
+			if (currentCharacter.GetFriendly () == true) {
+				currentCharacter.MakeMove (currentAbility, allies, enemies, enemies [0]);
+				currentCharacter.MakeMove (currentAbility, allies, enemies, enemies [1]);
+				currentCharacter.MakeMove (currentAbility, allies, enemies, enemies [2]);
+				currentCharacter.MakeMove (currentAbility, allies, enemies, enemies [3]);
+				++indexOfOrder;
+			}
+		break;
+	}
 	}
 
 	private void configAbilityRanges(){
