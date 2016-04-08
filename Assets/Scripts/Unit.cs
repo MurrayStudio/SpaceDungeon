@@ -114,11 +114,11 @@ public abstract class Unit
 		{
 			if (i >= Allies.Length)
 			{
-				Rolls[i] = Enemies[i - Allies.Length].RollSpeed() + this.GetSpeed();
+				Rolls [i] = Enemies [i - Allies.Length].RollSpeed () + Enemies [i - Allies.Length].GetSpeed ();
 				TempOrder [i] = Enemies [i - Allies.Length];
 				continue;
 			}
-			Rolls [i] = Allies [i].RollSpeed() + this.GetSpeed();
+			Rolls [i] = Allies [i].RollSpeed() + Allies [i].GetSpeed();
 			TempOrder [i] = Allies [i];
 		}
 
@@ -146,7 +146,7 @@ public abstract class Unit
 	internal int RollSpeed ()
 	{
 		Random roll = new Random ();
-		return this.GetSpeed () + roll.Next(10);
+		return this.GetSpeed () + roll.Next(8);
 	}
 
 

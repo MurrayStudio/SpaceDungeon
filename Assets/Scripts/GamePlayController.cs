@@ -156,7 +156,21 @@ public class GamePlayController : MonoBehaviour
                 // TODO Remove unit here
             }
         }
-        configAbilityRanges(); //every button click load up new ability array for attacking
+		configAbilityRanges(); //every button click load up new ability array for attackingUnit[] TempArr = new Unit[allies.Length];
+
+		Unit[] TempArr = new Unit[4];
+
+		foreach (Unit U in allies)
+		{
+			TempArr [U.GetRank ()] = U;
+		}
+		allies = TempArr;
+
+		foreach (Unit U in enemies)
+		{
+			TempArr [U.GetRank ()] = U;
+		}
+		enemies = TempArr;
 
         currentCharacterArrow.transform.position = new Vector3(characters[indexOfOrder].transform.position.x, characters[indexOfOrder].transform.position.y + 1.5f, characters[indexOfOrder].transform.position.z);
 
