@@ -158,19 +158,19 @@ public class GamePlayController : MonoBehaviour
         }
 		configAbilityRanges(); //every button click load up new ability array for attackingUnit[] TempArr = new Unit[allies.Length];
 
-		Unit[] TempArr = new Unit[4];
+		//Unit[] TempArr = new Unit[4];
 
-		foreach (Unit U in allies)
-		{
-			TempArr [U.GetRank ()] = U;
-		}
-		allies = TempArr;
+		//foreach (Unit U in allies)
+		//{
+		//	TempArr [U.GetRank ()] = U;
+		//}
+		//allies = TempArr;
 
-		foreach (Unit U in enemies)
-		{
-			TempArr [U.GetRank ()] = U;
-		}
-		enemies = TempArr;
+		//foreach (Unit U in enemies)
+		//{
+		//	TempArr [U.GetRank ()] = U;
+		//}
+		//enemies = TempArr;
 
         currentCharacterArrow.transform.position = new Vector3(characters[indexOfOrder].transform.position.x, characters[indexOfOrder].transform.position.y + 1.5f, characters[indexOfOrder].transform.position.z);
 
@@ -228,24 +228,12 @@ public class GamePlayController : MonoBehaviour
             ability3EnableArray = currentCharacter.GetAttackRange(2);
             ability4EnableArray = currentCharacter.GetAttackRange(3);
             ability5EnableArray = currentCharacter.GetAttackRange(4);
-
-            //Debug.Log (ability4EnableArray[4]);
         }
 
         if (currentCharacter.GetFriendly() == false)
         {
 
-            showStepEnemyAttackPopUp();
-
-            //         //make a simple ai move
-            //         int move = Random.Range (0, 2);
-            //int allyHit = Random.Range (0, 3);
-            //currentCharacter.MakeMove (move, allies, enemies, allies [allyHit]);
-            //if (indexOfOrder < order.Length - 1) {
-            //	++indexOfOrder;
-            //} else {
-            //	indexOfOrder = 0;
-            //}
+            showStepEnemyAttackPopUp(); //so we can step through enemy attacks
         }
     }
 
@@ -348,7 +336,7 @@ public class GamePlayController : MonoBehaviour
                     ++indexOfOrder;
                 }
                 break;
-            case "StepEnemyAttack":
+            case "StepAttackEnemy":
                 //make a simple ai move
                 int move = Random.Range(0, 2);
                 int allyHit = Random.Range(0, 3);
