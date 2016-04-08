@@ -68,5 +68,12 @@ public class Engineer : Unit
 	}
 
 
-	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) {return false;}
+	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) 
+	{
+		if (MoveID == 0)
+		{
+
+		}
+		return FAILURE;
+	}
 }

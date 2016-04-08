@@ -95,19 +95,20 @@ public class Medic : Unit
 		}
 		else if (MoveID == BULWARK)
 		{
-			Debuff D1 = new Debuff (DEBUFF_DUR, DebuffMods[BULWARK], ARMOR);
-			this.AddDebuff (D1);
+//			Debuff D1 = new Debuff (DEBUFF_DUR, DebuffMods[BULWARK], ARMOR);
+//			this.AddDebuff (D1);
 			return SUCCESS;
 		}
 		else if (MoveID == ADRENALINE)
 		{
-			Debuff D2 = new Debuff (DEBUFF_DUR, DebuffMods [ADRENALINE], SPEED);
-			Target.AddDebuff (D2);
+//			Debuff D2 = new Debuff (DEBUFF_DUR, DebuffMods [ADRENALINE], SPEED);
+//			Target.AddDebuff (D2);
 			return SUCCESS;
 		}
 		else if (MoveID == TASER)
 		{
-
+			//Debuff stun
+			return SUCCESS;
 		}
 
 		return FAILURE;

@@ -107,20 +107,20 @@ public class Rifleman : Unit
 		}
 		else if (MoveID == NET_GUN)
 		{
-			Debuff D1 = new Debuff (DEBUFF_DUR, DebuffMods [NET_GUN], SPEED);
-			Debuff D2 = new Debuff (DEBUFF_DUR, DebuffMods [NET_GUN], DODGE);
-			Target.AddDebuff (D1);
-			Target.AddDebuff (D2);
+//			Debuff D1 = new Debuff (DEBUFF_DUR, DebuffMods [NET_GUN], SPEED);
+//			Debuff D2 = new Debuff (DEBUFF_DUR, DebuffMods [NET_GUN], DODGE);
+//			Target.AddDebuff (D1);
+//			Target.AddDebuff (D2);
 			return SUCCESS;
 		}
 		else if (MoveID == RELOAD)
 		{
-			Debuff D3 = new Debuff (DEBUFF_DUR, DebuffMods [RELOAD], SPEED);
-			Debuff D4 = new Debuff (DEBUFF_DUR, DebuffMods [RELOAD], DAMAGE);
-			Debuff D5 = new Debuff (DEBUFF_DUR, DebuffMods [RELOAD] * -1, ARMOR);
-			this.AddDebuff (D3);
-			this.AddDebuff (D4);
-			this.AddDebuff (D5);
+//			Debuff D3 = new Debuff (DEBUFF_DUR, DebuffMods [RELOAD], SPEED);
+//			Debuff D4 = new Debuff (DEBUFF_DUR, DebuffMods [RELOAD], DAMAGE);
+//			Debuff D5 = new Debuff (DEBUFF_DUR, DebuffMods [RELOAD] * -1, ARMOR);
+//			this.AddDebuff (D3);
+//			this.AddDebuff (D4);
+//			this.AddDebuff (D5);
 			return SUCCESS;
 		}
 

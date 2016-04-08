@@ -100,8 +100,8 @@ public class Enforcer : Unit
 		}
 		else if (MoveID == SLICE)
 		{
-			Debuff D1 = new Debuff (DOT_DUR, DebuffMods [SLICE], BLEED);
-			Target.AddDebuff (D1);
+//			Debuff D1 = new Debuff (DOT_DUR, DebuffMods [SLICE], BLEED);
+//			Target.AddDebuff (D1);
 			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
 			return SUCCESS;
 		}
@@ -113,19 +113,19 @@ public class Enforcer : Unit
 		}
 		else if (MoveID == STEROIDS)
 		{
-			Debuff D2 = new Debuff (DEBUFF_DUR, DebuffMods [STEROIDS], SPEED);
-			this.AddDebuff (D2);
+			Target.AddHealth (4); //TODO Constants for heal amounts or ranges
+//			Debuff D2 = new Debuff (DEBUFF_DUR, DebuffMods [STEROIDS], SPEED);
+//			Target.AddDebuff (D2);
 			CheckCrit (STEROIDS, this);
-			this.AddHealth (4); //TODO Constants for heal amounts or ranges
 			return SUCCESS;
 		}
 		else if (MoveID == WAR_CRY)
 		{
-			Debuff D3 = new Debuff (DEBUFF_DUR, DebuffMods [WAR_CRY], DAMAGE);
-			for (int i = 0; i < Allies.Length; i++)
-			{
-				Allies [i].AddDebuff (D3);
-			}
+//			Debuff D3 = new Debuff (DEBUFF_DUR, DebuffMods [WAR_CRY], DAMAGE);
+//			for (int i = 0; i < Allies.Length; i++)
+//			{
+//				Allies [i].AddDebuff (D3);
+//			}
 			return SUCCESS;
 		}
 		return FAILURE;

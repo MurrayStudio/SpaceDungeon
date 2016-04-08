@@ -154,6 +154,20 @@ public class GamePlayController : MonoBehaviour
 		}
 		configAbilityRanges (); //every button click load up new ability array for attacking
 
+		Unit[] TempArr = new Unit[allies.Length];
+
+		foreach (Unit U in allies)
+		{
+			TempArr [U.GetRank ()] = U;
+		}
+		allies = TempArr;
+
+		foreach (Unit U in enemies)
+		{
+			TempArr [U.GetRank ()] = U;
+		}
+		enemies = TempArr;
+
 		currentCharacterArrow.transform.position = new Vector3(characters [indexOfOrder].transform.position.x, characters [indexOfOrder].transform.position.y + 1.5f, characters [indexOfOrder].transform.position.z);
 
 		currentCharacterText.text = "Current Character: " + currentCharacter.GetType ().ToString ();
