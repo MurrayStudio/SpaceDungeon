@@ -9,6 +9,9 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadScene(scene);
     }
+    public void LoadScene(string scene){
+        SceneManager.LoadScene("scene");
+    }
 
     public void ExitGame()
     {

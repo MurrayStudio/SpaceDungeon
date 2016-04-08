@@ -16,7 +16,7 @@ public class GamePlayController : MonoBehaviour
 
 	//holds order of Units
 	private Unit[] order;
-
+	private Slider ally1Slider;
 	//holds currentCharacter
 	private Unit currentCharacter;
 	//holds currentAbility selected
@@ -159,6 +159,7 @@ public class GamePlayController : MonoBehaviour
 		currentCharacterText.text = "Current Character: " + currentCharacter.GetType ().ToString ();
 
 		//Assign health to each enemy + ally and constantly update
+
 		ally1Health.text = allies [0].GetHealth ().ToString ();
 		ally2Health.text = allies [1].GetHealth ().ToString ();
 		ally3Health.text = allies [2].GetHealth ().ToString ();
@@ -168,6 +169,9 @@ public class GamePlayController : MonoBehaviour
 		enemy2Health.text = enemies [1].GetHealth ().ToString ();
 		enemy3Health.text = enemies [2].GetHealth ().ToString ();
 		enemy4Health.text = enemies [3].GetHealth ().ToString ();
+
+		
+		//ally1Slider.value = tempH;
 
 		//get attack ranges
 		if (currentCharacter.GetFriendly () == true) {
