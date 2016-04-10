@@ -632,7 +632,7 @@ public class GamePlayController : MonoBehaviour
 
     public void hideStepEnemyAttackPopUp()
     {
-        //stepEnemyAttackPopUp.SetActive(false);
+        stepEnemyAttackPopUp.SetActive(false);
     }
 
     public void showStepEnemyAttackPopUp()
