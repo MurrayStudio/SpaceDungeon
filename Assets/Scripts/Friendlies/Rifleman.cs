@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Rifleman : Unit
 {
@@ -43,6 +44,7 @@ public class Rifleman : Unit
 			new bool [] { false, false, false, false, true, false, false }	// Reload	self
 		};
 		IsMultiHit = new bool[] { false, false, true, false, false };
+		Debuffs = new List<Debuff>();
 
 		CurrHealth = BaseHealth;
 		Level = 1;

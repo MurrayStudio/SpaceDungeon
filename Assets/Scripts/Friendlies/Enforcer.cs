@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Enforcer : Unit
 {
@@ -46,6 +47,7 @@ public class Enforcer : Unit
 			new bool [] { false, false, false, false, false, true, false }	// War Cry		allies
 		};
 		IsMultiHit = new bool[] { true, false, false, false, true };
+		Debuffs = new List<Debuff>();
 
 		CurrHealth = BaseHealth;
 		Level = 1;
@@ -76,7 +78,7 @@ public class Enforcer : Unit
 	{
 		if (MoveID == KICK) 
 		{
-			this.MoveUnit (Allies, Target, 1);
+			MoveUnit (Allies, this, 1);
 		}
 
 		if (MoveID == SLICE || MoveID == KICK || MoveID == HEAVY_SWING) 
@@ -113,9 +115,9 @@ public class Enforcer : Unit
 		}
 		else if (MoveID == STEROIDS)
 		{
-			Target.AddHealth (4); //TODO Constants for heal amounts or ranges
-//			Debuff D2 = new Debuff (DEBUFF_DUR, DebuffMods [STEROIDS], SPEED);
-//			Target.AddDebuff (D2);
+			this.AddHealth (4); //TODO Constants for heal amounts or ranges
+			Debuff D2 = new Debuff (DEBUFF_DUR, DebuffMods [STEROIDS], SPEED);
+			this.AddDebuff (D2);
 			CheckCrit (STEROIDS, this);
 			return SUCCESS;
 		}

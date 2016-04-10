@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Engineer : Unit
 {
@@ -41,6 +42,7 @@ public class Engineer : Unit
 			new bool [] { true, true, true, true, false, false, false },	// Snare		3-4
 			new bool [] { false, false, false, false, true, false, false }	// Light Wall	allies
 		};
+		Debuffs = new List<Debuff>();
 
 		CurrHealth = BaseHealth;
 		Level = 1;

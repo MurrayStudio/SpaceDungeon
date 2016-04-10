@@ -32,6 +32,15 @@ public class Freight : Unit
 		CritMods = new int[] {0, 0, 0};
 		DmgMods = new float[] {0f, -0.20f, 0.5f};
 		AccMods = new int[] {75, 85, 85};
+		DebuffMods = new float[] {0f, 0f, 0f, -0.15f, 0.10f};
+		ValidRanks = new bool[][] {
+			new bool [] { false, true, true, true, false, false, false },	// Rifle	1-4
+			new bool [] { true, true, false, false, false, false, false },	// Bayonet	1-2
+			new bool [] { true, true, true, false, false, false, false },	// Shotgun	1-3 all
+			new bool [] { true, true, true, true, false, false, false },	// Net Gun	1-4
+			new bool [] { false, false, false, false, true, false, false }	// Reload	self
+		};
+		IsMultiHit = new bool[] { false, false, true, false, false };
 
 		CurrHealth = BaseHealth;
 		Level = 1;
@@ -57,18 +66,33 @@ public class Freight : Unit
 		this.Rank = NewRank;
 	}
 
-	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) 
+	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target)
 	{
-		if (MoveID == SLAM || MoveID == CHARGE)
+		if (MoveID == CHARGE) 
 		{
-			if (!this.CheckHit(MoveID, Target)) 
+			MoveUnit (Allies, this, 1);
+		}
+
+		if (MoveID == SLAM || MoveID == CHARGE) 
+		{
+			if (!this.CheckHit (MoveID, Target)) 
 			{
 				return FAILURE;
 			}
 		}
 
-		Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
-		return SUCCESS;
+		if (MoveID == SLAM) 
+		{
+			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			return SUCCESS;
+		}
+		else if (MoveID == CHARGE)
+		{
+			Target.MoveUnit (Enemies, Target, -1);
+			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+		}
+
+		return FAILURE;
 	}
 }
 

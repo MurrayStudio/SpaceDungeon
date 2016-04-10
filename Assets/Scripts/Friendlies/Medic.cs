@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Medic : Unit
 {
@@ -44,6 +45,7 @@ public class Medic : Unit
 			new bool [] { false, false, false, false, false, true, false },	// Adrenaline	one ally
 			new bool [] { true, true, false, false, true, false, false }	// Taser		1-2
 		};
+		Debuffs = new List<Debuff>();
 
 		CurrHealth = BaseHealth;
 		Level = 1;
