@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Infected : Unit
 {
@@ -31,6 +32,13 @@ public class Infected : Unit
 		CritMods = new int[] {0, 0};
 		DmgMods = new float[] {0f, -0.20f};
 		AccMods = new int[] {85, 85};
+		DebuffMods = new float[] {0f, 0f, 0f};
+		HitRanks = new bool[][] {
+			new bool [] { true, true, false, false, false, false, false },	// Claw				1-2
+			new bool [] { false, false, true, true, false, false, false },	// Acid Spit		3-4
+		};
+		IsMultiHit = new bool[] { false, false, true };
+		Debuffs = new List<Debuff>();
 
 		CurrHealth = BaseHealth;
 		Level = 1;
@@ -41,9 +49,8 @@ public class Infected : Unit
 		HasPlayed = false;
 	}
 
-	public override void SetStats (int NewLevel, int NewRank, int NewHealth)
+	public override void SetStats (int NewLevel, int NewRank)
 	{
-		NewLevel--;
 		this.BaseHealth = this.LVL_HEALTH[NewLevel];
 		this.BaseSpeed = this.LVL_SPEED[NewLevel];
 		this.BaseDodge = this.LVL_DODGE[NewLevel];
@@ -51,11 +58,23 @@ public class Infected : Unit
 		this.BaseDmg = new int[] {this.LVL_DMG[NewLevel, 0], this.LVL_DMG[NewLevel, 1]};
 		this.BaseArmor = 0;
 
-		this.CurrHealth = NewHealth;
+		this.CurrHealth = this.LVL_HEALTH[NewLevel];
 		this.Level = NewLevel;
 		this.Rank = NewRank;
 	}
 
-	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) {return false;}
+	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) 
+	{
+		if (!CheckHit (MoveID, Target))
+		{
+			return FAILURE;
+		}
+
+		if (MoveID == CLAW)
+		{
+//			Target.
+		}
+		return FAILURE;
+	}
 }
 

@@ -33,15 +33,24 @@ public class Engineer : Unit
 		BaseArmor = 0;
 
 		CritMods = new int[] {3, 0, 0, 0, 0};
-		DmgMods = new float[] {0f, -0.30f, -0.80f, -0.50f};
-		AccMods = new int[] {85, 85, 85, 85, 0};
-		ValidRanks = new bool[][] {
+		DmgMods = new float[] {0f, 0f, 0f, -0.30f, -0f};
+		AccMods = new int[] {85, 85, 85, 85, 85};
+		DebuffMods = new float[] { 0f, 0f, 0f, 0.15f, 0f };
+		HitRanks = new bool[][] {
 			new bool [] { true, true, true, true, false, false, false },	// Ratchet Gun	1-4
-			new bool [] { true, true, false, false, false, false, false },	// Ion Pulse	enemies
-			new bool [] { true, true, true, false, false, false, false },	// Flashbang	2-4 
-			new bool [] { true, true, true, true, false, false, false },	// Snare		3-4
-			new bool [] { false, false, false, false, true, false, false }	// Light Wall	allies
+			new bool [] { false, false, false, false, false, false, true },	// Ion Pulse	enemies
+			new bool [] { false, true, true, true, false, false, false },	// Flashbang	2-4 
+			new bool [] { false, false, true, true, false, false, false },	// Snare		3-4
+			new bool [] { false, false, false, false, false, true, false }	// Light Wall	allies
 		};
+		FromRanks = new bool[][] {
+			new bool [] { false, false, true, true },	// Ratchet Gun	3-4
+			new bool [] { false, false, false, true },	// Ion Pulse	4
+			new bool [] { false, false, true, true },	// Flashbang	3-4 
+			new bool [] { false, false, true, true },	// Snare		3-4
+			new bool [] { false, false, false, true }	// Light Wall	4
+		};
+		IsMultiHit = new bool[] { false, true, false, false, false };
 		Debuffs = new List<Debuff>();
 
 		CurrHealth = BaseHealth;
@@ -54,9 +63,8 @@ public class Engineer : Unit
 		HasPlayed = false;
 	}
 
-	public override void SetStats (int NewLevel, int NewRank, int NewHealth)
+	public override void SetStats (int NewLevel, int NewRank)
 	{
-		NewLevel--;
 		this.BaseHealth = this.LVL_HEALTH[NewLevel];
 		this.BaseSpeed = this.LVL_SPEED[NewLevel];
 		this.BaseDodge = this.LVL_DODGE[NewLevel];
@@ -64,7 +72,7 @@ public class Engineer : Unit
 		this.BaseDmg = new int[] {this.LVL_DMG[NewLevel, 0], this.LVL_DMG[NewLevel, 1]};
 		this.BaseArmor = 0;
 
-		this.CurrHealth = NewHealth;
+		this.CurrHealth = this.LVL_HEALTH[NewLevel];
 		this.Level = NewLevel;
 		this.Rank = NewRank;
 	}
@@ -72,8 +80,54 @@ public class Engineer : Unit
 
 	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) 
 	{
-		if (MoveID == 0)
+		if (MoveID != LIGHT_WALL)
 		{
+			if (!CheckHit (MoveID, Target))
+			{
+				return FAILURE;
+			}	
+		}
+
+		if (MoveID == FLASHBANG)
+		{
+			Debuff D1 = new Debuff (STUN_DUR, DebuffMods [FLASHBANG], STUN);
+			Target.AddDebuff (D1);
+			return SUCCESS;
+		}
+		else if (MoveID == ION)
+		{
+			Debuff D2 = new Debuff(STUN_DUR, DebuffMods [ION], STUN);
+			Debuff D3 = new Debuff(DEBUFF_DUR, DebuffMods [ION], SPEED);
+			foreach (Unit U in Enemies)
+			{
+				if (U.GetIsMech())
+				{
+					U.AddDebuff (D2);
+					continue;
+				}
+				U.AddDebuff(D3);
+			}
+			return SUCCESS;
+		}
+		else if  (MoveID == LIGHT_WALL)
+		{
+			Debuff D4 = new Debuff (DEBUFF_DUR, DebuffMods [LIGHT_WALL], WALL);
+			foreach (Unit U in Allies)
+			{
+				U.AddDebuff(D4);
+			}
+			return SUCCESS;
+		}
+		else if (MoveID == RATCHET)
+		{
+			Target.RemoveHealth (this.RollDamage (MoveID, this.BaseDmg, Target));
+			Debuff D5 = new Debuff (DEBUFF_DUR, DebuffMods [RATCHET], DAMAGE);
+			this.AddDebuff (D5);
+			return SUCCESS;
+		}
+		else if (MoveID == SNARE)
+		{
+			Target.MoveUnit(Enemies, Target, 2);
 
 		}
 		return FAILURE;

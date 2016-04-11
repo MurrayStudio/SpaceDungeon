@@ -39,12 +39,19 @@ public class Enforcer : Unit
 		DmgMods = new float[] { 0.15f, -0.15f, -0.60f, 0f, 0f };
 		AccMods = new int[] { 85, 85, 85, 0, 0 };
 		DebuffMods = new float[] { 0f, 0f, 0f, 0.25f, 0.25f };
-		ValidRanks = new bool[][] {
+		HitRanks = new bool[][] {
 			new bool [] { true, true, false, false, false, false, false },	// Heavy Swing 	1-2 both
 			new bool [] { true, true, true, false, false, false, false },	// Slice		1-3 
 			new bool [] { true, true, false, false, false, false, false },	// Kick			1-2
 			new bool [] { false, false, false, false, true, false, false },	// Steroids		self
 			new bool [] { false, false, false, false, false, true, false }	// War Cry		allies
+		};
+		FromRanks = new bool[][] {
+			new bool [] { true, true, false, false },	// Heavy Swing 	1-2 
+			new bool [] { false, true, true, false },	// Slice		2-3 
+			new bool [] { false, true, true, false },	// Kick			2-3
+			new bool [] { true, true, true, false },	// Steroids		1-3
+			new bool [] { true, false, false, false }	// War Cry		1
 		};
 		IsMultiHit = new bool[] { true, false, false, false, true };
 		Debuffs = new List<Debuff>();
@@ -59,9 +66,8 @@ public class Enforcer : Unit
 		HasPlayed = false;
 	}
 
-	public override void SetStats (int NewLevel, int NewRank, int NewHealth)
+	public override void SetStats (int NewLevel, int NewRank)
 	{
-		NewLevel--;
 		this.BaseHealth = this.LVL_HEALTH[NewLevel];
 		this.BaseSpeed = this.LVL_SPEED[NewLevel];
 		this.BaseDodge = this.LVL_DODGE[NewLevel];
@@ -69,7 +75,7 @@ public class Enforcer : Unit
 		this.BaseDmg = new int[] {this.LVL_DMG[NewLevel, 0], this.LVL_DMG[NewLevel, 1]};
 		this.BaseArmor = 0;
 
-		this.CurrHealth = NewHealth;
+		this.CurrHealth = this.LVL_HEALTH[NewLevel];
 		this.Level = NewLevel;
 		this.Rank = NewRank;
 	}
@@ -95,39 +101,38 @@ public class Enforcer : Unit
 			{
 				if (U.GetRank() == ONE || U.GetRank() == TWO)
 				{
-					U.RemoveHealth (RollDamage (MoveID, this.BaseDmg, U));
+					U.RemoveHealth (this.RollDamage (MoveID, this.BaseDmg, U));
 				}
 			}
 			return SUCCESS;
 		}
 		else if (MoveID == SLICE)
 		{
-//			Debuff D1 = new Debuff (DOT_DUR, DebuffMods [SLICE], BLEED);
-//			Target.AddDebuff (D1);
-			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			Debuff D1 = new Debuff (DOT_DUR, DebuffMods [SLICE], BLEED);
+			Target.AddDebuff (D1);
+			Target.RemoveHealth (this.RollDamage (MoveID, this.BaseDmg, Target));
 			return SUCCESS;
 		}
 		else if (MoveID == KICK)
 		{
 			Target.MoveUnit (Enemies, Target, -1);
-			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			Target.RemoveHealth (this.RollDamage (MoveID, this.BaseDmg, Target));
 			return SUCCESS;
 		}
 		else if (MoveID == STEROIDS)
 		{
-			this.AddHealth (4); //TODO Constants for heal amounts or ranges
+			this.AddHealth (STEROIDS_HEAL);
 			Debuff D2 = new Debuff (DEBUFF_DUR, DebuffMods [STEROIDS], SPEED);
 			this.AddDebuff (D2);
-			CheckCrit (STEROIDS, this);
 			return SUCCESS;
 		}
 		else if (MoveID == WAR_CRY)
 		{
-//			Debuff D3 = new Debuff (DEBUFF_DUR, DebuffMods [WAR_CRY], DAMAGE);
-//			for (int i = 0; i < Allies.Length; i++)
-//			{
-//				Allies [i].AddDebuff (D3);
-//			}
+			Debuff D3 = new Debuff (DEBUFF_DUR, DebuffMods [WAR_CRY], DAMAGE);
+			for (int i = 0; i < Allies.Length; i++)
+			{
+				Allies [i].AddDebuff (D3);
+			}
 			return SUCCESS;
 		}
 		return FAILURE;

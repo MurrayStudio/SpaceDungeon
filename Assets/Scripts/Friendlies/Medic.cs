@@ -38,7 +38,7 @@ public class Medic : Unit
 		DmgMods = new float[] {0f, 0f, 0f, 0f, -0.5f};
 		AccMods = new int[] {85, 0, 0, 0, 85};
 		DebuffMods = new float[] {0f, 0f, 0.25f, 0.15f, -0.15f};
-		ValidRanks = new bool[][] {
+		HitRanks = new bool[][] {
 			new bool [] { true, true, true, true, false, false, false },	// Pistol 		1-4
 			new bool [] { false, false, false, false, false, true, false },	// Healing Wave	Allies
 			new bool [] { false, false, false, false, true, false, false },	// Bulwark		Self	
@@ -57,9 +57,8 @@ public class Medic : Unit
 		HasPlayed = false;
 	}
 
-	public override void SetStats (int NewLevel, int NewRank, int NewHealth)
+	public override void SetStats (int NewLevel, int NewRank)
 	{
-		NewLevel--;
 		this.BaseHealth = this.LVL_HEALTH[NewLevel];
 		this.BaseSpeed = this.LVL_SPEED[NewLevel];
 		this.BaseDodge = this.LVL_DODGE[NewLevel];
@@ -67,7 +66,7 @@ public class Medic : Unit
 		this.BaseDmg = new int[] {this.LVL_DMG[NewLevel, 0], this.LVL_DMG[NewLevel, 1]};
 		this.BaseArmor = 0;
 
-		this.CurrHealth = NewHealth;
+		this.CurrHealth = this.LVL_HEALTH[NewLevel];
 		this.Level = NewLevel;
 		this.Rank = NewRank;
 	}
@@ -84,7 +83,7 @@ public class Medic : Unit
 
 		if (MoveID == PISTOL)
 		{
-			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			Target.RemoveHealth (this.RollDamage (MoveID, this.BaseDmg, Target));
 			return SUCCESS;
 		}
 		else if (MoveID == WAVE)
@@ -97,19 +96,20 @@ public class Medic : Unit
 		}
 		else if (MoveID == BULWARK)
 		{
-//			Debuff D1 = new Debuff (DEBUFF_DUR, DebuffMods[BULWARK], ARMOR);
-//			this.AddDebuff (D1);
+			Debuff D1 = new Debuff (DEBUFF_DUR, DebuffMods[BULWARK], ARMOR);
+			this.AddDebuff (D1);
 			return SUCCESS;
 		}
 		else if (MoveID == ADRENALINE)
 		{
-//			Debuff D2 = new Debuff (DEBUFF_DUR, DebuffMods [ADRENALINE], SPEED);
-//			Target.AddDebuff (D2);
+			Debuff D2 = new Debuff (DEBUFF_DUR, DebuffMods [ADRENALINE], SPEED);
+			Target.AddDebuff (D2);
 			return SUCCESS;
 		}
 		else if (MoveID == TASER)
 		{
-			//Debuff stun
+			Debuff D3 = new Debuff (STUN_DUR, DebuffMods [TASER], STUN);
+			Target.AddDebuff (D3);
 			return SUCCESS;
 		}
 

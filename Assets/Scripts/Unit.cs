@@ -76,7 +76,8 @@ public abstract class Unit
 	public float[] DmgMods;		// Damage modifiers for each ability
 	public int[] AccMods;		// Accuracy mods for each ability
 	protected float[] DebuffMods;	// Strength of individual debuffs
-	protected bool[][] ValidRanks;	// Ranks that can be hit by ability
+	protected bool[][] HitRanks;	// Ranks that can be hit by ability
+	protected bool[][] FromRanks;	// Ranks that can be hit by ability
 	protected bool[] IsMultiHit;	// Whether or not the ability can hit all targets or one
 	protected String[] AbilNames;
 
@@ -96,7 +97,7 @@ public abstract class Unit
 	public Unit () {}
 
 
-	public virtual void SetStats (int NewLevel, int NewRank, int NewHealth) {}
+	public virtual void SetStats (int NewLevel, int NewRank) {}
 
 	// Use this one for:
 	//		- One Target
@@ -426,7 +427,7 @@ public abstract class Unit
 
 	public bool[] GetAttackRange (int MoveID)
 	{
-		return this.ValidRanks[MoveID];
+		return this.HitRanks[MoveID];
 	} 
 
 
@@ -458,5 +459,10 @@ public abstract class Unit
 	public String GetCategory ()
 	{
 		return this.Category;
+	}
+
+	public bool GetIsMech ()
+	{
+		return this.IsMech;
 	}
 }

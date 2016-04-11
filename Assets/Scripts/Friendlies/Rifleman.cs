@@ -36,7 +36,7 @@ public class Rifleman : Unit
 		DmgMods = new float[] {0f, 0f, -0.4f, -0.8f, 0f};
 		AccMods = new int[] {85, 85, 85, 85, 0};
 		DebuffMods = new float[] {0f, 0f, 0f, -0.15f, 0.10f};
-		ValidRanks = new bool[][] {
+		HitRanks = new bool[][] {
 			new bool [] { false, true, true, true, false, false, false },	// Rifle	1-4
 			new bool [] { true, true, false, false, false, false, false },	// Bayonet	1-2
 			new bool [] { true, true, true, false, false, false, false },	// Shotgun	1-3 all
@@ -56,9 +56,8 @@ public class Rifleman : Unit
 		HasPlayed = false;
 	}
 
-	public override void SetStats (int NewLevel, int NewRank, int NewHealth)
+	public override void SetStats (int NewLevel, int NewRank)
 	{
-		NewLevel--;
 		this.BaseHealth = this.LVL_HEALTH[NewLevel];
 		this.BaseSpeed = this.LVL_SPEED[NewLevel];
 		this.BaseDodge = this.LVL_DODGE[NewLevel];
@@ -66,7 +65,7 @@ public class Rifleman : Unit
 		this.BaseDmg = new int[] {this.LVL_DMG[NewLevel, 0], this.LVL_DMG[NewLevel, 1]};
 		this.BaseArmor = 0;
 
-		this.CurrHealth = NewHealth;
+		this.CurrHealth = this.LVL_HEALTH[NewLevel];
 		this.Level = NewLevel;
 		this.Rank = NewRank;
 	}
@@ -88,12 +87,12 @@ public class Rifleman : Unit
 
 		if (MoveID == RIFLE)
 		{
-			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			Target.RemoveHealth (this.RollDamage (MoveID, this.BaseDmg, Target));
 			return SUCCESS;
 		}
 		else if (MoveID == BAYONET)
 		{
-			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			Target.RemoveHealth (this.RollDamage (MoveID, this.BaseDmg, Target));
 			return SUCCESS;
 		}
 		else if (MoveID == SHOTGUN)
@@ -102,27 +101,27 @@ public class Rifleman : Unit
 			{
 				if (U.GetRank() >= ONE && U.GetRank() <= THREE)
 				{
-					U.RemoveHealth (RollDamage (MoveID, this.BaseDmg, U));
+					U.RemoveHealth (this.RollDamage (MoveID, this.BaseDmg, U));
 				}
 			}
 			return SUCCESS;
 		}
 		else if (MoveID == NET_GUN)
 		{
-//			Debuff D1 = new Debuff (DEBUFF_DUR, DebuffMods [NET_GUN], SPEED);
-//			Debuff D2 = new Debuff (DEBUFF_DUR, DebuffMods [NET_GUN], DODGE);
-//			Target.AddDebuff (D1);
-//			Target.AddDebuff (D2);
+			Debuff D1 = new Debuff (DEBUFF_DUR, DebuffMods [NET_GUN], SPEED);
+			Debuff D2 = new Debuff (DEBUFF_DUR, DebuffMods [NET_GUN], DODGE);
+			Target.AddDebuff (D1);
+			Target.AddDebuff (D2);
 			return SUCCESS;
 		}
 		else if (MoveID == RELOAD)
 		{
-//			Debuff D3 = new Debuff (DEBUFF_DUR, DebuffMods [RELOAD], SPEED);
-//			Debuff D4 = new Debuff (DEBUFF_DUR, DebuffMods [RELOAD], DAMAGE);
-//			Debuff D5 = new Debuff (DEBUFF_DUR, DebuffMods [RELOAD] * -1, ARMOR);
-//			this.AddDebuff (D3);
-//			this.AddDebuff (D4);
-//			this.AddDebuff (D5);
+			Debuff D3 = new Debuff (DEBUFF_DUR, DebuffMods [RELOAD], SPEED);
+			Debuff D4 = new Debuff (DEBUFF_DUR, DebuffMods [RELOAD], DAMAGE);
+			Debuff D5 = new Debuff (DEBUFF_DUR, DebuffMods [RELOAD] * -1, ARMOR);
+			Target.AddDebuff (D3);
+			Target.AddDebuff (D4);
+			Target.AddDebuff (D5);
 			return SUCCESS;
 		}
 
