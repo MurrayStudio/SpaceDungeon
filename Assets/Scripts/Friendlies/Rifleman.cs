@@ -33,7 +33,7 @@ public class Rifleman : Unit
 		BaseArmor = 0;
 
 		CritMods = new int[] {10, 0, 0, 0, 0};
-		DmgMods = new float[] {0f, 0f, -0.4f, -0.8f, 0f};
+		DmgMods = new float[] {0f, -0.8f, 0f, 0f, -0.4f};
 		AccMods = new int[] {85, 85, 85, 85, 0};
 		DebuffMods = new float[] {0f, 0f, 0f, -0.15f, 0.10f};
 		HitRanks = new bool[][] {
@@ -41,7 +41,7 @@ public class Rifleman : Unit
 			new bool [] { true, true, true, true, false, false, false },	// Net Gun	1-4
 			new bool [] { false, false, false, false, true, false, false },	// Reload	1-3 all
 			new bool [] { false, true, true, true, false, false, false },	// Rifle	1-4
-			new bool [] { true, true, true, false, true, false, false }		// Shotgun	self
+			new bool [] { true, true, true, false, false, false, false }		// Shotgun	self
 		};
 		IsMultiHit = new bool[] { false, false, true, false, true };
 		Debuffs = new List<Debuff>();
