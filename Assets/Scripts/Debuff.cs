@@ -8,10 +8,10 @@ public class Debuff
 	==================================*/
 	private int DURATION;
 	private float POWER;
-	private int CATEGORY;
+	private String CATEGORY;
 
 	// Debuff Types
-	public readonly String STUN 		= "Stun"; //TODO Not this.
+	public readonly String STUN 		= "Stun";
 	public readonly String BLEED 		= "Bleed";
 	public readonly String ACID 		= "Acid";
 	public readonly String ARMOR 		= "Armor";
@@ -25,11 +25,11 @@ public class Debuff
 	{
 		DURATION = 0;
 		POWER = 0;
-		CATEGORY = 0;
+		CATEGORY = "";
 	}
 
 
-	public Debuff (int NewDuration, float NewPower, int NewType)
+	public Debuff (int NewDuration, float NewPower, String NewType)
 	{
 		this.DURATION = NewDuration;
 		this.POWER = NewPower;
@@ -46,7 +46,7 @@ public class Debuff
  	public void Tick ()		
  	{		
  		this.DURATION--;
-		if (this.CATEGORY == BLEED || this.CATEGORY == ACID)
+		if (this.CATEGORY.Equals(BLEED) || this.CATEGORY.Equals(ACID))
 		{
 			
 		}		
