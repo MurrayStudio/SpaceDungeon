@@ -127,10 +127,10 @@ public class GamePlayController : MonoBehaviour
         engineer = new Engineer();
 
         //set stats if we leveled up earlier (health setting will be gone in update)
-        //enforcer.SetStats (PlayerPrefs.GetInt (STAT_PREFS_ENFORCER_LEVEL, 0), PlayerPrefs.GetInt (STAT_PREFS_ENFORCER_RANK, 0), 100);
-        //medic.SetStats (PlayerPrefs.GetInt (STAT_PREFS_MEDIC_LEVEL, 0), PlayerPrefs.GetInt (STAT_PREFS_MEDIC_RANK, 0), 100);
-        //rifleman.SetStats (PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_LEVEL, 0), PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_RANK, 0), 100);
-        //engineer.SetStats (PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_LEVEL, 0), PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_RANK, 0), 100);
+        enforcer.SetStats (PlayerPrefs.GetInt (STAT_PREFS_ENFORCER_LEVEL, 4), PlayerPrefs.GetInt (STAT_PREFS_ENFORCER_RANK, 1));
+        medic.SetStats (PlayerPrefs.GetInt (STAT_PREFS_MEDIC_LEVEL, 4), PlayerPrefs.GetInt (STAT_PREFS_MEDIC_RANK, 2));
+        rifleman.SetStats (PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_LEVEL, 4), PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_RANK, 3));
+        engineer.SetStats (PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_LEVEL, 4), PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_RANK, 4));
 
         freightEnemy1 = new Freight();
         freightEnemy1.SetStats(1, 1);
