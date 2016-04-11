@@ -146,6 +146,20 @@ public class GamePlayController : MonoBehaviour
         //hardcode setup for level 1
         order = enforcer.Order(allies, enemies);
 
+		//We are going to resort our allies and enemies array based off order chosen now
+		int friendlyIndex = 0;
+		int enemyIndex = 0;
+
+		for (int i = 0; i < order.Length; i++) {
+			if (order [i].GetFriendly () == true) {
+				allies [friendlyIndex] = order [i];
+				++friendlyIndex;
+			} else {
+				enemies [enemyIndex] = order [i];
+				++enemyIndex;
+			}
+		}
+
         //enforcer to start
         indexOfOrder = 0;
         currentCharacter = order[indexOfOrder];
@@ -162,6 +176,14 @@ public class GamePlayController : MonoBehaviour
     void Update()
     {
 
+		for (int i = 0; i < order.Length; i++)
+		{
+			if (order[i].GetHealth() <= 0)
+			{
+				characters [i].SetActive (false);
+			}
+		}
+
 		if (order [indexOfOrder].GetHealth() > 0) {
 			currentCharacter = order [indexOfOrder];
 		} else {
@@ -174,14 +196,6 @@ public class GamePlayController : MonoBehaviour
 				indexOfOrder = 0;
 			}
 		}
-
-		for (int i = 0; i < order.Length; i++)
-        {
-			if (order[i].GetHealth() <= 0)
-            {
-				characters [i].SetActive (false);
-            }
-        }
 		configAbilityRanges(); //every button click load up new ability array for attackingUnit[] TempArr = new Unit[allies.Length];
 
 		//Unit[] TempArr = new Unit[4];
