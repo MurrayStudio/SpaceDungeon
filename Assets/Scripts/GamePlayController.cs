@@ -170,6 +170,7 @@ public class GamePlayController : MonoBehaviour
         hidePopUp();
         hidePopUpAttack();
         hideStepEnemyAttackPopUp();
+		enableAbilityButtons ();
     }
 
     // Update is called once per frame
@@ -281,6 +282,8 @@ public class GamePlayController : MonoBehaviour
         {
 
             showStepEnemyAttackPopUp(); //so we can step through enemy attacks
+			disableAbilityButtons(); //don't want to interact with buttons if enemy is going
+			hidePopUp();
         }
     }
 
@@ -391,15 +394,13 @@ public class GamePlayController : MonoBehaviour
 			if (currentCharacter.GetHealth () > 0) {
 				currentCharacter.MakeMove (move, allies, enemies, allies [allyHit]);
 			}
-                if (indexOfOrder < order.Length - 1)
-                {
-                    ++indexOfOrder;
-                }
-                else
-                {
-                    indexOfOrder = 0;
-                }
-                hideStepEnemyAttackPopUp();
+			if (indexOfOrder < order.Length - 1) {
+				++indexOfOrder;
+			} else {
+				indexOfOrder = 0;
+			}
+			hideStepEnemyAttackPopUp ();
+			enableAbilityButtons ();
                 break;
         }
     }
@@ -689,4 +690,14 @@ public class GamePlayController : MonoBehaviour
     {
         stepEnemyAttackPopUp.SetActive(true);
     }
+
+	public void disableAbilityButtons() {
+		for (int i = 0; i < abilityButtons.Length; i++)
+			abilityButtons [i].interactable = false;
+	}
+
+	public void enableAbilityButtons() {
+		for (int i = 0; i < abilityButtons.Length; i++)
+			abilityButtons [i].interactable = true;
+	}
 }
