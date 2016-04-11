@@ -230,7 +230,7 @@ public class GamePlayController : MonoBehaviour
 		//}
 		//enemies = TempArr;
 
-        currentCharacterArrow.transform.position = new Vector3(characters[indexOfOrder].transform.position.x, characters[indexOfOrder].transform.position.y + 1.5f, characters[indexOfOrder].transform.position.z);
+        currentCharacterArrow.transform.position = new Vector3(characters[indexOfOrder].transform.position.x, characters[indexOfOrder].transform.position.y + 2.5f, characters[indexOfOrder].transform.position.z);
 
         currentCharacterText.text = "Current Character: " + currentCharacter.GetType().ToString();
         
