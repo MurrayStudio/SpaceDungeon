@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: c0e4e0b28ba09e6449e327c028b0401c
-timeCreated: 1459719186
-licenseType: Free
+guid: b86e16c0adf08ca409743dd62b85a8d2
+timeCreated: 1460351203
+licenseType: Pro
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: SNES - Super Metroid - Draygon_0
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,8 +29,8 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
-    filterMode: 0
-    aniso: 16
+    filterMode: -1
+    aniso: -1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -39,7 +38,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -50,22 +49,7 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites:
-    - name: SNES - Super Metroid - Draygon_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 637
-        height: 817
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -318.5, y: 408.5}
-        - {x: -318.5, y: -408.5}
-        - {x: 318.5, y: -408.5}
-        - {x: 318.5, y: 408.5}
+    sprites: []
     outline: []
   spritePackingTag: 
   userData: 
