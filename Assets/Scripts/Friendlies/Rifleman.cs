@@ -37,10 +37,10 @@ public class Rifleman : Unit
 		AccMods = new int[] {85, 85, 85, 85, 0};
 		DebuffMods = new float[] {0f, 0f, 0f, -0.15f, 0.10f};
 		HitRanks = new bool[][] {
-			new bool [] { false, true, true, true, false, false, false },	// Rifle	1-4
 			new bool [] { true, true, false, false, false, false, false },	// Bayonet	1-2
-			new bool [] { false, false, false, false, true, false, false },	// Reload	1-3 all
 			new bool [] { true, true, true, true, false, false, false },	// Net Gun	1-4
+			new bool [] { false, false, false, false, true, false, false },	// Reload	1-3 all
+			new bool [] { false, true, true, true, false, false, false },	// Rifle	1-4
 			new bool [] { true, true, true, false, true, false, false }		// Shotgun	self
 		};
 		IsMultiHit = new bool[] { false, false, true, false, true };

@@ -11,14 +11,14 @@ public class Debuff
 	private int CATEGORY;
 
 	// Debuff Types
-	public readonly int STUN 		= 0; //TODO Not this.
-	public readonly int BLEED 		= 1;
-	public readonly int ACID 		= 2;
-	public readonly int ARMOR 		= 3;
-	public readonly int SPEED 		= 4;
-	public readonly int DODGE 		= 5;
-	public readonly int DAMAGE 		= 6;
-	public readonly int WALL 		= 7;
+	public readonly String STUN 		= "Stun"; //TODO Not this.
+	public readonly String BLEED 		= "Bleed";
+	public readonly String ACID 		= "Acid";
+	public readonly String ARMOR 		= "Armor";
+	public readonly String SPEED 		= "Speed";
+	public readonly String DODGE 		= "Dodge";
+	public readonly String DAMAGE 		= "Damage";
+	public readonly String WALL 		= "Light Wall";
 
 
 	public Debuff ()
@@ -64,7 +64,7 @@ public class Debuff
  	}		
 
 
- 	public int GetCategory ()		
+ 	public String GetCategory ()		
  	{		
  		return this.CATEGORY;		
 	}
