@@ -37,11 +37,11 @@ public class Engineer : Unit
 		AccMods = new int[] {85, 85, 85, 85, 85};
 		DebuffMods = new float[] { 0f, 0f, 0f, 0.15f, 0f };
 		HitRanks = new bool[][] {
-			new bool [] { true, true, true, true, false, false, false },	// Ratchet Gun	1-4
-			new bool [] { false, false, false, false, false, false, true },	// Ion Pulse	enemies
 			new bool [] { false, true, true, true, false, false, false },	// Flashbang	2-4 
-			new bool [] { false, false, true, true, false, false, false },	// Snare		3-4
-			new bool [] { false, false, false, false, false, true, false }	// Light Wall	allies
+			new bool [] { false, false, false, false, false, false, true },	// Ion Pulse	enemies
+			new bool [] { false, false, false, false, false, true, false },	// Light Wall	allies
+			new bool [] { true, true, true, true, false, false, false },	// Ratchet Gun	1-4
+			new bool [] { false, false, true, true, false, false, false }	// Snare		3-4
 		};
 		FromRanks = new bool[][] {
 			new bool [] { false, false, true, true },	// Ratchet Gun	3-4
