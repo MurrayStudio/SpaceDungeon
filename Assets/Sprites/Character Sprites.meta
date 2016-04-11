@@ -1,8 +1,15 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Sprites/Character Sprites.meta
 guid: 6910220616a104713b3b80d7aa21231f
 folderAsset: yes
 timeCreated: 1460342622
 licenseType: Free
+=======
+guid: 2fa58238e28d31d4eadb8d2c5e31e822
+folderAsset: yes
+timeCreated: 1460351200
+licenseType: Pro
+>>>>>>> 6e37366b3f6dba4d94d01a0326f2be91f1563c62:Assets/Sprites/Character Sprites.meta
 DefaultImporter:
   userData: 
   assetBundleName: 
