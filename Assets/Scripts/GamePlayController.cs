@@ -196,22 +196,22 @@ public class GamePlayController : MonoBehaviour
         //enemy3Health.text = enemies[2].GetHealth().ToString();
         //enemy4Health.text = enemies[3].GetHealth().ToString();
         float scale = ((float)allies[0].GetHealth() / (float)allies[0].GetBaseHealth());
-        ally1Health.rectTransform.localScale.Set(scale * HEALTH_METER_X, ally1Health.rectTransform.localScale.y, ally1Health.rectTransform.localScale.z);
+        ally1Health.rectTransform.localScale = new Vector3(scale, 1f, 1f);
         scale = ((float)allies[1].GetHealth() / (float)allies[1].GetBaseHealth());
-        ally2Health.rectTransform.localScale.Set(scale * HEALTH_METER_X, ally2Health.rectTransform.localScale.y, ally2Health.rectTransform.localScale.z);
+        ally2Health.rectTransform.localScale = new Vector3(scale, 1f, 1f);
         scale = ((float)allies[2].GetHealth() / (float)allies[2].GetBaseHealth());
-        ally3Health.rectTransform.localScale.Set(scale * HEALTH_METER_X, ally3Health.rectTransform.localScale.y, ally3Health.rectTransform.localScale.z);
+        ally3Health.rectTransform.localScale = new Vector3(scale, 1f, 1f);
         scale = ((float)allies[3].GetHealth() / (float)allies[3].GetBaseHealth());
-        ally4Health.rectTransform.localScale.Set(scale * HEALTH_METER_X, ally4Health.rectTransform.localScale.y, ally4Health.rectTransform.localScale.z);
+        ally4Health.rectTransform.localScale = new Vector3(scale, 1f, 1f);
 
         scale = ((float)enemies[0].GetHealth() / (float)enemies[0].GetBaseHealth());
-        enemy1Health.rectTransform.localScale.Set(scale * HEALTH_METER_X, enemy1Health.rectTransform.localScale.y, enemy1Health.rectTransform.localScale.z);
+        enemy1Health.rectTransform.localScale = new Vector3(scale, 1f, 1f);
         scale = ((float)enemies[1].GetHealth() / (float)enemies[1].GetBaseHealth());
-        enemy2Health.rectTransform.localScale.Set(scale * HEALTH_METER_X, enemy2Health.rectTransform.localScale.y, enemy2Health.rectTransform.localScale.z);
+        enemy2Health.rectTransform.localScale = new Vector3(scale, 1f, 1f);
         scale = ((float)enemies[2].GetHealth() / (float)enemies[2].GetBaseHealth());
-        enemy3Health.rectTransform.localScale.Set(scale * HEALTH_METER_X, enemy3Health.rectTransform.localScale.y, enemy3Health.rectTransform.localScale.z);
+        enemy3Health.rectTransform.localScale = new Vector3(scale, 1f, 1f);
         scale = ((float)enemies[3].GetHealth() / (float)enemies[3].GetBaseHealth());
-        enemy4Health.rectTransform.localScale.Set(scale * HEALTH_METER_X, enemy4Health.rectTransform.localScale.y, enemy4Health.rectTransform.localScale.z);
+        enemy4Health.rectTransform.localScale = new Vector3(scale, 1f, 1f);
 
         //get attack ranges
         if (currentCharacter.GetFriendly() == true)
@@ -658,7 +658,7 @@ public class GamePlayController : MonoBehaviour
 
     public void hideStepEnemyAttackPopUp()
     {
-        //stepEnemyAttackPopUp.SetActive(false);
+        stepEnemyAttackPopUp.SetActive(false);
     }
 
     public void showStepEnemyAttackPopUp()
