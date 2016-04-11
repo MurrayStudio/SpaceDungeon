@@ -39,11 +39,11 @@ public class Medic : Unit
 		AccMods = new int[] {85, 0, 0, 0, 85};
 		DebuffMods = new float[] {0f, 0f, 0.25f, 0.15f, -0.15f};
 		HitRanks = new bool[][] {
-			new bool [] { true, true, true, true, false, false, false },	// Pistol 		1-4
-			new bool [] { false, false, false, false, false, true, false },	// Healing Wave	Allies
-			new bool [] { false, false, false, false, true, false, false },	// Bulwark		Self	
-			new bool [] { false, false, false, false, false, true, false },	// Adrenaline	one ally
-			new bool [] { true, true, false, false, true, false, false }	// Taser		1-2
+			new bool [] { false, false, false, false, false, true, false },	// Adrenaline 	allies
+			new bool [] { false, false, false, false, true, false, false },	// Bulwark		self
+			new bool [] { false, false, false, false, false, true, false },	// wave			Allies	
+			new bool [] { true, true, true, true, false, false, false },	// pistol		1-4
+			new bool [] { true, true, false, false, false, false, false }	// Taser		1-2
 		};
 		Debuffs = new List<Debuff>();
 
