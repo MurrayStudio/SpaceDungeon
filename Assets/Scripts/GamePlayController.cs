@@ -85,19 +85,28 @@ public class GamePlayController : MonoBehaviour
 
     public GameObject currentCharacterArrow;
 
+    public float HEALTH_METER_X;
 
     //This is assuming that there will be 4 enemies at
-    public Text enemy1Health;
-    public Text enemy2Health;
-    public Text enemy3Health;
-    public Text enemy4Health;
+    //public Text enemy1Health;
+    //public Text enemy2Health;
+    //public Text enemy3Health;
+    //public Text enemy4Health;
+    public Image enemy1Health;
+    public Image enemy2Health;
+    public Image enemy3Health;
+    public Image enemy4Health;
 
 
     //This is assuming there will be four ally units
-    public Text ally1Health;
-    public Text ally2Health;
-    public Text ally3Health;
-    public Text ally4Health;
+    //public Text ally1Health;
+    //public Text ally2Health;
+    //public Text ally3Health;
+    //public Text ally4Health;
+    public Image ally1Health;
+    public Image ally2Health;
+    public Image ally3Health;
+    public Image ally4Health;
 
 
     //ability info
@@ -177,15 +186,32 @@ public class GamePlayController : MonoBehaviour
         currentCharacterText.text = "Current Character: " + currentCharacter.GetType().ToString();
 
         //Assign health to each enemy + ally and constantly update
-        ally1Health.text = allies[0].GetHealth().ToString();
-        ally2Health.text = allies[1].GetHealth().ToString();
-        ally3Health.text = allies[2].GetHealth().ToString();
-        ally4Health.text = allies[3].GetHealth().ToString();
+        //ally1Health.text = allies[0].GetHealth().ToString();
+        //ally2Health.text = allies[1].GetHealth().ToString();
+        //ally3Health.text = allies[2].GetHealth().ToString();
+        //ally4Health.text = allies[3].GetHealth().ToString();
 
-        enemy1Health.text = enemies[0].GetHealth().ToString();
-        enemy2Health.text = enemies[1].GetHealth().ToString();
-        enemy3Health.text = enemies[2].GetHealth().ToString();
-        enemy4Health.text = enemies[3].GetHealth().ToString();
+        //enemy1Health.text = enemies[0].GetHealth().ToString();
+        //enemy2Health.text = enemies[1].GetHealth().ToString();
+        //enemy3Health.text = enemies[2].GetHealth().ToString();
+        //enemy4Health.text = enemies[3].GetHealth().ToString();
+        float scale = ((float)allies[0].GetHealth() / (float)allies[0].GetBaseHealth());
+        ally1Health.rectTransform.localScale = new Vector3(scale, 1f, 1f);
+        scale = ((float)allies[1].GetHealth() / (float)allies[1].GetBaseHealth());
+        ally2Health.rectTransform.localScale = new Vector3(scale, 1f, 1f);
+        scale = ((float)allies[2].GetHealth() / (float)allies[2].GetBaseHealth());
+        ally3Health.rectTransform.localScale = new Vector3(scale, 1f, 1f);
+        scale = ((float)allies[3].GetHealth() / (float)allies[3].GetBaseHealth());
+        ally4Health.rectTransform.localScale = new Vector3(scale, 1f, 1f);
+
+        scale = ((float)enemies[0].GetHealth() / (float)enemies[0].GetBaseHealth());
+        enemy1Health.rectTransform.localScale = new Vector3(scale, 1f, 1f);
+        scale = ((float)enemies[1].GetHealth() / (float)enemies[1].GetBaseHealth());
+        enemy2Health.rectTransform.localScale = new Vector3(scale, 1f, 1f);
+        scale = ((float)enemies[2].GetHealth() / (float)enemies[2].GetBaseHealth());
+        enemy3Health.rectTransform.localScale = new Vector3(scale, 1f, 1f);
+        scale = ((float)enemies[3].GetHealth() / (float)enemies[3].GetBaseHealth());
+        enemy4Health.rectTransform.localScale = new Vector3(scale, 1f, 1f);
 
         //get attack ranges
         if (currentCharacter.GetFriendly() == true)
