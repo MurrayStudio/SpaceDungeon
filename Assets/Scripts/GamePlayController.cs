@@ -146,6 +146,20 @@ public class GamePlayController : MonoBehaviour
         //hardcode setup for level 1
         order = enforcer.Order(allies, enemies);
 
+		//We are going to resort our allies and enemies array based off order chosen now
+		int friendlyIndex = 0;
+		int enemyIndex = 0;
+
+		for (int i = 0; i < order.Length; i++) {
+			if (order [i].GetFriendly () == true) {
+				allies [friendlyIndex] = order [i];
+				++friendlyIndex;
+			} else {
+				enemies [enemyIndex] = order [i];
+				++enemyIndex;
+			}
+		}
+
         //enforcer to start
         indexOfOrder = 0;
         currentCharacter = order[indexOfOrder];
@@ -156,11 +170,20 @@ public class GamePlayController : MonoBehaviour
         hidePopUp();
         hidePopUpAttack();
         hideStepEnemyAttackPopUp();
+		enableAbilityButtons ();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+		for (int i = 0; i < order.Length; i++)
+		{
+			if (order[i].GetHealth() <= 0)
+			{
+				characters [i].SetActive (false);
+			}
+		}
 
 		if (order [indexOfOrder].GetHealth() > 0) {
 			currentCharacter = order [indexOfOrder];
@@ -174,14 +197,6 @@ public class GamePlayController : MonoBehaviour
 				indexOfOrder = 0;
 			}
 		}
-
-		for (int i = 0; i < order.Length; i++)
-        {
-			if (order[i].GetHealth() <= 0)
-            {
-				characters [i].SetActive (false);
-            }
-        }
 		configAbilityRanges(); //every button click load up new ability array for attackingUnit[] TempArr = new Unit[allies.Length];
 
 		//Unit[] TempArr = new Unit[4];
@@ -267,6 +282,8 @@ public class GamePlayController : MonoBehaviour
         {
 
             showStepEnemyAttackPopUp(); //so we can step through enemy attacks
+			disableAbilityButtons(); //don't want to interact with buttons if enemy is going
+			hidePopUp();
         }
     }
 
@@ -377,15 +394,13 @@ public class GamePlayController : MonoBehaviour
 			if (currentCharacter.GetHealth () > 0) {
 				currentCharacter.MakeMove (move, allies, enemies, allies [allyHit]);
 			}
-                if (indexOfOrder < order.Length - 1)
-                {
-                    ++indexOfOrder;
-                }
-                else
-                {
-                    indexOfOrder = 0;
-                }
-                hideStepEnemyAttackPopUp();
+			if (indexOfOrder < order.Length - 1) {
+				++indexOfOrder;
+			} else {
+				indexOfOrder = 0;
+			}
+			hideStepEnemyAttackPopUp ();
+			enableAbilityButtons ();
                 break;
         }
     }
@@ -675,4 +690,14 @@ public class GamePlayController : MonoBehaviour
     {
         stepEnemyAttackPopUp.SetActive(true);
     }
+
+	public void disableAbilityButtons() {
+		for (int i = 0; i < abilityButtons.Length; i++)
+			abilityButtons [i].interactable = false;
+	}
+
+	public void enableAbilityButtons() {
+		for (int i = 0; i < abilityButtons.Length; i++)
+			abilityButtons [i].interactable = true;
+	}
 }

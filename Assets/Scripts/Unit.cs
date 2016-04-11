@@ -36,14 +36,14 @@ public abstract class Unit
 	public readonly int ENEMIES		= 6;
 
 	// Debuff Types
-	public readonly int STUN 		= 0;
-	public readonly int DAMAGE 		= 1;
-	public readonly int ACID 		= 2;
-	public readonly int BLEED 		= 3;
-	public readonly int SPEED 		= 4;
-	public readonly int DODGE 		= 5;
-	public readonly int ARMOR 		= 6;
-	public readonly int WALL 		= 7;
+	public readonly String STUN 		= "Stun";
+	public readonly String BLEED 		= "Bleed";
+	public readonly String ACID 		= "Acid";
+	public readonly String ARMOR 		= "Armor";
+	public readonly String SPEED 		= "Speed";
+	public readonly String DODGE 		= "Dodge";
+	public readonly String DAMAGE 		= "Damage";
+	public readonly String WALL 		= "Light Wall";
 
 	// Debuff Durations
 	public readonly int STUN_DUR	= 1;
