@@ -120,25 +120,26 @@ public class GamePlayController : MonoBehaviour
     void Start()
     {
 
-		//init units
-		enforcer = new Enforcer();
-		medic = new Medic();
-		rifleman = new Rifleman();
-		engineer = new Engineer();
+        //init units
+        enforcer = new Enforcer();
+        medic = new Medic();
+        rifleman = new Rifleman();
+        engineer = new Engineer();
 
-		//set stats if we leveled up earlier (health setting will be gone in update)
-		//enforcer.SetStats (PlayerPrefs.GetInt (STAT_PREFS_ENFORCER_LEVEL, 0), PlayerPrefs.GetInt (STAT_PREFS_ENFORCER_RANK, 0), 100);
-		//medic.SetStats (PlayerPrefs.GetInt (STAT_PREFS_MEDIC_LEVEL, 0), PlayerPrefs.GetInt (STAT_PREFS_MEDIC_RANK, 0), 100);
-		//rifleman.SetStats (PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_LEVEL, 0), PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_RANK, 0), 100);
-		//engineer.SetStats (PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_LEVEL, 0), PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_RANK, 0), 100);
+        //set stats if we leveled up earlier (health setting will be gone in update)
+        enforcer.SetStats (PlayerPrefs.GetInt (STAT_PREFS_ENFORCER_LEVEL, 4), PlayerPrefs.GetInt (STAT_PREFS_ENFORCER_RANK, 1));
+        medic.SetStats (PlayerPrefs.GetInt (STAT_PREFS_MEDIC_LEVEL, 4), PlayerPrefs.GetInt (STAT_PREFS_MEDIC_RANK, 2));
+        rifleman.SetStats (PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_LEVEL, 4), PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_RANK, 3));
+        engineer.SetStats (PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_LEVEL, 4), PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_RANK, 4));
 
         freightEnemy1 = new Freight();
+        freightEnemy1.SetStats(1, 1);
         freightEnemy2 = new Freight();
-        freightEnemy2.SetStats(freightEnemy2.GetLevel(), 1);
+        freightEnemy2.SetStats(1, 2);
         freightEnemy3 = new Freight();
-        freightEnemy2.SetStats(freightEnemy3.GetLevel(), 2);
+        freightEnemy3.SetStats(1, 3);
         freightEnemy4 = new Freight();
-        freightEnemy2.SetStats(freightEnemy4.GetLevel(), 3);
+        freightEnemy4.SetStats(1, 4);
 
         allies = new Unit[] { enforcer, medic, rifleman, engineer };
         enemies = new Unit[] { freightEnemy1, freightEnemy2, freightEnemy3, freightEnemy4 };
@@ -146,19 +147,33 @@ public class GamePlayController : MonoBehaviour
         //hardcode setup for level 1
         order = enforcer.Order(allies, enemies);
 
-		//We are going to resort our allies and enemies array based off order chosen now
-		int friendlyIndex = 0;
-		int enemyIndex = 0;
+        //We are going to resort our allies and enemies array based off order chosen now
+        int friendlyIndex = 0;
+        int enemyIndex = 0;
 
-		for (int i = 0; i < order.Length; i++) {
-			if (order [i].GetFriendly () == true) {
-				allies [friendlyIndex] = order [i];
-				++friendlyIndex;
-			} else {
-				enemies [enemyIndex] = order [i];
-				++enemyIndex;
-			}
-		}
+        for (int i = 0; i < order.Length; i++) {
+            if (order[i].GetFriendly() == true) {
+                allies[friendlyIndex] = order[i];
+                ++friendlyIndex;
+            } else {
+                enemies[enemyIndex] = order[i];
+                ++enemyIndex;
+            }
+        }
+
+        for (int y = 0; y < order.Length; y++) { 
+            Debug.Log("order: " + order[y].GetType().ToString());
+           }
+
+        for (int y = 0; y < allies.Length; y++)
+        {
+            Debug.Log("allies: " + allies[y].GetType().ToString());
+        }
+
+        for (int y = 0; y < enemies.Length; y++)
+        {
+            Debug.Log("enemies: " + enemies[y].GetType().ToString());
+        }
 
         //enforcer to start
         indexOfOrder = 0;
@@ -191,11 +206,13 @@ public class GamePlayController : MonoBehaviour
 			if (indexOfOrder < order.Length - 1)
 			{
 				++indexOfOrder;
-			}
+                currentCharacter = order[indexOfOrder];
+            }
 			else
 			{
 				indexOfOrder = 0;
-			}
+                currentCharacter = order[indexOfOrder];
+            }
 		}
 		configAbilityRanges(); //every button click load up new ability array for attackingUnit[] TempArr = new Unit[allies.Length];
 
@@ -361,7 +378,7 @@ public class GamePlayController : MonoBehaviour
                 hidePopUp();
 			if (currentCharacter.GetFriendly() == true  && currentCharacter.GetHealth () > 0)
                 {
-                    currentCharacter.MakeMove(currentAbility, allies, enemies, allies[indexOfOrder]);
+                    currentCharacter.MakeMove(currentAbility, allies, enemies, order[indexOfOrder]);
                     ++indexOfOrder;
                 }
                 break;
@@ -387,9 +404,9 @@ public class GamePlayController : MonoBehaviour
                 }
                 break;
 		case "StepAttackEnemy":
-                //make a simple ai move
+            //make a simple ai move
 			int move = Random.Range (0, 2);
-			int allyHit = Random.Range (0, 3);
+			int allyHit = Random.Range (0, 4);
 			//if player isn't dead
 			if (currentCharacter.GetHealth () > 0) {
 				currentCharacter.MakeMove (move, allies, enemies, allies [allyHit]);
