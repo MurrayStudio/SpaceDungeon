@@ -107,15 +107,32 @@ public class GamePlayController : MonoBehaviour
     public Text ability4;
     public Text ability5;
 
+	public static readonly string STAT_PREFS_ENFORCER_LEVEL = "stats_prefs_level_1";
+	public static readonly string STAT_PREFS_MEDIC_LEVEL = "stats_prefs_level_2";
+	public static readonly string STAT_PREFS_RIFLEMAN_LEVEL = "stats_prefs_level_3";
+	public static readonly string STAT_PREFS_ENGINEER_LEVEL = "stats_prefs_level_4";
+
+	public static readonly string STAT_PREFS_ENFORCER_RANK = "stats_prefs_level_1";
+	public static readonly string STAT_PREFS_MEDIC_RANK = "stats_prefs_level_2";
+	public static readonly string STAT_PREFS_RIFLEMAN_RANK = "stats_prefs_level_3";
+	public static readonly string STAT_PREFS_ENGINEER_RANK = "stats_prefs_level_4";
+
 
     // Use this for initialization
     void Start()
     {
-        //init units
-        enforcer = new Enforcer();
-        medic = new Medic();
-        rifleman = new Rifleman();
-        engineer = new Engineer();
+
+		//init units
+		enforcer = new Enforcer();
+		medic = new Medic();
+		rifleman = new Rifleman();
+		engineer = new Engineer();
+
+		//set stats if we leveled up earlier (health setting will be gone in update)
+		//enforcer.SetStats (PlayerPrefs.GetInt (STAT_PREFS_ENFORCER_LEVEL, 0), PlayerPrefs.GetInt (STAT_PREFS_ENFORCER_RANK, 0), 100);
+		//medic.SetStats (PlayerPrefs.GetInt (STAT_PREFS_MEDIC_LEVEL, 0), PlayerPrefs.GetInt (STAT_PREFS_MEDIC_RANK, 0), 100);
+		//rifleman.SetStats (PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_LEVEL, 0), PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_RANK, 0), 100);
+		//engineer.SetStats (PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_LEVEL, 0), PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_RANK, 0), 100);
 
         freightEnemy1 = new Freight();
         freightEnemy2 = new Freight();
@@ -147,13 +164,24 @@ public class GamePlayController : MonoBehaviour
     void Update()
     {
 
-        currentCharacter = order[indexOfOrder];
+		if (order [indexOfOrder].GetHealth() > 0) {
+			currentCharacter = order [indexOfOrder];
+		} else {
+			if (indexOfOrder < order.Length - 1)
+			{
+				++indexOfOrder;
+			}
+			else
+			{
+				indexOfOrder = 0;
+			}
+		}
 
-        foreach (Unit U in order)
+		for (int i = 0; i < order.Length; i++)
         {
-            if (U.GetHealth() <= 0)
+			if (order[i].GetHealth() <= 0)
             {
-                // TODO Remove unit here
+				characters [i].SetActive (false);
             }
         }
 		configAbilityRanges(); //every button click load up new ability array for attackingUnit[] TempArr = new Unit[allies.Length];
@@ -273,7 +301,7 @@ public class GamePlayController : MonoBehaviour
             case "Enemy1":
                 hidePopUpAttack();
                 hidePopUp();
-                if (currentCharacter.GetFriendly() == true)
+			if (currentCharacter.GetFriendly() == true  && currentCharacter.GetHealth () > 0)
                 {
                     currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[0]);
                     ++indexOfOrder;
@@ -282,7 +310,7 @@ public class GamePlayController : MonoBehaviour
             case "Enemy2":
                 hidePopUpAttack();
                 hidePopUp();
-                if (currentCharacter.GetFriendly() == true)
+			if (currentCharacter.GetFriendly() == true  && currentCharacter.GetHealth () > 0)
                 {
                     currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[1]);
                     ++indexOfOrder;
@@ -291,7 +319,7 @@ public class GamePlayController : MonoBehaviour
             case "Enemy3":
                 hidePopUpAttack();
                 hidePopUp();
-                if (currentCharacter.GetFriendly() == true)
+			if (currentCharacter.GetFriendly() == true  && currentCharacter.GetHealth () > 0)
                 {
                     currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[2]);
                     ++indexOfOrder;
@@ -300,7 +328,7 @@ public class GamePlayController : MonoBehaviour
             case "Enemy4":
                 hidePopUpAttack();
                 hidePopUp();
-                if (currentCharacter.GetFriendly() == true)
+			if (currentCharacter.GetFriendly() == true  && currentCharacter.GetHealth () > 0)
                 {
                     currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[3]);
                     ++indexOfOrder;
@@ -309,7 +337,7 @@ public class GamePlayController : MonoBehaviour
             case "selfHeal":
                 hidePopUpAttack();
                 hidePopUp();
-                if (currentCharacter.GetFriendly() == true)
+			if (currentCharacter.GetFriendly() == true  && currentCharacter.GetHealth () > 0)
                 {
                     currentCharacter.MakeMove(currentAbility, allies, enemies, allies[indexOfOrder]);
                     ++indexOfOrder;
@@ -318,7 +346,7 @@ public class GamePlayController : MonoBehaviour
             case "healOther":
                 hidePopUpAttack();
                 hidePopUp();
-                if (currentCharacter.GetFriendly() == true)
+			if (currentCharacter.GetFriendly() == true  && currentCharacter.GetHealth () > 0)
                 {
                     currentCharacter.MakeMove(currentAbility, allies, enemies, allies[0]); //make this 0 for now
                     ++indexOfOrder;
@@ -327,7 +355,7 @@ public class GamePlayController : MonoBehaviour
             case "allEnemy":
                 hidePopUpAttack();
                 hidePopUp();
-                if (currentCharacter.GetFriendly() == true)
+			if (currentCharacter.GetFriendly() == true && currentCharacter.GetHealth () > 0)
                 {
                     currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[0]);
                     currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[1]);
@@ -336,11 +364,14 @@ public class GamePlayController : MonoBehaviour
                     ++indexOfOrder;
                 }
                 break;
-            case "StepAttackEnemy":
+		case "StepAttackEnemy":
                 //make a simple ai move
-                int move = Random.Range(0, 2);
-                int allyHit = Random.Range(0, 3);
-                currentCharacter.MakeMove(move, allies, enemies, allies[allyHit]);
+			int move = Random.Range (0, 2);
+			int allyHit = Random.Range (0, 3);
+			//if player isn't dead
+			if (currentCharacter.GetHealth () > 0) {
+				currentCharacter.MakeMove (move, allies, enemies, allies [allyHit]);
+			}
                 if (indexOfOrder < order.Length - 1)
                 {
                     ++indexOfOrder;
