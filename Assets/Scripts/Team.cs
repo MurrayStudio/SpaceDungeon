@@ -27,10 +27,10 @@ public class Team : MonoBehaviour
 	void Start () 
 	{
 		myTeam = new Unit[] {new Enforcer(), new Rifleman(), new Medic(), new Engineer()};
-		myTeam [0].SetStats (ENFORCER_LVL, ENFORCER_RANK, ENFORCER_HEALTH);
-		myTeam [1].SetStats (RIFLEMAN_LVL, RIFLEMAN_RANK, RIFLEMAN_HEALTH);
-		myTeam [2].SetStats (MEDIC_LVL, MEDIC_RANK, MEDIC_HEALTH);
-		myTeam [3].SetStats (ENGINEER_LVL, ENGINEER_RANK, ENGINEER_HEALTH);
+		myTeam [0].SetStats (ENFORCER_LVL, ENFORCER_RANK);
+		myTeam [1].SetStats (RIFLEMAN_LVL, RIFLEMAN_RANK);
+		myTeam [2].SetStats (MEDIC_LVL, MEDIC_RANK);
+		myTeam [3].SetStats (ENGINEER_LVL, ENGINEER_RANK);
 	}
 	
 	// Update is called once per frame

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MediBot : Unit
 {
@@ -32,6 +33,14 @@ public class MediBot : Unit
 		CritMods = new int[] {0, 0, 0};
 		DmgMods = new float[] {0f, 0f, 0.5f};
 		AccMods = new int[] {0, 0, 85};
+		DebuffMods = new float[] {0f, 0.15f, 0f};
+		HitRanks = new bool[][] {
+			new bool [] { false, false, false, false, false, true, false },	// Restore			1-4
+			new bool [] { true, true, false, false, false, false, false },	// Stims			1-2
+			new bool [] { false, false, false, false, false, false, true },	// Self Destruct	all
+		};
+		IsMultiHit = new bool[] { false, false, true };
+		Debuffs = new List<Debuff>();
 
 		CurrHealth = BaseHealth;
 		Level = 1;
@@ -42,9 +51,8 @@ public class MediBot : Unit
 		HasPlayed = false;
 	}
 
-	public override void SetStats (int NewLevel, int NewRank, int NewHealth)
+	public override void SetStats (int NewLevel, int NewRank)
 	{
-		NewLevel--;
 		this.BaseHealth = this.LVL_HEALTH[NewLevel];
 		this.BaseSpeed = this.LVL_SPEED[NewLevel];
 		this.BaseDodge = this.LVL_DODGE[NewLevel];
@@ -52,7 +60,7 @@ public class MediBot : Unit
 		this.BaseDmg = new int[] {this.LVL_DMG[NewLevel, 0], this.LVL_DMG[NewLevel, 1]};
 		this.BaseArmor = 0;
 
-		this.CurrHealth = NewHealth;
+		this.CurrHealth = this.LVL_HEALTH[NewLevel];
 		this.Level = NewLevel;
 		this.Rank = NewRank;
 	}

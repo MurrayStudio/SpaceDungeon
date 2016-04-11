@@ -134,11 +134,11 @@ public class GamePlayController : MonoBehaviour
 
         freightEnemy1 = new Freight();
         freightEnemy2 = new Freight();
-        freightEnemy2.SetStats(freightEnemy2.GetLevel(), 1, freightEnemy2.GetHealth());
+        freightEnemy2.SetStats(freightEnemy2.GetLevel(), 1);
         freightEnemy3 = new Freight();
-        freightEnemy2.SetStats(freightEnemy3.GetLevel(), 2, freightEnemy3.GetHealth());
+        freightEnemy2.SetStats(freightEnemy3.GetLevel(), 2);
         freightEnemy4 = new Freight();
-        freightEnemy2.SetStats(freightEnemy4.GetLevel(), 3, freightEnemy4.GetHealth());
+        freightEnemy2.SetStats(freightEnemy4.GetLevel(), 3);
 
         allies = new Unit[] { enforcer, medic, rifleman, engineer };
         enemies = new Unit[] { freightEnemy1, freightEnemy2, freightEnemy3, freightEnemy4 };
