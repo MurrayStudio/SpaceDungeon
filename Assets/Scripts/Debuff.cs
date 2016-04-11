@@ -11,14 +11,14 @@ public class Debuff
 	private int CATEGORY;
 
 	// Debuff Types
-	public readonly int STUN 		= "Stun"; //TODO Not this.
-	public readonly int BLEED 		= "Bleed";
-	public readonly int ACID 		= "Acid";
-	public readonly int ARMOR 		= "Armor";
-	public readonly int SPEED 		= "Speed";
-	public readonly int DODGE 		= "Dodge";
-	public readonly int DAMAGE 		= "Damage";
-	public readonly int WALL 		= "Light Wall";
+	public readonly String STUN 		= "Stun"; //TODO Not this.
+	public readonly String BLEED 		= "Bleed";
+	public readonly String ACID 		= "Acid";
+	public readonly String ARMOR 		= "Armor";
+	public readonly String SPEED 		= "Speed";
+	public readonly String DODGE 		= "Dodge";
+	public readonly String DAMAGE 		= "Damage";
+	public readonly String WALL 		= "Light Wall";
 
 
 	public Debuff ()
