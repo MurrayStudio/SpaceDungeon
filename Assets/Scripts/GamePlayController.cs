@@ -67,6 +67,12 @@ public class GamePlayController : MonoBehaviour
     //holds text of current character
     public Text currentCharacterText;
 
+    //popup victory
+    public GameObject popUpVictory;
+
+    //popup victory
+    public GameObject popUpFailure;
+
     //popup attack window
     public GameObject popUPAttack;
 
@@ -185,14 +191,47 @@ public class GamePlayController : MonoBehaviour
         hidePopUp();
         hidePopUpAttack();
         hideStepEnemyAttackPopUp();
+        hidePopUpVictory();
+        hidePopUpFailure();
 		enableAbilityButtons ();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //load main menu if escape is pressed.
+        if (Input.GetKeyDown(KeyCode.Escape)) { 
+            Application.LoadLevel(0);
+        }
 
-		for (int i = 0; i < order.Length; i++)
+
+        //these for loops below are bad coding practice and slow things down but we are lazy so they are here...
+        
+        //check if all allies are dead
+        for (int i = 0; i < allies.Length; i++)
+        {
+            if (allies[i].GetHealth() <= 0)
+            {
+                if(i == allies.Length - 1)
+                {
+                    showPopUpFailure(); //if they are all dead show fail
+                }
+            }
+        }
+
+        //check if all enemies are dead
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            if (enemies[i].GetHealth() <= 0)
+            {
+                if (i == enemies.Length - 1)
+                {
+                    showPopUpVictory(); //if they are all dead show win
+                }
+            }
+        }
+
+        for (int i = 0; i < order.Length; i++)
 		{
 			if (order[i].GetHealth() <= 0)
 			{
@@ -215,20 +254,6 @@ public class GamePlayController : MonoBehaviour
             }
 		}
 		configAbilityRanges(); //every button click load up new ability array for attackingUnit[] TempArr = new Unit[allies.Length];
-
-		//Unit[] TempArr = new Unit[4];
-
-		//foreach (Unit U in allies)
-		//{
-		//	TempArr [U.GetRank ()] = U;
-		//}
-		//allies = TempArr;
-
-		//foreach (Unit U in enemies)
-		//{
-		//	TempArr [U.GetRank ()] = U;
-		//}
-		//enemies = TempArr;
 
         currentCharacterArrow.transform.position = new Vector3(characters[indexOfOrder].transform.position.x, characters[indexOfOrder].transform.position.y + 2.5f, characters[indexOfOrder].transform.position.z);
 
@@ -311,6 +336,13 @@ public class GamePlayController : MonoBehaviour
         Debug.Log(currentButtonClicked);
         switch (currentButtonClicked)
         {
+            case "levelSelect":
+                Application.LoadLevel(1);
+                break;
+            case "retry":
+                Application.LoadLevel(Application.loadedLevel);
+                break;
+            //clicking abilities
             case "ability1":
                 showPopUpAttack();
                 hidePopUp();
@@ -708,7 +740,27 @@ public class GamePlayController : MonoBehaviour
         stepEnemyAttackPopUp.SetActive(true);
     }
 
-	public void disableAbilityButtons() {
+    public void hidePopUpVictory()
+    {
+        popUpVictory.SetActive(false);
+    }
+
+    public void showPopUpVictory()
+    {
+        popUpVictory.SetActive(true);
+    }
+
+    public void hidePopUpFailure()
+    {
+        popUpFailure.SetActive(false);
+    }
+
+    public void showPopUpFailure()
+    {
+        popUpFailure.SetActive(true);
+    }
+
+    public void disableAbilityButtons() {
 		for (int i = 0; i < abilityButtons.Length; i++)
 			abilityButtons [i].interactable = false;
 	}
