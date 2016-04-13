@@ -82,7 +82,7 @@ public class Psychic : Unit
 		else if (MoveID == MIND_WIPE)
 		{
 			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
-			Debuff D1 = new Debuff (STUN, DebuffMods [MIND_WIPE], STUN);
+			Debuff D1 = new Debuff (STUN_DUR, DebuffMods [MIND_WIPE], STUN);
 			Target.AddDebuff (D1);
 			return SUCCESS;
 		}
