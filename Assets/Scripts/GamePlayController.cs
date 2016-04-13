@@ -73,6 +73,12 @@ public class GamePlayController : MonoBehaviour
     //popup victory
     public GameObject popUpFailure;
 
+    //popup victory
+    public GameObject popUpHit;
+
+    //popup victory
+    public GameObject popUpMiss;
+
     //popup attack window
     public GameObject popUPAttack;
 
@@ -111,15 +117,15 @@ public class GamePlayController : MonoBehaviour
     public Text ability4;
     public Text ability5;
 
-	public static readonly string STAT_PREFS_ENFORCER_LEVEL = "stats_prefs_level_1";
-	public static readonly string STAT_PREFS_MEDIC_LEVEL = "stats_prefs_level_2";
-	public static readonly string STAT_PREFS_RIFLEMAN_LEVEL = "stats_prefs_level_3";
-	public static readonly string STAT_PREFS_ENGINEER_LEVEL = "stats_prefs_level_4";
+    public static readonly string STAT_PREFS_ENFORCER_LEVEL = "stats_prefs_level_1";
+    public static readonly string STAT_PREFS_MEDIC_LEVEL = "stats_prefs_level_2";
+    public static readonly string STAT_PREFS_RIFLEMAN_LEVEL = "stats_prefs_level_3";
+    public static readonly string STAT_PREFS_ENGINEER_LEVEL = "stats_prefs_level_4";
 
-	public static readonly string STAT_PREFS_ENFORCER_RANK = "stats_prefs_level_1";
-	public static readonly string STAT_PREFS_MEDIC_RANK = "stats_prefs_level_2";
-	public static readonly string STAT_PREFS_RIFLEMAN_RANK = "stats_prefs_level_3";
-	public static readonly string STAT_PREFS_ENGINEER_RANK = "stats_prefs_level_4";
+    public static readonly string STAT_PREFS_ENFORCER_RANK = "stats_prefs_level_1";
+    public static readonly string STAT_PREFS_MEDIC_RANK = "stats_prefs_level_2";
+    public static readonly string STAT_PREFS_RIFLEMAN_RANK = "stats_prefs_level_3";
+    public static readonly string STAT_PREFS_ENGINEER_RANK = "stats_prefs_level_4";
 
 
     // Use this for initialization
@@ -133,10 +139,10 @@ public class GamePlayController : MonoBehaviour
         engineer = new Engineer();
 
         //set stats if we leveled up earlier (health setting will be gone in update)
-        enforcer.SetStats (PlayerPrefs.GetInt (STAT_PREFS_ENFORCER_LEVEL, 4), PlayerPrefs.GetInt (STAT_PREFS_ENFORCER_RANK, 1));
-        medic.SetStats (PlayerPrefs.GetInt (STAT_PREFS_MEDIC_LEVEL, 4), PlayerPrefs.GetInt (STAT_PREFS_MEDIC_RANK, 2));
-        rifleman.SetStats (PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_LEVEL, 4), PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_RANK, 3));
-        engineer.SetStats (PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_LEVEL, 4), PlayerPrefs.GetInt (STAT_PREFS_RIFLEMAN_RANK, 4));
+        enforcer.SetStats(PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_LEVEL, 4), PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_RANK, 1));
+        medic.SetStats(PlayerPrefs.GetInt(STAT_PREFS_MEDIC_LEVEL, 4), PlayerPrefs.GetInt(STAT_PREFS_MEDIC_RANK, 2));
+        rifleman.SetStats(PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 4), PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_RANK, 3));
+        engineer.SetStats(PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 4), PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_RANK, 4));
 
         freightEnemy1 = new Freight();
         freightEnemy1.SetStats(1, 1);
@@ -157,19 +163,24 @@ public class GamePlayController : MonoBehaviour
         int friendlyIndex = 0;
         int enemyIndex = 0;
 
-        for (int i = 0; i < order.Length; i++) {
-            if (order[i].GetFriendly() == true) {
+        for (int i = 0; i < order.Length; i++)
+        {
+            if (order[i].GetFriendly() == true)
+            {
                 allies[friendlyIndex] = order[i];
                 ++friendlyIndex;
-            } else {
+            }
+            else
+            {
                 enemies[enemyIndex] = order[i];
                 ++enemyIndex;
             }
         }
 
-        for (int y = 0; y < order.Length; y++) { 
+        for (int y = 0; y < order.Length; y++)
+        {
             Debug.Log("order: " + order[y].GetType().ToString());
-           }
+        }
 
         for (int y = 0; y < allies.Length; y++)
         {
@@ -193,26 +204,29 @@ public class GamePlayController : MonoBehaviour
         hideStepEnemyAttackPopUp();
         hidePopUpVictory();
         hidePopUpFailure();
-		enableAbilityButtons ();
+        hidePopUpHit();
+        hidePopUpMiss();
+        enableAbilityButtons();
     }
 
     // Update is called once per frame
     void Update()
     {
         //load main menu if escape is pressed.
-        if (Input.GetKeyDown(KeyCode.Escape)) { 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
             Application.LoadLevel(0);
         }
 
 
         //these for loops below are bad coding practice and slow things down but we are lazy so they are here...
-        
+
         //check if all allies are dead
         for (int i = 0; i < allies.Length; i++)
         {
             if (allies[i].GetHealth() <= 0)
             {
-                if(i == allies.Length - 1)
+                if (i == allies.Length - 1)
                 {
                     showPopUpFailure(); //if they are all dead show fail
                 }
@@ -232,33 +246,36 @@ public class GamePlayController : MonoBehaviour
         }
 
         for (int i = 0; i < order.Length; i++)
-		{
-			if (order[i].GetHealth() <= 0)
-			{
-				characters [i].SetActive (false);
-			}
-		}
+        {
+            if (order[i].GetHealth() <= 0)
+            {
+                characters[i].SetActive(false);
+            }
+        }
 
-		if (order [indexOfOrder].GetHealth() > 0) {
-			currentCharacter = order [indexOfOrder];
-		} else {
-			if (indexOfOrder < order.Length - 1)
-			{
-				++indexOfOrder;
+        if (order[indexOfOrder].GetHealth() > 0)
+        {
+            currentCharacter = order[indexOfOrder];
+        }
+        else
+        {
+            if (indexOfOrder < order.Length - 1)
+            {
+                ++indexOfOrder;
                 currentCharacter = order[indexOfOrder];
             }
-			else
-			{
-				indexOfOrder = 0;
+            else
+            {
+                indexOfOrder = 0;
                 currentCharacter = order[indexOfOrder];
             }
-		}
-		configAbilityRanges(); //every button click load up new ability array for attackingUnit[] TempArr = new Unit[allies.Length];
+        }
+        configAbilityRanges(); //every button click load up new ability array for attackingUnit[] TempArr = new Unit[allies.Length];
 
         currentCharacterArrow.transform.position = new Vector3(characters[indexOfOrder].transform.position.x, characters[indexOfOrder].transform.position.y + 2.5f, characters[indexOfOrder].transform.position.z);
 
         currentCharacterText.text = "Current Character: " + currentCharacter.GetType().ToString();
-        
+
         float scale = ((float)allies[0].GetHealth() / (float)allies[0].GetBaseHealth());
         ally1Health.rectTransform.localScale = new Vector3(scale, 1f, 1f);
         scale = ((float)allies[1].GetHealth() / (float)allies[1].GetBaseHealth());
@@ -324,13 +341,16 @@ public class GamePlayController : MonoBehaviour
         {
 
             showStepEnemyAttackPopUp(); //so we can step through enemy attacks
-			disableAbilityButtons(); //don't want to interact with buttons if enemy is going
-			hidePopUp();
+            disableAbilityButtons(); //don't want to interact with buttons if enemy is going
+            hidePopUp();
         }
     }
 
     public void buttonClicked()
     {
+        //new turn so hide these until needed again
+        hidePopUpHit();
+        hidePopUpMiss();
 
         currentButtonClicked = EventSystem.current.currentSelectedGameObject.name;
         Debug.Log(currentButtonClicked);
@@ -372,84 +392,135 @@ public class GamePlayController : MonoBehaviour
             case "Enemy1":
                 hidePopUpAttack();
                 hidePopUp();
-			if (currentCharacter.GetFriendly() == true  && currentCharacter.GetHealth () > 0)
+                if (currentCharacter.GetFriendly() == true && currentCharacter.GetHealth() > 0)
                 {
-                    currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[0]);
+                    if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[0]) == true)
+                    {
+                        showPopUpHit();
+                    }
+                    else
+                    {
+                        showPopUpMiss();
+                    }
                     ++indexOfOrder;
                 }
                 break;
             case "Enemy2":
                 hidePopUpAttack();
                 hidePopUp();
-			if (currentCharacter.GetFriendly() == true  && currentCharacter.GetHealth () > 0)
+                if (currentCharacter.GetFriendly() == true && currentCharacter.GetHealth() > 0)
                 {
-                    currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[1]);
+                    if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[1]) == true)
+                    {
+                        showPopUpHit();
+                    }
+                    else
+                    {
+                        showPopUpMiss();
+                    }
                     ++indexOfOrder;
                 }
                 break;
             case "Enemy3":
                 hidePopUpAttack();
                 hidePopUp();
-			if (currentCharacter.GetFriendly() == true  && currentCharacter.GetHealth () > 0)
+                if (currentCharacter.GetFriendly() == true && currentCharacter.GetHealth() > 0)
                 {
-                    currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[2]);
+                    if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[2]) == true)
+                    {
+                        showPopUpHit();
+                    }
+                    else
+                    {
+                        showPopUpMiss();
+                    }
                     ++indexOfOrder;
                 }
                 break;
             case "Enemy4":
                 hidePopUpAttack();
                 hidePopUp();
-			if (currentCharacter.GetFriendly() == true  && currentCharacter.GetHealth () > 0)
+                if (currentCharacter.GetFriendly() == true && currentCharacter.GetHealth() > 0)
                 {
-                    currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[3]);
+                    if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[3]) == true)
+                    {
+                        showPopUpHit();
+                    }
+                    else
+                    {
+                        showPopUpMiss();
+                    }
                     ++indexOfOrder;
                 }
                 break;
             case "selfHeal":
                 hidePopUpAttack();
                 hidePopUp();
-			if (currentCharacter.GetFriendly() == true  && currentCharacter.GetHealth () > 0)
+                if (currentCharacter.GetFriendly() == true && currentCharacter.GetHealth() > 0)
                 {
-                    currentCharacter.MakeMove(currentAbility, allies, enemies, order[indexOfOrder]);
+                    if (currentCharacter.MakeMove(currentAbility, allies, enemies, order[indexOfOrder]) == true)
+                    {
+                        showPopUpHit();
+                    }
+                    else
+                    {
+                        showPopUpMiss();
+                    }
                     ++indexOfOrder;
                 }
                 break;
             case "healOther":
                 hidePopUpAttack();
                 hidePopUp();
-			if (currentCharacter.GetFriendly() == true  && currentCharacter.GetHealth () > 0)
+                if (currentCharacter.GetFriendly() == true && currentCharacter.GetHealth() > 0)
                 {
-                    currentCharacter.MakeMove(currentAbility, allies, enemies, allies[0]); //make this 0 for now
+                    if (currentCharacter.MakeMove(currentAbility, allies, enemies, allies[0]) == true) //make this 0 for now
+                    {
+                        showPopUpHit();
+                    }
+                    else
+                    {
+                        showPopUpMiss();
+                    }
                     ++indexOfOrder;
                 }
                 break;
             case "allEnemy":
                 hidePopUpAttack();
                 hidePopUp();
-			if (currentCharacter.GetFriendly() == true && currentCharacter.GetHealth () > 0)
+                if (currentCharacter.GetFriendly() == true && currentCharacter.GetHealth() > 0)
                 {
-                    currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[0]);
-                    currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[1]);
-                    currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[2]);
-                    currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[3]);
+                    if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[0]) == true || currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[1]) == true
+                        || currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[2]) == true || currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[3]) == true) //make this 0 for now
+                    {
+                        showPopUpHit();
+                    }
+                    else
+                    {
+                        showPopUpMiss();
+                    }
                     ++indexOfOrder;
                 }
                 break;
-		case "StepAttackEnemy":
-            //make a simple ai move
-			int move = Random.Range (0, 2);
-			int allyHit = Random.Range (0, 4);
-			//if player isn't dead
-			if (currentCharacter.GetHealth () > 0) {
-				currentCharacter.MakeMove (move, allies, enemies, allies [allyHit]);
-			}
-			if (indexOfOrder < order.Length - 1) {
-				++indexOfOrder;
-			} else {
-				indexOfOrder = 0;
-			}
-			hideStepEnemyAttackPopUp ();
-			enableAbilityButtons ();
+            case "StepAttackEnemy":
+                //make a simple ai move
+                int move = Random.Range(0, 2);
+                int allyHit = Random.Range(0, 4);
+                //if player isn't dead
+                if (currentCharacter.GetHealth() > 0)
+                {
+                    currentCharacter.MakeMove(move, allies, enemies, allies[allyHit]);
+                }
+                if (indexOfOrder < order.Length - 1)
+                {
+                    ++indexOfOrder;
+                }
+                else
+                {
+                    indexOfOrder = 0;
+                }
+                hideStepEnemyAttackPopUp();
+                enableAbilityButtons();
                 break;
         }
     }
@@ -622,11 +693,11 @@ public class GamePlayController : MonoBehaviour
             }
             if (currentCharacter.GetType().ToString() == "Medic")
             {
-                ability1.text = "ADRENALINE RUSH" + "\n" +"(Increases damage, dodge)"+"\n"+ "Crit: " + medic.CritMods[0].ToString() + "%\n" + "Damage: " + (100 + medic.DmgMods[0] * 100).ToString() + "%\n" + "Accuracy: " + medic.AccMods[0].ToString();
+                ability1.text = "ADRENALINE RUSH" + "\n" + "(Increases damage, dodge)" + "\n" + "Crit: " + medic.CritMods[0].ToString() + "%\n" + "Damage: " + (100 + medic.DmgMods[0] * 100).ToString() + "%\n" + "Accuracy: " + medic.AccMods[0].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Engineer")
             {
-                ability1.text = "FLASH BANG" + "\n"+"Stuns"+"\n" + "Crit: " + engineer.CritMods[0].ToString() + "%\n" + "Damage: " + (100 + engineer.DmgMods[0] * 100).ToString() + "%\n" + "Accuracy: " + engineer.AccMods[0].ToString();
+                ability1.text = "FLASH BANG" + "\n" + "Stuns" + "\n" + "Crit: " + engineer.CritMods[0].ToString() + "%\n" + "Damage: " + (100 + engineer.DmgMods[0] * 100).ToString() + "%\n" + "Accuracy: " + engineer.AccMods[0].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Rifleman")
             {
@@ -638,19 +709,19 @@ public class GamePlayController : MonoBehaviour
         {
             if (currentCharacter.GetType().ToString() == "Enforcer")
             {
-                ability2.text = "KICK" + "\n" + "(Knocks back target)"+"\n" +"Crit: " + enforcer.CritMods[1].ToString() + "%\n" + "Damage: " + (100 + enforcer.DmgMods[1] * 100).ToString() + "%\n" + "Accuracy: " + enforcer.AccMods[1].ToString();
+                ability2.text = "KICK" + "\n" + "(Knocks back target)" + "\n" + "Crit: " + enforcer.CritMods[1].ToString() + "%\n" + "Damage: " + (100 + enforcer.DmgMods[1] * 100).ToString() + "%\n" + "Accuracy: " + enforcer.AccMods[1].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Medic")
             {
-                ability2.text = "BULWARK" + "\n" +"(Increases armor, decreases dodge)"+"\n"+ "Crit: " + medic.CritMods[1].ToString() + "%\n" + "Damage: " + (100 + medic.DmgMods[1] * 100).ToString() + "%\n" + "Accuracy: " + medic.AccMods[1].ToString();
+                ability2.text = "BULWARK" + "\n" + "(Increases armor, decreases dodge)" + "\n" + "Crit: " + medic.CritMods[1].ToString() + "%\n" + "Damage: " + (100 + medic.DmgMods[1] * 100).ToString() + "%\n" + "Accuracy: " + medic.AccMods[1].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Engineer")
             {
-                ability2.text = "ION PULSE" + "\n"+"(Stuns mechanical enemies, slows everyone else)"+"\n" + "Crit: " + engineer.CritMods[1].ToString() + "%\n" + "Damage: " + (100 + engineer.DmgMods[1] * 100).ToString() + "%\n" + "Accuracy: " + engineer.AccMods[1].ToString();
+                ability2.text = "ION PULSE" + "\n" + "(Stuns mechanical enemies, slows everyone else)" + "\n" + "Crit: " + engineer.CritMods[1].ToString() + "%\n" + "Damage: " + (100 + engineer.DmgMods[1] * 100).ToString() + "%\n" + "Accuracy: " + engineer.AccMods[1].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Rifleman")
             {
-                ability2.text = "NET" + "\n" +"(Debuffs enemies speed+accuracy)"+"\n"+ "Crit: " + rifleman.CritMods[1].ToString() + "%\n" + "Damage: " + (100 + rifleman.DmgMods[1] * 100).ToString() + "%\n" + "Accuracy: " + rifleman.AccMods[1].ToString();
+                ability2.text = "NET" + "\n" + "(Debuffs enemies speed+accuracy)" + "\n" + "Crit: " + rifleman.CritMods[1].ToString() + "%\n" + "Damage: " + (100 + rifleman.DmgMods[1] * 100).ToString() + "%\n" + "Accuracy: " + rifleman.AccMods[1].ToString();
             }
         }
 
@@ -659,7 +730,7 @@ public class GamePlayController : MonoBehaviour
         {
             if (currentCharacter.GetType().ToString() == "Enforcer")
             {
-                ability3.text = "SLICE" + "\n"+ "(Inflicts bleed)"+"\n" + "Crit: " + enforcer.CritMods[2].ToString() + "%\n" + "Damage: " + (100 + enforcer.DmgMods[2] * 100).ToString() + "%\n" + "Accuracy: " + enforcer.AccMods[2].ToString();
+                ability3.text = "SLICE" + "\n" + "(Inflicts bleed)" + "\n" + "Crit: " + enforcer.CritMods[2].ToString() + "%\n" + "Damage: " + (100 + enforcer.DmgMods[2] * 100).ToString() + "%\n" + "Accuracy: " + enforcer.AccMods[2].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Medic")
             {
@@ -667,11 +738,11 @@ public class GamePlayController : MonoBehaviour
             }
             if (currentCharacter.GetType().ToString() == "Engineer")
             {
-                ability3.text = "LIGHT WALL" + "\n"+"(Block 1 projectile)"+"\n" + "Crit: " + engineer.CritMods[2].ToString() + "%\n" + "Damage: " + (100 + engineer.DmgMods[2] * 100).ToString() + "%\n" + "Accuracy: " + engineer.AccMods[2].ToString();
+                ability3.text = "LIGHT WALL" + "\n" + "(Block 1 projectile)" + "\n" + "Crit: " + engineer.CritMods[2].ToString() + "%\n" + "Damage: " + (100 + engineer.DmgMods[2] * 100).ToString() + "%\n" + "Accuracy: " + engineer.AccMods[2].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Rifleman")
             {
-                ability3.text = "RELOAD" + "\n"+"(Self heal, amplify speed and damage)"+"\n" + "Crit: " + rifleman.CritMods[2].ToString() + "%\n" + "Damage: " + (100 + rifleman.DmgMods[2] * 100).ToString() + "%\n" + "Accuracy: " + rifleman.AccMods[2].ToString();
+                ability3.text = "RELOAD" + "\n" + "(Self heal, amplify speed and damage)" + "\n" + "Crit: " + rifleman.CritMods[2].ToString() + "%\n" + "Damage: " + (100 + rifleman.DmgMods[2] * 100).ToString() + "%\n" + "Accuracy: " + rifleman.AccMods[2].ToString();
             }
         }
 
@@ -679,7 +750,7 @@ public class GamePlayController : MonoBehaviour
         {
             if (currentCharacter.GetType().ToString() == "Enforcer")
             {
-                ability4.text = "STEROIDS" + "\n"+ "(Self heal, plus speed boost)"+"\n" + "Crit: " + enforcer.CritMods[3].ToString() + "%\n" + "Damage: " + (100 + enforcer.DmgMods[3] * 100).ToString() + "%\n" + "Accuracy: " + enforcer.AccMods[3].ToString();
+                ability4.text = "STEROIDS" + "\n" + "(Self heal, plus speed boost)" + "\n" + "Crit: " + enforcer.CritMods[3].ToString() + "%\n" + "Damage: " + (100 + enforcer.DmgMods[3] * 100).ToString() + "%\n" + "Accuracy: " + enforcer.AccMods[3].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Medic")
             {
@@ -687,7 +758,7 @@ public class GamePlayController : MonoBehaviour
             }
             if (currentCharacter.GetType().ToString() == "Engineer")
             {
-                ability4.text = "RATCHET GUN" + "\n" +"(Increases damage)"+"\n"+ "Crit: " + engineer.CritMods[3].ToString() + "%\n" + "Damage: " + (100 + engineer.DmgMods[3] * 100).ToString() + "%\n" + "Accuracy: " + engineer.AccMods[3].ToString();
+                ability4.text = "RATCHET GUN" + "\n" + "(Increases damage)" + "\n" + "Crit: " + engineer.CritMods[3].ToString() + "%\n" + "Damage: " + (100 + engineer.DmgMods[3] * 100).ToString() + "%\n" + "Accuracy: " + engineer.AccMods[3].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Rifleman")
             {
@@ -704,15 +775,15 @@ public class GamePlayController : MonoBehaviour
             }
             if (currentCharacter.GetType().ToString() == "Medic")
             {
-                ability5.text = "TASER" + "\n"+"(Stuns, decreases speed)"+"\n" + "Crit: " + medic.CritMods[4].ToString() + "%\n" + "Damage: " + (100 + medic.DmgMods[4] * 100).ToString() + "%\n" + "Accuracy: " + medic.AccMods[4].ToString();
+                ability5.text = "TASER" + "\n" + "(Stuns, decreases speed)" + "\n" + "Crit: " + medic.CritMods[4].ToString() + "%\n" + "Damage: " + (100 + medic.DmgMods[4] * 100).ToString() + "%\n" + "Accuracy: " + medic.AccMods[4].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Engineer")
             {
-                ability5.text = "SNARE" + "\n" +"(Brings the enemy closer)"+"\n"+ "Crit: " + engineer.CritMods[4].ToString() + "%\n" + "Damage: " + (100 + engineer.DmgMods[4] * 100).ToString() + "%\n" + "Accuracy: " + engineer.AccMods[4].ToString();
+                ability5.text = "SNARE" + "\n" + "(Brings the enemy closer)" + "\n" + "Crit: " + engineer.CritMods[4].ToString() + "%\n" + "Damage: " + (100 + engineer.DmgMods[4] * 100).ToString() + "%\n" + "Accuracy: " + engineer.AccMods[4].ToString();
             }
             if (currentCharacter.GetType().ToString() == "Rifleman")
             {
-                ability5.text = "SHOTGUN" + "\n" +"(Causes knockback to target)" +"\n"+"Crit: " + rifleman.CritMods[4].ToString() + "%\n" + "Damage: " + (100 + rifleman.DmgMods[4] * 100).ToString() + "%\n" + "Accuracy: " + rifleman.AccMods[4].ToString();
+                ability5.text = "SHOTGUN" + "\n" + "(Causes knockback to target)" + "\n" + "Crit: " + rifleman.CritMods[4].ToString() + "%\n" + "Damage: " + (100 + rifleman.DmgMods[4] * 100).ToString() + "%\n" + "Accuracy: " + rifleman.AccMods[4].ToString();
             }
         }
 
@@ -760,13 +831,35 @@ public class GamePlayController : MonoBehaviour
         popUpFailure.SetActive(true);
     }
 
-    public void disableAbilityButtons() {
-		for (int i = 0; i < abilityButtons.Length; i++)
-			abilityButtons [i].interactable = false;
-	}
+    public void hidePopUpHit()
+    {
+        popUpHit.SetActive(false);
+    }
 
-	public void enableAbilityButtons() {
-		for (int i = 0; i < abilityButtons.Length; i++)
-			abilityButtons [i].interactable = true;
-	}
+    public void showPopUpHit()
+    {
+        popUpHit.SetActive(true);
+    }
+
+    public void hidePopUpMiss()
+    {
+        popUpMiss.SetActive(false);
+    }
+
+    public void showPopUpMiss()
+    {
+        popUpMiss.SetActive(true);
+    }
+
+    public void disableAbilityButtons()
+    {
+        for (int i = 0; i < abilityButtons.Length; i++)
+            abilityButtons[i].interactable = false;
+    }
+
+    public void enableAbilityButtons()
+    {
+        for (int i = 0; i < abilityButtons.Length; i++)
+            abilityButtons[i].interactable = true;
+    }
 }
