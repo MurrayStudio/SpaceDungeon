@@ -11,6 +11,8 @@ public class MediBot : Unit
 	private readonly int STIMS		 	= 1;
 	private readonly int SELF_DESTRUCT	= 2;
 
+	private readonly int RESTORE_HEAL	= 2;
+
 	/*==================================
 			Character stat values
 	===================================*/
@@ -65,6 +67,33 @@ public class MediBot : Unit
 		this.Rank = NewRank;
 	}
 
-	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) {return false;}
+	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) 
+	{
+		if (MoveID == RESTORE) 
+		{
+			foreach (Unit U in Allies)
+			{
+				U.AddHealth (RESTORE_HEAL);
+			}
+			return SUCCESS;
+		}
+		else if (MoveID == STIMS)
+		{
+			Debuff D1 = new Debuff(DEBUFF_DUR, DebuffMods[STIMS], SPEED);
+			foreach (Unit U in Allies)
+			{
+				U.AddDebuff(D1);
+			}
+			return SUCCESS;
+		}
+		else if (MoveID == SELF_DESTRUCT)
+		{
+			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			this.RemoveHealth (50);
+			return SUCCESS;
+		}
+
+		return FAILURE;
+	}
 }
 

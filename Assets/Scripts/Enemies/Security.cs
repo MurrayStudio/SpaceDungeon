@@ -65,6 +65,32 @@ public class Security : Unit
 		this.Rank = NewRank;
 	}
 
-	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) {return false;}
+	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) 
+	{
+		if (!this.CheckHit (MoveID, Target)) 
+		{
+			return FAILURE;
+		}
+
+		if (MoveID == CANNON) 
+		{
+			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			return SUCCESS;
+		}
+		else if (MoveID == BEAM)
+		{
+			Target.MoveUnit (Enemies, Target, -1);
+			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			return SUCCESS;
+		}
+		else if (MoveID == SELF_DESTRUCT)
+		{
+			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			this.RemoveHealth (50);
+			return SUCCESS;
+		}
+
+		return FAILURE;
+	}
 }
 

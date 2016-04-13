@@ -128,7 +128,7 @@ public class Engineer : Unit
 		else if (MoveID == SNARE)
 		{
 			Target.MoveUnit(Enemies, Target, 2);
-
+			return SUCCESS;
 		}
 		return FAILURE;
 	}

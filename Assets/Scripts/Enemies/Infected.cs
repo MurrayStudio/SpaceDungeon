@@ -72,7 +72,15 @@ public class Infected : Unit
 
 		if (MoveID == CLAW)
 		{
-//			Target.
+			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			return SUCCESS;
+		}
+		else if (MoveID == ACID_SPIT)
+		{
+			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			Debuff D1 = new Debuff (DOT_DUR, DebuffMods [ACID_SPIT], ACID);
+			Target.AddDebuff (D1);
+			return SUCCESS;
 		}
 		return FAILURE;
 	}

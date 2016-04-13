@@ -33,7 +33,7 @@ public class Psychic : Unit
 		CritMods = new int[] {0, 0, 0};
 		DmgMods = new float[] {0f, -0.50f, -0.50f};
 		AccMods = new int[] {85, 85, 85};
-		DebuffMods = new float[] {0f, 0f, 0f};
+		DebuffMods = new float[] {0f, 0f, -0.15f};
 		HitRanks = new bool[][] {
 			new bool [] { true, true, true, true, false, false, false },	// Drain			1-4
 			new bool [] { false, false, true, true, false, false, false },	// Mind Wipe		3-4
@@ -65,6 +65,35 @@ public class Psychic : Unit
 		this.Rank = NewRank;
 	}
 
-	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) {return false;}
+	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) 
+	{
+		if (!CheckHit (MoveID, Target))
+		{
+			return FAILURE;
+		}
+
+		if (MoveID == DRAIN)
+		{
+			int amt = RollDamage (MoveID, this.BaseDmg, Target);
+			Target.RemoveHealth (amt);
+			this.AddHealth(amt);
+			return SUCCESS;
+		}
+		else if (MoveID == MIND_WIPE)
+		{
+			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			Debuff D1 = new Debuff (STUN, DebuffMods [MIND_WIPE], STUN);
+			Target.AddDebuff (D1);
+			return SUCCESS;
+		}
+		else if (MoveID == CRIPPLE)
+		{
+			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			Debuff D2 = new Debuff (DEBUFF_DUR, DebuffMods [CRIPPLE], SPEED);
+			Target.AddDebuff (D2);
+			return SUCCESS;
+		}
+		return FAILURE;
+	}
 }
 

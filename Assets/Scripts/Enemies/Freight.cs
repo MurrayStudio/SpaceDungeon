@@ -72,12 +72,9 @@ public class Freight : Unit
 			MoveUnit (Allies, this, 1);
 		}
 
-		if (MoveID == SLAM || MoveID == CHARGE) 
+		if (!this.CheckHit (MoveID, Target)) 
 		{
-			if (!this.CheckHit (MoveID, Target)) 
-			{
-				return FAILURE;
-			}
+			return FAILURE;
 		}
 
 		if (MoveID == SLAM) 
@@ -89,6 +86,13 @@ public class Freight : Unit
 		{
 			Target.MoveUnit (Enemies, Target, -1);
 			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			return SUCCESS;
+		}
+		else if (MoveID == SELF_DESTRUCT)
+		{
+			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			this.RemoveHealth (50);
+			return SUCCESS;
 		}
 
 		return FAILURE;
