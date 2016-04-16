@@ -14,6 +14,8 @@ public class GamePlayController : MonoBehaviour
     public readonly int ALLIES = 5;
     public readonly int ENEMIES = 6;
 
+    public AudioSource shoot;
+    public AudioSource heal;
     //holds order of Units
     private Unit[] order;
 
@@ -396,6 +398,7 @@ public class GamePlayController : MonoBehaviour
                 {
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[0]) == true)
                     {
+                        shoot.Play();
                         showPopUpHit();
                     }
                     else
@@ -413,6 +416,7 @@ public class GamePlayController : MonoBehaviour
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[1]) == true)
                     {
                         showPopUpHit();
+                        shoot.Play();
                     }
                     else
                     {
@@ -429,6 +433,7 @@ public class GamePlayController : MonoBehaviour
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[2]) == true)
                     {
                         showPopUpHit();
+                        shoot.Play();
                     }
                     else
                     {
@@ -445,6 +450,7 @@ public class GamePlayController : MonoBehaviour
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[3]) == true)
                     {
                         showPopUpHit();
+                        shoot.Play();
                     }
                     else
                     {
@@ -461,6 +467,8 @@ public class GamePlayController : MonoBehaviour
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, order[indexOfOrder]) == true)
                     {
                         showPopUpHit();
+                        heal.Play();
+
                     }
                     else
                     {
@@ -477,6 +485,7 @@ public class GamePlayController : MonoBehaviour
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, allies[0]) == true) //make this 0 for now
                     {
                         showPopUpHit();
+                        heal.Play();
                     }
                     else
                     {
