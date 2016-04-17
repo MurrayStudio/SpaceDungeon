@@ -224,11 +224,13 @@ public class GamePlayController : MonoBehaviour
         //these for loops below are bad coding practice and slow things down but we are lazy so they are here...
 
         //check if all allies are dead
+        int allyTally = 0;
         for (int i = 0; i < allies.Length; i++)
         {
             if (allies[i].GetHealth() <= 0)
             {
-                if (i == allies.Length - 1)
+                ++allyTally;
+                if (allyTally == allies.Length)
                 {
                     showPopUpFailure(); //if they are all dead show fail
                 }
@@ -236,11 +238,13 @@ public class GamePlayController : MonoBehaviour
         }
 
         //check if all enemies are dead
+        int enemyTally = 0;
         for (int i = 0; i < enemies.Length; i++)
         {
             if (enemies[i].GetHealth() <= 0)
             {
-                if (i == enemies.Length - 1)
+                ++enemyTally;
+                if (enemyTally == enemies.Length)
                 {
                     showPopUpVictory(); //if they are all dead show win
                 }
