@@ -61,25 +61,25 @@ public abstract class Unit
 	protected int BaseHealth;	// Starting/max health
 	protected int BaseSpeed;	// Speed to determine turn order
 	protected int BaseDodge;	// Dodge rating to determine incomiing hits
-	protected int BaseCrit;	// Global crit chance
+	protected int BaseCrit;		// Global crit chance
 	protected int[] BaseDmg;	// Minimum and Maximum damage range
 	protected float BaseArmor;	// Amount of physical damage protection
 
 	// Character extra stats
-	protected String Category;			// Category of character (class)
-	protected bool IsMech;		// Tells whether or not the unit is mechanical
-	protected bool IsFriendly;	// Tells whether the unit is friendly (to the player)
+	protected String Category;		// Category of character (class)
+	protected bool IsMech;			// Tells whether or not the unit is mechanical
+	protected bool IsFriendly;		// Tells whether the unit is friendly (to the player)
+	protected bool IsDead;
 	protected List<Debuff> Debuffs;	// List to keep track of buffs and debuffs (USE INDICES FROM ABOVE) 
 								
 	// Ability specific stats
-	public int[] CritMods;		// Crit modifiers for each ability
-	public float[] DmgMods;		// Damage modifiers for each ability
-	public int[] AccMods;		// Accuracy mods for each ability
+	public int[] CritMods;			// Crit modifiers for each ability
+	public float[] DmgMods;			// Damage modifiers for each ability
+	public int[] AccMods;			// Accuracy mods for each ability
 	protected float[] DebuffMods;	// Strength of individual debuffs
 	protected bool[][] HitRanks;	// Ranks that can be hit by ability
 	protected bool[][] FromRanks;	// Ranks that can be hit by ability
 	protected bool[] IsMultiHit;	// Whether or not the ability can hit all targets or one
-	protected String[] AbilNames;
 
 	/*==================================
 	Vars that CAN/WILL be changed safely
@@ -94,7 +94,10 @@ public abstract class Unit
 	protected bool HasPlayed;	// Keeps track of if the unit has performed an action this turn
 
 
-	public Unit () {}
+	public Unit () 
+	{
+		IsDead = false;
+	}
 
 
 	public virtual void SetStats (int NewLevel, int NewRank) {}
@@ -263,6 +266,7 @@ public abstract class Unit
 		if (this.CurrHealth < 0) 
 		{
 			this.CurrHealth = 0;
+			this.IsDead = true;
 		}
 	}
 
@@ -464,5 +468,10 @@ public abstract class Unit
 	public bool GetIsMech ()
 	{
 		return this.IsMech;
+	}
+
+	public bool GetIsDead ()
+	{
+		return this.IsDead;
 	}
 }

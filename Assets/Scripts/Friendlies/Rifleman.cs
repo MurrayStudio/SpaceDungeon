@@ -34,7 +34,7 @@ public class Rifleman : Unit
 
 		CritMods = new int[] {10, 0, 0, 0, 0};
 		DmgMods = new float[] {0f, -0.8f, 0f, 0f, -0.4f};
-		AccMods = new int[] {85, 85, 85, 85, 0};
+		AccMods = new int[] {85, 85, 0, 85, 85};
 		DebuffMods = new float[] {0f, 0f, 0f, -0.15f, 0.10f};
 		HitRanks = new bool[][] {
 			new bool [] { true, true, false, false, false, false, false },	// Bayonet	1-2
@@ -108,6 +108,7 @@ public class Rifleman : Unit
 		}
 		else if (MoveID == NET_GUN)
 		{
+			Target.RemoveHealth (this.RollDamage (MoveID, this.BaseDmg, Target));
 			Debuff D1 = new Debuff (DEBUFF_DUR, DebuffMods [NET_GUN], SPEED);
 			Debuff D2 = new Debuff (DEBUFF_DUR, DebuffMods [NET_GUN], DODGE);
 			Target.AddDebuff (D1);
@@ -122,6 +123,7 @@ public class Rifleman : Unit
 			Target.AddDebuff (D3);
 			Target.AddDebuff (D4);
 			Target.AddDebuff (D5);
+			Target.AddHealth(4);
 			return SUCCESS;
 		}
 
