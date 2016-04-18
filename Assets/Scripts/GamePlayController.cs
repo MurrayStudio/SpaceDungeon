@@ -249,13 +249,13 @@ public class GamePlayController : MonoBehaviour
 
 			//level2
 			infectedEnemy1 = new Infected ();
-			infectedEnemy1.SetStats (2, 0);
+			infectedEnemy1.SetStats (4, 0);
 			infectedEnemy2 = new Infected ();
-			infectedEnemy2.SetStats (2, 1);
+			infectedEnemy2.SetStats (4, 1);
 			infectedEnemy3 = new Infected ();
-			infectedEnemy3.SetStats (2, 2);
+			infectedEnemy3.SetStats (4, 2);
 			mediEnemy1 = new MediBot();
-			mediEnemy1.SetStats(2, 3);
+			mediEnemy1.SetStats(4, 3);
 
 			allies = new Unit[] { enforcer, medic, rifleman, engineer };
 			enemies = new Unit[] { infectedEnemy1, infectedEnemy2, infectedEnemy3, mediEnemy1 };
