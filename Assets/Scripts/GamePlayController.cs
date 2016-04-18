@@ -173,6 +173,11 @@ public class GamePlayController : MonoBehaviour
 			freightEnemy4 = new Freight ();
 			freightEnemy4.SetStats (1, 3);
 
+			enforcer.SetStats(1, 0);
+			medic.SetStats(1, 1);
+			rifleman.SetStats(1, 2);
+			engineer.SetStats(1, 3);
+
 			allies = new Unit[] { enforcer, medic, rifleman, engineer };
 			enemies = new Unit[] { freightEnemy1, freightEnemy2, freightEnemy3, freightEnemy4 };
 
@@ -193,6 +198,11 @@ public class GamePlayController : MonoBehaviour
 			infectedEnemy1.SetStats (2, 2);
 			freightEnemy2 = new Freight ();
 			freightEnemy2.SetStats (2, 3);
+
+			enforcer.SetStats(2, 0);
+			medic.SetStats(2, 1);
+			rifleman.SetStats(2, 2);
+			engineer.SetStats(2, 3);
 
 			allies = new Unit[] { enforcer, medic, rifleman, engineer };
 			enemies = new Unit[] { freightEnemy1, mediEnemy1, infectedEnemy1, freightEnemy2 };
@@ -215,6 +225,11 @@ public class GamePlayController : MonoBehaviour
 			mediEnemy2 = new MediBot ();
 			mediEnemy2.SetStats (3, 3);
 
+			enforcer.SetStats(3, 0);
+			medic.SetStats(3, 1);
+			rifleman.SetStats(3, 2);
+			engineer.SetStats(3, 3);
+
 			allies = new Unit[] { enforcer, medic, rifleman, engineer };
 			enemies = new Unit[] { infectedEnemy1, mediEnemy1, freightEnemy1, mediEnemy2 };
 
@@ -235,6 +250,11 @@ public class GamePlayController : MonoBehaviour
 			mediEnemy2.SetStats (4, 2);
 			securityEnemy2 = new Security ();
 			securityEnemy2.SetStats (4, 3);
+
+			enforcer.SetStats(4, 0);
+			medic.SetStats(4, 1);
+			rifleman.SetStats(4, 2);
+			engineer.SetStats(4, 3);
 
 			allies = new Unit[] { enforcer, medic, rifleman, engineer };
 			enemies = new Unit[] { securityEnemy1, mediEnemy1, mediEnemy2, securityEnemy2 };
@@ -386,13 +406,6 @@ public class GamePlayController : MonoBehaviour
             {
                 ++indexOfOrder;
                 currentCharacter = order[indexOfOrder];
-                foreach (Debuff D in currentCharacter.GetDebuffs())
-                {
-					if (D.GetCategory() == "Bleed" || D.GetCategory() == "Acid")
-					{
-						currentCharacter.RemoveHealth((int) D.GetPower());
-					}
-                }
             }
             else
             {
@@ -648,7 +661,7 @@ public class GamePlayController : MonoBehaviour
             		}
 				if (D.GetCategory() == "Bleed" || D.GetCategory() == "Acid")
             		{
-
+            			currentCharacter.RemoveHealth((int)D.GetPower());
             		}
             	}
             	if (canAttack)
@@ -659,7 +672,7 @@ public class GamePlayController : MonoBehaviour
 	                //if player isn't dead
 	                if (!currentCharacter.GetIsDead())
 	                {
-	                    currentCharacter.MakeMove(move, allies, enemies, allies[allyHit]);
+					currentCharacter.MakeMove(move, enemies, allies, allies[allyHit]);
 				}
 	            }
 	                if (indexOfOrder < order.Length - 1)
