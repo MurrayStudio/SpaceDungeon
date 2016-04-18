@@ -386,6 +386,13 @@ public class GamePlayController : MonoBehaviour
             {
                 ++indexOfOrder;
                 currentCharacter = order[indexOfOrder];
+                foreach (Debuff D in currentCharacter.GetDebuffs())
+                {
+					if (D.GetCategory() == "Bleed" || D.GetCategory() == "Acid")
+					{
+						currentCharacter.RemoveHealth((int) D.GetPower());
+					}
+                }
             }
             else
             {

@@ -38,7 +38,7 @@ public class Enforcer : Unit
 		CritMods = new int[] { 5, 0, 0, 0, 0 };
 		DmgMods = new float[] { 0.15f, -0.15f, -0.60f, 0f, 0f };
 		AccMods = new int[] { 85, 85, 85, 0, 0 };
-		DebuffMods = new float[] { 0f, 0f, 0f, 0.25f, 0.25f };
+		DebuffMods = new float[] { 0f, 3f, 0f, 0.25f, 0.25f };
 		HitRanks = new bool[][] {
 			new bool [] { true, true, false, false, false, false, false },	// Heavy Swing 	1-2 both
 			new bool [] { true, true, true, false, false, false, false },	// Slice		1-3 

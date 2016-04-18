@@ -32,12 +32,12 @@ public class Infected : Unit
 		CritMods = new int[] {0, 0};
 		DmgMods = new float[] {0f, -0.20f};
 		AccMods = new int[] {85, 85};
-		DebuffMods = new float[] {0f, 0f, 0f};
+		DebuffMods = new float[] {0f, 0f, 2f};
 		HitRanks = new bool[][] {
 			new bool [] { true, true, false, false, false, false, false },	// Claw				1-2
 			new bool [] { false, false, true, true, false, false, false },	// Acid Spit		3-4
 		};
-		IsMultiHit = new bool[] { false, false, true };
+		IsMultiHit = new bool[] { false, false };
 		Debuffs = new List<Debuff>();
 
 		CurrHealth = BaseHealth;
