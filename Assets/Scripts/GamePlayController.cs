@@ -248,20 +248,20 @@ public class GamePlayController : MonoBehaviour
 		if (Application.loadedLevelName == "level5") {
 
 			//level2
-			freightEnemy1 = new Freight();
-			freightEnemy1.SetStats (2, 0);
-			mediEnemy1 = new MediBot ();
-			mediEnemy1.SetStats (2, 1);
 			infectedEnemy1 = new Infected ();
-			infectedEnemy1.SetStats (2, 2);
-			freightEnemy2 = new Freight ();
-			freightEnemy2.SetStats (2, 3);
+			infectedEnemy1.SetStats (2, 0);
+			infectedEnemy2 = new Infected ();
+			infectedEnemy2.SetStats (2, 1);
+			infectedEnemy3 = new Infected ();
+			infectedEnemy3.SetStats (2, 2);
+			mediEnemy1 = new MediBot();
+			mediEnemy1.SetStats(2, 3);
 
 			allies = new Unit[] { enforcer, medic, rifleman, engineer };
-			enemies = new Unit[] { freightEnemy1, mediEnemy1, infectedEnemy1, freightEnemy2 };
+			enemies = new Unit[] { infectedEnemy1, infectedEnemy2, infectedEnemy3, mediEnemy1 };
 
 			//hardcode setup
-			order = new Unit[] { enforcer, medic, rifleman, engineer, freightEnemy1, mediEnemy1, infectedEnemy1, freightEnemy2 };
+			order = new Unit[] { enforcer, medic, rifleman, engineer, infectedEnemy1, infectedEnemy2, infectedEnemy3, mediEnemy1 };
 			//order = enforcer.Order(allies, enemies);
 		}
 
