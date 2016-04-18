@@ -34,22 +34,12 @@ public class Debuff
 		this.DURATION = NewDuration;
 		this.POWER = NewPower;
 		this.CATEGORY = NewType;
-	}	
-
-
- 	public void ActivateDebuff (Debuff D)		
- 	{		
- 				
- 	}		
+	}		
 
 
  	public void Tick ()		
  	{		
- 		this.DURATION--;
-		if (this.CATEGORY.Equals(BLEED) || this.CATEGORY.Equals(ACID))
-		{
-			
-		}		
+ 		this.DURATION--;		
  	}		
  		
  	public int GetDuration ()		
