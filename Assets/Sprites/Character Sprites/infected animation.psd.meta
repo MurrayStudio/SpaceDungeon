@@ -1,0 +1,561 @@
+fileFormatVersion: 2
+guid: 22665f1f6f98d9a4ea48d4cb495ae222
+timeCreated: 1461000495
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: infected animation_0
+    21300002: infected animation_1
+    21300004: infected animation_2
+    21300006: infected animation_3
+    21300008: infected animation_4
+    21300010: infected animation_5
+    21300012: infected animation_6
+    21300014: infected animation_7
+    21300016: infected animation_8
+    21300018: infected animation_9
+    21300020: infected animation_10
+    21300022: infected animation_11
+    21300024: infected animation_12
+    21300026: infected animation_13
+    21300028: infected animation_14
+    21300030: infected animation_15
+    21300032: infected animation_16
+    21300034: infected animation_17
+    21300036: infected animation_18
+    21300038: infected animation_19
+    21300040: infected animation_20
+    21300042: infected animation_21
+    21300044: infected animation_22
+    21300046: infected animation_23
+    21300048: infected animation_24
+    21300050: infected animation_25
+    21300052: infected animation_26
+    21300054: infected animation_27
+    21300056: infected animation_28
+    21300058: infected animation_29
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: infected animation_0
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 1050
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_1
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 173
+        width: 600
+        height: 1026
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 117.9, y: -63.03}
+        - {x: 97.9, y: 101.97}
+        - {x: 66.9, y: 200.97}
+        - {x: -12.099998, y: 200.97}
+        - {x: -47.1, y: 161.97}
+        - {x: -76.1, y: 91.97}
+        - {x: -117.1, y: 63.97}
+        - {x: -117.1, y: 16.970001}
+        - {x: -110.1, y: 17.970001}
+        - {x: -102.1, y: 8.970001}
+        - {x: -90.1, y: -0.02999878}
+        - {x: -84.1, y: 2.9700012}
+        - {x: -85.1, y: 1.9700012}
+        - {x: -104.1, y: -44.03}
+        - {x: -94.1, y: -65.03}
+        - {x: -110.1, y: -189.03}
+        - {x: -87.1, y: -200.03}
+        - {x: 117.9, y: -200.03}
+      - - {x: 9.900002, y: -120.03}
+        - {x: 12.900002, y: -119.03}
+        - {x: 12.900002, y: -116.03}
+        - {x: 9.900002, y: -115.03}
+        - {x: 7.9000015, y: -117.03}
+    - name: infected animation_2
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 171
+        width: 600
+        height: 1026
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 117.97, y: -36.809998}
+        - {x: 105.97, y: 98.19}
+        - {x: 65.97, y: 191.19}
+        - {x: 39.97, y: 198.19}
+        - {x: -45.03, y: 198.19}
+        - {x: -63.03, y: 195.19}
+        - {x: -89.03, y: 98.19}
+        - {x: -116.03, y: 63.190002}
+        - {x: -116.03, y: -3.8099976}
+        - {x: -115.03, y: -3.8099976}
+        - {x: -84.03, y: -1.8099976}
+        - {x: -90.03, y: -47.809998}
+        - {x: -86.03, y: -57.809998}
+        - {x: -83.03, y: -64.81}
+        - {x: -66.03, y: -78.81}
+        - {x: -91.03, y: -172.81}
+        - {x: -92.03, y: -180.81}
+        - {x: -76.03, y: -199.81}
+        - {x: 21.970001, y: -199.81}
+        - {x: 42.97, y: -135.81}
+        - {x: 30.970001, y: -199.81}
+        - {x: 117.97, y: -199.81}
+      - - {x: 10.970001, y: -119.81}
+        - {x: 15.970001, y: -119.81}
+        - {x: 15.970001, y: -113.81}
+        - {x: 12.970001, y: -113.81}
+        - {x: 9.970001, y: -115.81}
+        - {x: 9.970001, y: -117.81}
+    - name: infected animation_3
+      rect:
+        serializedVersion: 2
+        x: 1511
+        y: 171
+        width: 600
+        height: 1026
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 117.78998, y: -199.81}
+        - {x: 117.78998, y: 75.19}
+        - {x: 96.78998, y: 179.19}
+        - {x: 57.789978, y: 193.19}
+        - {x: -10.210022, y: 193.19}
+        - {x: -42.210022, y: 156.19}
+        - {x: -28.210022, y: 77.19}
+        - {x: -105.21002, y: 60.190002}
+        - {x: -108.21002, y: 55.190002}
+        - {x: -108.21002, y: 3.1900024}
+        - {x: -74.21002, y: -6.8099976}
+        - {x: -82.21002, y: -8.809998}
+        - {x: -91.21002, y: -69.81}
+        - {x: -91.21002, y: -180.81}
+        - {x: -74.21002, y: -199.81}
+        - {x: -14.210022, y: -199.81}
+        - {x: 11.789978, y: -196.81}
+        - {x: 23.789978, y: -191.81}
+        - {x: 34.789978, y: -101.81}
+        - {x: 46.789978, y: -199.81}
+      - - {x: 17.789978, y: -117.81}
+        - {x: 18.789978, y: -120.81}
+        - {x: 21.789978, y: -120.81}
+        - {x: 23.789978, y: -118.81}
+        - {x: 22.789978, y: -115.81}
+        - {x: 19.789978, y: -115.81}
+    - name: infected animation_4
+      rect:
+        serializedVersion: 2
+        x: 2308
+        y: 171
+        width: 600
+        height: 1026
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 117.619995, y: -193.81}
+        - {x: 117.619995, y: 51.190002}
+        - {x: 98.619995, y: 181.19}
+        - {x: 52.619995, y: 198.19}
+        - {x: -2.380005, y: 198.19}
+        - {x: -37.380005, y: 159.19}
+        - {x: -28.380005, y: 125.19}
+        - {x: 3.619995, y: 128.19}
+        - {x: 7.619995, y: 130.19}
+        - {x: 6.619995, y: 122.19}
+        - {x: -1.3800049, y: 119.19}
+        - {x: -4.380005, y: 126.19}
+        - {x: -33.380005, y: 108.19}
+        - {x: -106.380005, y: 66.19}
+        - {x: -106.380005, y: 4.1900024}
+        - {x: -98.380005, y: 1.1900024}
+        - {x: -74.380005, y: -2.8099976}
+        - {x: -81.380005, y: -9.809998}
+        - {x: -95.380005, y: -63.809998}
+        - {x: -86.380005, y: -180.81}
+        - {x: -69.380005, y: -199.81}
+        - {x: -1.3800049, y: -199.81}
+        - {x: 27.619995, y: -192.81}
+        - {x: 53.619995, y: -196.81}
+        - {x: 83.619995, y: -198.81}
+      - - {x: 19.619995, y: -119.81}
+        - {x: 24.619995, y: -119.81}
+        - {x: 24.619995, y: -113.81}
+        - {x: 20.619995, y: -113.81}
+        - {x: 18.619995, y: -115.81}
+        - {x: 18.619995, y: -117.81}
+    - name: infected animation_5
+      rect:
+        serializedVersion: 2
+        x: 3024
+        y: 1050
+        width: 15
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_6
+      rect:
+        serializedVersion: 2
+        x: 3065
+        y: 173
+        width: 601
+        height: 1026
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 117.849976, y: 137.97}
+        - {x: 117.849976, y: 200.97}
+        - {x: -32.150024, y: 200.97}
+        - {x: -69.150024, y: 116.97}
+        - {x: -69.150024, y: 17.970001}
+        - {x: -68.150024, y: 16.970001}
+        - {x: -42.150024, y: -4.029999}
+        - {x: -38.150024, y: -1.0299988}
+        - {x: -27.150024, y: -15.029999}
+        - {x: -24.150024, y: -18.029999}
+        - {x: -60.150024, y: -47.03}
+        - {x: -69.150024, y: -192.03}
+        - {x: -69.150024, y: -200.03}
+        - {x: 117.849976, y: -200.03}
+        - {x: 117.849976, y: 119.97}
+        - {x: 114.849976, y: 122.97}
+      - - {x: 86.849976, y: -175.03}
+        - {x: 86.849976, y: -186.03}
+        - {x: 87.849976, y: -193.03}
+        - {x: 91.849976, y: -195.03}
+        - {x: 109.849976, y: -195.03}
+        - {x: 117.849976, y: -194.03}
+        - {x: 117.849976, y: -163.03}
+        - {x: 104.849976, y: -163.03}
+        - {x: 90.849976, y: -165.03}
+      - - {x: 58.849976, y: -120.03}
+        - {x: 61.849976, y: -119.03}
+        - {x: 61.849976, y: -116.03}
+        - {x: 58.849976, y: -115.03}
+        - {x: 56.849976, y: -117.03}
+      - - {x: -95.150024, y: -102.03}
+        - {x: -92.150024, y: -105.03}
+        - {x: -91.150024, y: -105.03}
+        - {x: -88.150024, y: -102.03}
+        - {x: -89.150024, y: -99.03}
+        - {x: -94.150024, y: -99.03}
+    - name: infected animation_7
+      rect:
+        serializedVersion: 2
+        x: 732
+        y: 1037
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_8
+      rect:
+        serializedVersion: 2
+        x: 2267
+        y: 1037
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_9
+      rect:
+        serializedVersion: 2
+        x: 1470
+        y: 1022
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_10
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 471
+        width: 5
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_11
+      rect:
+        serializedVersion: 2
+        x: 1455
+        y: 466
+        width: 5
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_12
+      rect:
+        serializedVersion: 2
+        x: 2990
+        y: 465
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_13
+      rect:
+        serializedVersion: 2
+        x: 3747
+        y: 471
+        width: 5
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_14
+      rect:
+        serializedVersion: 2
+        x: 2193
+        y: 460
+        width: 5
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 422
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_16
+      rect:
+        serializedVersion: 2
+        x: 706
+        y: 417
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_17
+      rect:
+        serializedVersion: 2
+        x: 2242
+        y: 417
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_18
+      rect:
+        serializedVersion: 2
+        x: 2998
+        y: 419
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_19
+      rect:
+        serializedVersion: 2
+        x: 1445
+        y: 412
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_20
+      rect:
+        serializedVersion: 2
+        x: 683
+        y: 242
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_21
+      rect:
+        serializedVersion: 2
+        x: 1393
+        y: 240
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_22
+      rect:
+        serializedVersion: 2
+        x: 2134
+        y: 237
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_23
+      rect:
+        serializedVersion: 2
+        x: 2931
+        y: 240
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_24
+      rect:
+        serializedVersion: 2
+        x: 3688
+        y: 242
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_25
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 147
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_26
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 147
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_27
+      rect:
+        serializedVersion: 2
+        x: 1588
+        y: 147
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_28
+      rect:
+        serializedVersion: 2
+        x: 2385
+        y: 147
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: infected animation_29
+      rect:
+        serializedVersion: 2
+        x: 3142
+        y: 147
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
