@@ -82,7 +82,8 @@ public class MediBot : Unit
 			Debuff D1 = new Debuff(DEBUFF_DUR, DebuffMods[STIMS], SPEED);
 			foreach (Unit U in Allies)
 			{
-				U.AddDebuff(D1);
+				if (!U.GetIsDead())
+					U.AddDebuff(D1);
 			}
 			return SUCCESS;
 		}

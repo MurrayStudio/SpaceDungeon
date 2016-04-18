@@ -129,9 +129,10 @@ public class Enforcer : Unit
 		else if (MoveID == WAR_CRY)
 		{
 			Debuff D3 = new Debuff (DEBUFF_DUR, DebuffMods [WAR_CRY], DAMAGE);
-			for (int i = 0; i < Allies.Length; i++)
+			foreach (Unit U in Allies)
 			{
-				Allies [i].AddDebuff (D3);
+				if (!U.GetIsDead())
+					U.AddDebuff (D3);
 			}
 			return SUCCESS;
 		}

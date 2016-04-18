@@ -34,9 +34,9 @@ public class Medic : Unit
 		BaseDmg = new int[] {LVL_DMG[NewLevel, 0], LVL_DMG[NewLevel, 1]};
 		BaseArmor = 0;
 
-		CritMods = new int[] {5, 0, 0, 0, 0};
+		CritMods = new int[] {0, 0, 0, 5, 0};
 		DmgMods = new float[] {0f, 0f, 0f, 0f, -0.5f};
-		AccMods = new int[] {85, 0, 0, 0, 85};
+		AccMods = new int[] {0, 0, 0, 85, 85};
 		DebuffMods = new float[] {0f, 0f, 0.25f, 0.15f, -0.15f};
 		HitRanks = new bool[][] {
 			new bool [] { false, false, false, false, false, true, false },	// Adrenaline 	allies
@@ -90,7 +90,8 @@ public class Medic : Unit
 		{
 			foreach (Unit U in Allies)
 			{
-				U.AddHealth (WAVE_HEAL);
+				if (!U.GetIsDead())
+					U.AddHealth (WAVE_HEAL);
 			}
 			return SUCCESS;
 		}
