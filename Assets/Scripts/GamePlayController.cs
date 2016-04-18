@@ -513,8 +513,7 @@ public class GamePlayController : MonoBehaviour
                 hidePopUp();
                 if (currentCharacter.GetFriendly() == true && currentCharacter.GetHealth() > 0)
                 {
-                    if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[0]) == true || currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[1]) == true
-                        || currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[2]) == true || currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[3]) == true) //make this 0 for now
+                    if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[0]) == true) //make this 0 and it will attack all
                     {
                         showPopUpHit();
                     }
@@ -744,7 +743,7 @@ public class GamePlayController : MonoBehaviour
             }
             if (currentCharacter.GetType().ToString() == "Rifleman")
             {
-                ability2.text = "NET" + "\n" + "(Debuffs enemies speed+accuracy)" + "\n" + "Crit: " + rifleman.CritMods[1].ToString() + "%\n" + "Damage: " + (100 + rifleman.DmgMods[1] * 100).ToString() + "%\n" + "Accuracy: " + rifleman.AccMods[1].ToString();
+                ability2.text = "NET" + "\n" + "(Debuffs enemies speed + accuracy)" + "\n" + "Crit: " + rifleman.CritMods[1].ToString() + "%\n" + "Damage: " + (100 + rifleman.DmgMods[1] * 100).ToString() + "%\n" + "Accuracy: " + rifleman.AccMods[1].ToString();
             }
         }
 
