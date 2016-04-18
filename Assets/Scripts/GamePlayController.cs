@@ -202,6 +202,69 @@ public class GamePlayController : MonoBehaviour
 			//order = enforcer.Order(allies, enemies);
 		}
 
+		//level3
+		if (Application.loadedLevelName == "level3") {
+
+			//level2
+			infectedEnemy1 = new Infected();
+			infectedEnemy1.SetStats (3, 0);
+			mediEnemy1 = new MediBot ();
+			mediEnemy1.SetStats (3, 1);
+			freightEnemy1 = new Freight ();
+			freightEnemy1.SetStats (3, 2);
+			mediEnemy2 = new MediBot ();
+			mediEnemy2.SetStats (3, 3);
+
+			allies = new Unit[] { enforcer, medic, rifleman, engineer };
+			enemies = new Unit[] { infectedEnemy1, mediEnemy1, freightEnemy1, mediEnemy2 };
+
+			//hardcode setup
+			order = new Unit[] { enforcer, medic, rifleman, engineer, infectedEnemy1, mediEnemy1, freightEnemy1, mediEnemy2 };
+			//order = enforcer.Order(allies, enemies);
+		}
+
+		//level4
+		if (Application.loadedLevelName == "level4") {
+
+			//level2
+			freightEnemy1 = new Freight();
+			freightEnemy1.SetStats (2, 0);
+			mediEnemy1 = new MediBot ();
+			mediEnemy1.SetStats (2, 1);
+			infectedEnemy1 = new Infected ();
+			infectedEnemy1.SetStats (2, 2);
+			freightEnemy2 = new Freight ();
+			freightEnemy2.SetStats (2, 3);
+
+			allies = new Unit[] { enforcer, medic, rifleman, engineer };
+			enemies = new Unit[] { freightEnemy1, mediEnemy1, infectedEnemy1, freightEnemy2 };
+
+			//hardcode setup
+			order = new Unit[] { enforcer, medic, rifleman, engineer, freightEnemy1, mediEnemy1, infectedEnemy1, freightEnemy2 };
+			//order = enforcer.Order(allies, enemies);
+		}
+
+		//level5
+		if (Application.loadedLevelName == "level5") {
+
+			//level2
+			freightEnemy1 = new Freight();
+			freightEnemy1.SetStats (2, 0);
+			mediEnemy1 = new MediBot ();
+			mediEnemy1.SetStats (2, 1);
+			infectedEnemy1 = new Infected ();
+			infectedEnemy1.SetStats (2, 2);
+			freightEnemy2 = new Freight ();
+			freightEnemy2.SetStats (2, 3);
+
+			allies = new Unit[] { enforcer, medic, rifleman, engineer };
+			enemies = new Unit[] { freightEnemy1, mediEnemy1, infectedEnemy1, freightEnemy2 };
+
+			//hardcode setup
+			order = new Unit[] { enforcer, medic, rifleman, engineer, freightEnemy1, mediEnemy1, infectedEnemy1, freightEnemy2 };
+			//order = enforcer.Order(allies, enemies);
+		}
+
         //We are going to resort our allies and enemies array based off order chosen now
         int friendlyIndex = 0;
         int enemyIndex = 0;
