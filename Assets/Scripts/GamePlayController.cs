@@ -525,24 +525,40 @@ public class GamePlayController : MonoBehaviour
                 }
                 break;
             case "StepAttackEnemy":
-                //make a simple ai move
-                int move = Random.Range(0, 2);
-                int allyHit = Random.Range(0, 4);
-                //if player isn't dead
-                if (currentCharacter.GetHealth() > 0)
-                {
-                    currentCharacter.MakeMove(move, allies, enemies, allies[allyHit]);
-                }
-                if (indexOfOrder < order.Length - 1)
-                {
-                    ++indexOfOrder;
-                }
-                else
-                {
-                    indexOfOrder = 0;
-                }
-                hideStepEnemyAttackPopUp();
-                enableAbilityButtons();
+            bool canAttack = true;
+            	foreach (Debuff D in currentCharacter.GetDebuffs())
+            	{
+            		if (D.GetCategory() == "Stun")
+            		{
+            			canAttack = false;
+            		}
+				if (D.GetCategory() == "Bleed" || D.GetCategory() == "Acid")
+            		{
+
+            		}
+            	}
+            	if (canAttack)
+            	{
+	                //make a simple ai move
+	                int move = Random.Range(0, 2);
+	                int allyHit = Random.Range(0, 4);
+	                //if player isn't dead
+	                if (!currentCharacter.GetIsDead())
+	                {
+	                    currentCharacter.MakeMove(move, allies, enemies, allies[allyHit]);
+				}
+	            }
+	                if (indexOfOrder < order.Length - 1)
+	                {
+	                    ++indexOfOrder;
+	                }
+	                else
+	                {
+	                    indexOfOrder = 0;
+	                }
+
+	                hideStepEnemyAttackPopUp();
+	                enableAbilityButtons();
                 break;
         }
     }
