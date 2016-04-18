@@ -744,7 +744,7 @@ public class GamePlayController : MonoBehaviour
             }
             if (currentCharacter.GetType().ToString() == "Rifleman")
             {
-                ability2.text = "NET" + "\n" + "(Debuffs enemies speed+accuracy)" + "\n" + "Crit: " + rifleman.CritMods[1].ToString() + "%\n" + "Damage: " + (100 + rifleman.DmgMods[1] * 100).ToString() + "%\n" + "Accuracy: " + rifleman.AccMods[1].ToString();
+                ability2.text = "NET" + "\n" + "(Debuffs enemies speed + accuracy)" + "\n" + "Crit: " + rifleman.CritMods[1].ToString() + "%\n" + "Damage: " + (100 + rifleman.DmgMods[1] * 100).ToString() + "%\n" + "Accuracy: " + rifleman.AccMods[1].ToString();
             }
         }
 
