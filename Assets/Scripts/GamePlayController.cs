@@ -94,6 +94,9 @@ public class GamePlayController : MonoBehaviour
     private bool popUPEnabled = false;
     private bool popUPAttackEnabled = false;
 
+    //so we only level up once a level
+    private bool haveLeveledUp = false;
+
     //current button
     private string currentButtonClicked;
 
@@ -122,15 +125,15 @@ public class GamePlayController : MonoBehaviour
     public Text ability4;
     public Text ability5;
 
-    public static readonly string STAT_PREFS_ENFORCER_LEVEL = "stats_prefs_level_1";
-    public static readonly string STAT_PREFS_MEDIC_LEVEL = "stats_prefs_level_2";
-    public static readonly string STAT_PREFS_RIFLEMAN_LEVEL = "stats_prefs_level_3";
-    public static readonly string STAT_PREFS_ENGINEER_LEVEL = "stats_prefs_level_4";
+    public static readonly string STAT_PREFS_ENFORCER_LEVEL = "stats_prefs_level_EN";
+    public static readonly string STAT_PREFS_MEDIC_LEVEL = "stats_prefs_level_ME";
+    public static readonly string STAT_PREFS_RIFLEMAN_LEVEL = "stats_prefs_level_RI";
+    public static readonly string STAT_PREFS_ENGINEER_LEVEL = "stats_prefs_level_EN";
 
-    public static readonly string STAT_PREFS_ENFORCER_RANK = "stats_prefs_level_1";
-    public static readonly string STAT_PREFS_MEDIC_RANK = "stats_prefs_level_2";
-    public static readonly string STAT_PREFS_RIFLEMAN_RANK = "stats_prefs_level_3";
-    public static readonly string STAT_PREFS_ENGINEER_RANK = "stats_prefs_level_4";
+    public static readonly string STAT_PREFS_ENFORCER_RANK = "stats_prefs_level1";
+    public static readonly string STAT_PREFS_MEDIC_RANK = "stats_prefs_level2";
+    public static readonly string STAT_PREFS_RIFLEMAN_RANK = "stats_prefs_level3";
+    public static readonly string STAT_PREFS_ENGINEER_RANK = "stats_prefs_level4";
 
 
     // Use this for initialization
@@ -144,6 +147,12 @@ public class GamePlayController : MonoBehaviour
         engineer = new Engineer();
 
         //set stats if we leveled up earlier (health setting will be gone in update)
+
+        Debug.Log("Enforcer level: " + PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_LEVEL, 0));
+        Debug.Log("Medic level: " + PlayerPrefs.GetInt(STAT_PREFS_MEDIC_LEVEL, 0));
+        Debug.Log("Rifleman level: " + PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 0));
+        Debug.Log("Engineer level: " + PlayerPrefs.GetInt(STAT_PREFS_ENGINEER_LEVEL, 0));
+
         enforcer.SetStats(PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_LEVEL, 0), PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_RANK, 0));
         medic.SetStats(PlayerPrefs.GetInt(STAT_PREFS_MEDIC_LEVEL, 0), PlayerPrefs.GetInt(STAT_PREFS_MEDIC_RANK, 1));
         rifleman.SetStats(PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 0), PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_RANK, 2));
@@ -252,11 +261,18 @@ public class GamePlayController : MonoBehaviour
                 {
                     showPopUpVictory(); //if they are all dead show win
 
-					//level up, store in player prefs
-					PlayerPrefs.SetInt(STAT_PREFS_ENFORCER_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_LEVEL, 1) + 1);
-					PlayerPrefs.SetInt(STAT_PREFS_MEDIC_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_MEDIC_LEVEL, 1) + 1);
-					PlayerPrefs.SetInt(STAT_PREFS_RIFLEMAN_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 1) + 1);
-					PlayerPrefs.SetInt(STAT_PREFS_ENGINEER_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_ENGINEER_LEVEL, 1) + 1);
+                    //level up, store in player prefs if we aren't already at max level
+
+                    if (PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_LEVEL, 1) < 4 && PlayerPrefs.GetInt(STAT_PREFS_MEDIC_LEVEL, 1) < 4 &&
+                        PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 1) < 4 && PlayerPrefs.GetInt(STAT_PREFS_ENGINEER_LEVEL, 1) < 4 &&
+                        haveLeveledUp == false)
+                    {
+                        PlayerPrefs.SetInt(STAT_PREFS_ENFORCER_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_LEVEL, 1) + 1);
+                        PlayerPrefs.SetInt(STAT_PREFS_MEDIC_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_MEDIC_LEVEL, 1) + 1);
+                        PlayerPrefs.SetInt(STAT_PREFS_RIFLEMAN_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 1) + 1);
+                        PlayerPrefs.SetInt(STAT_PREFS_ENGINEER_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_ENGINEER_LEVEL, 1) + 1);
+                        haveLeveledUp = true;
+                    }
                 }
             }
         }
