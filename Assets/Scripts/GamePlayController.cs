@@ -16,6 +16,9 @@ public class GamePlayController : MonoBehaviour
 
     public AudioSource shoot;
     public AudioSource heal;
+    public AudioSource gunShot;
+    public AudioSource hit;
+    public AudioSource slash;
     //holds order of Units
     private Unit[] order;
 
@@ -409,7 +412,7 @@ public class GamePlayController : MonoBehaviour
                 {
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[0]) == true)
                     {
-                        shoot.Play();
+                        playSound();
                         showPopUpHit();
                     }
                     else
@@ -427,7 +430,7 @@ public class GamePlayController : MonoBehaviour
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[1]) == true)
                     {
                         showPopUpHit();
-                        shoot.Play();
+                        playSound();
                     }
                     else
                     {
@@ -444,7 +447,7 @@ public class GamePlayController : MonoBehaviour
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[2]) == true)
                     {
                         showPopUpHit();
-                        shoot.Play();
+                        playSound();
                     }
                     else
                     {
@@ -461,7 +464,7 @@ public class GamePlayController : MonoBehaviour
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[3]) == true)
                     {
                         showPopUpHit();
-                        shoot.Play();
+                        playSound();
                     }
                     else
                     {
@@ -478,7 +481,7 @@ public class GamePlayController : MonoBehaviour
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, order[indexOfOrder]) == true)
                     {
                         showPopUpHit();
-                        heal.Play();
+                        playSound();
 
                     }
                     else
@@ -496,7 +499,7 @@ public class GamePlayController : MonoBehaviour
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, allies[0]) == true) //make this 0 for now
                     {
                         showPopUpHit();
-                        heal.Play();
+                        playSound();
                     }
                     else
                     {
@@ -814,6 +817,91 @@ public class GamePlayController : MonoBehaviour
             popUPEnabled = true;
         }
     }
+
+    public void playSound(){
+        if(currentCharacter.GetType().ToString()=="Enforcer"){
+            switch(currentAbility){
+                case 0:
+                hit.Play();
+                break;
+                case 1:
+                hit.Play();
+                break;
+                case 2:
+                slash.Play();
+                break;
+                case 3:
+                heal.Play();
+                break;
+                case 4:
+                heal.Play();
+                break;
+
+            }
+        }
+        if(currentCharacter.GetType().ToString()=="Medic"){
+            switch(currentAbility){
+                case 0:
+                heal.Play();
+                break;
+                case 1:
+                heal.Play();
+                break;
+                case 2:
+                heal.Play();
+                break;
+                case 3:
+                shoot.Play();
+                break;
+                case 4:
+                heal.Play();
+                break;
+
+            }
+        }
+        if(currentCharacter.GetType().ToString()=="Engineer"){
+            switch(currentAbility){
+                case 0:
+                heal.Play();
+                break;
+                case 1:
+                heal.Play();
+                break;
+                case 2:
+                heal.Play();
+                break;
+                case 3:
+                heal.Play();
+                break;
+                case 4:
+                heal.Play();
+                break;
+
+            }
+        }
+        if(currentCharacter.GetType().ToString()=="Rifleman"){
+            switch(currentAbility){
+                case 0:
+                slash.Play();
+                break;
+                case 1:
+                heal.Play();
+                break;
+                case 2:
+                heal.Play();
+                break;
+                case 3:
+                gunShot.Play();
+                break;
+                case 4:
+                gunShot.Play();
+                break;
+
+            }
+        }
+    }
+
+
 
     public void hidePopUp()
     {
