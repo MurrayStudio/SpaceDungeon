@@ -16,6 +16,9 @@ public class GamePlayController : MonoBehaviour
 
     public AudioSource shoot;
     public AudioSource heal;
+    public AudioSource gunShot;
+    public AudioSource hit;
+    public AudioSource slash;
     //holds order of Units
     private Unit[] order;
 
@@ -141,43 +144,44 @@ public class GamePlayController : MonoBehaviour
         engineer = new Engineer();
 
         //set stats if we leveled up earlier (health setting will be gone in update)
-        enforcer.SetStats(PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_LEVEL, 4), PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_RANK, 1));
-        medic.SetStats(PlayerPrefs.GetInt(STAT_PREFS_MEDIC_LEVEL, 4), PlayerPrefs.GetInt(STAT_PREFS_MEDIC_RANK, 2));
-        rifleman.SetStats(PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 4), PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_RANK, 3));
-        engineer.SetStats(PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 4), PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_RANK, 4));
+        enforcer.SetStats(PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_LEVEL, 0), PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_RANK, 0));
+        medic.SetStats(PlayerPrefs.GetInt(STAT_PREFS_MEDIC_LEVEL, 0), PlayerPrefs.GetInt(STAT_PREFS_MEDIC_RANK, 1));
+        rifleman.SetStats(PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 0), PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_RANK, 2));
+        engineer.SetStats(PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 0), PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_RANK, 3));
 
         freightEnemy1 = new Freight();
-        freightEnemy1.SetStats(1, 1);
+        freightEnemy1.SetStats(1, 0);
         freightEnemy2 = new Freight();
-        freightEnemy2.SetStats(1, 2);
+        freightEnemy2.SetStats(1, 1);
         freightEnemy3 = new Freight();
-        freightEnemy3.SetStats(1, 3);
+        freightEnemy3.SetStats(1, 2);
         freightEnemy4 = new Freight();
-        freightEnemy4.SetStats(1, 4);
+        freightEnemy4.SetStats(1, 3);
 
         allies = new Unit[] { enforcer, medic, rifleman, engineer };
         enemies = new Unit[] { freightEnemy1, freightEnemy2, freightEnemy3, freightEnemy4 };
 
-        //hardcode setup for level 1
-        order = enforcer.Order(allies, enemies);
+        //hardcode setup
+		order = new Unit[] { enforcer, medic, rifleman, engineer, freightEnemy1, freightEnemy2, freightEnemy3, freightEnemy4 };
+        //order = enforcer.Order(allies, enemies);
 
         //We are going to resort our allies and enemies array based off order chosen now
         int friendlyIndex = 0;
         int enemyIndex = 0;
 
-        for (int i = 0; i < order.Length; i++)
-        {
-            if (order[i].GetFriendly() == true)
-            {
-                allies[friendlyIndex] = order[i];
-                ++friendlyIndex;
-            }
-            else
-            {
-                enemies[enemyIndex] = order[i];
-                ++enemyIndex;
-            }
-        }
+        //for (int i = 0; i < order.Length; i++)
+        //{
+        //    if (order[i].GetFriendly() == true)
+        //    {
+        //        allies[friendlyIndex] = order[i];
+        //        ++friendlyIndex;
+        //    }
+        //    else
+        //    {
+        //        enemies[enemyIndex] = order[i];
+        //        ++enemyIndex;
+        //    }
+        //}
 
         for (int y = 0; y < order.Length; y++)
         {
@@ -247,6 +251,12 @@ public class GamePlayController : MonoBehaviour
                 if (enemyTally == enemies.Length)
                 {
                     showPopUpVictory(); //if they are all dead show win
+
+					//level up, store in player prefs
+					PlayerPrefs.SetInt(STAT_PREFS_ENFORCER_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_LEVEL, 1) + 1);
+					PlayerPrefs.SetInt(STAT_PREFS_MEDIC_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_MEDIC_LEVEL, 1) + 1);
+					PlayerPrefs.SetInt(STAT_PREFS_RIFLEMAN_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 1) + 1);
+					PlayerPrefs.SetInt(STAT_PREFS_ENGINEER_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_ENGINEER_LEVEL, 1) + 1);
                 }
             }
         }
@@ -402,7 +412,7 @@ public class GamePlayController : MonoBehaviour
                 {
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[0]) == true)
                     {
-                        shoot.Play();
+                        playSound();
                         showPopUpHit();
                     }
                     else
@@ -420,7 +430,7 @@ public class GamePlayController : MonoBehaviour
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[1]) == true)
                     {
                         showPopUpHit();
-                        shoot.Play();
+                        playSound();
                     }
                     else
                     {
@@ -437,7 +447,7 @@ public class GamePlayController : MonoBehaviour
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[2]) == true)
                     {
                         showPopUpHit();
-                        shoot.Play();
+                        playSound();
                     }
                     else
                     {
@@ -454,7 +464,7 @@ public class GamePlayController : MonoBehaviour
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[3]) == true)
                     {
                         showPopUpHit();
-                        shoot.Play();
+                        playSound();
                     }
                     else
                     {
@@ -471,7 +481,7 @@ public class GamePlayController : MonoBehaviour
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, order[indexOfOrder]) == true)
                     {
                         showPopUpHit();
-                        heal.Play();
+                        playSound();
 
                     }
                     else
@@ -489,7 +499,7 @@ public class GamePlayController : MonoBehaviour
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, allies[0]) == true) //make this 0 for now
                     {
                         showPopUpHit();
-                        heal.Play();
+                        playSound();
                     }
                     else
                     {
@@ -807,6 +817,91 @@ public class GamePlayController : MonoBehaviour
             popUPEnabled = true;
         }
     }
+
+    public void playSound(){
+        if(currentCharacter.GetType().ToString()=="Enforcer"){
+            switch(currentAbility){
+                case 0:
+                hit.Play();
+                break;
+                case 1:
+                hit.Play();
+                break;
+                case 2:
+                slash.Play();
+                break;
+                case 3:
+                heal.Play();
+                break;
+                case 4:
+                heal.Play();
+                break;
+
+            }
+        }
+        if(currentCharacter.GetType().ToString()=="Medic"){
+            switch(currentAbility){
+                case 0:
+                heal.Play();
+                break;
+                case 1:
+                heal.Play();
+                break;
+                case 2:
+                heal.Play();
+                break;
+                case 3:
+                shoot.Play();
+                break;
+                case 4:
+                heal.Play();
+                break;
+
+            }
+        }
+        if(currentCharacter.GetType().ToString()=="Engineer"){
+            switch(currentAbility){
+                case 0:
+                heal.Play();
+                break;
+                case 1:
+                heal.Play();
+                break;
+                case 2:
+                heal.Play();
+                break;
+                case 3:
+                heal.Play();
+                break;
+                case 4:
+                heal.Play();
+                break;
+
+            }
+        }
+        if(currentCharacter.GetType().ToString()=="Rifleman"){
+            switch(currentAbility){
+                case 0:
+                slash.Play();
+                break;
+                case 1:
+                heal.Play();
+                break;
+                case 2:
+                heal.Play();
+                break;
+                case 3:
+                gunShot.Play();
+                break;
+                case 4:
+                gunShot.Play();
+                break;
+
+            }
+        }
+    }
+
+
 
     public void hidePopUp()
     {
