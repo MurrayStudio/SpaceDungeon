@@ -71,9 +71,11 @@ public class MediBot : Unit
 	{
 		if (MoveID == RESTORE) 
 		{
-			foreach (Unit U in Allies)
-			{
-				U.AddHealth (RESTORE_HEAL);
+            foreach (Unit U in Allies)
+            {
+                if (!U.GetIsDead() == true) { 
+                    U.AddHealth(RESTORE_HEAL);
+                }
 			}
 			return SUCCESS;
 		}

@@ -42,9 +42,9 @@ public class GamePlayController : MonoBehaviour
 
     //Enemy Unit Classes
     private Freight freightEnemy1, freightEnemy2, freightEnemy3, freightEnemy4;
-	private Infected infectedEnemy1, infectedEnemy2, infectedEnemy3, infectedEnemy4;
-	private Security securityEnemy1, securityEnemy2, securityEnemy3, securityEnemy4;
-	private MediBot mediEnemy1, mediEnemy2, mediEnemy3, mediEnemy4;
+    private Infected infectedEnemy1, infectedEnemy2, infectedEnemy3, infectedEnemy4;
+    private Security securityEnemy1, securityEnemy2, securityEnemy3, securityEnemy4;
+    private MediBot mediEnemy1, mediEnemy2, mediEnemy3, mediEnemy4;
     private Infected infectedEnemy;
     private MediBot mediBotEnemy;
     private Psychic psychicEnemy;
@@ -128,10 +128,10 @@ public class GamePlayController : MonoBehaviour
     public Text ability4;
     public Text ability5;
 
-    public static readonly string STAT_PREFS_ENFORCER_LEVEL = "stats_prefs_level_EN";
-    public static readonly string STAT_PREFS_MEDIC_LEVEL = "stats_prefs_level_ME";
-    public static readonly string STAT_PREFS_RIFLEMAN_LEVEL = "stats_prefs_level_RI";
-    public static readonly string STAT_PREFS_ENGINEER_LEVEL = "stats_prefs_level_EN";
+    public static readonly string STAT_PREFS_ENFORCER_LEVEL = "stats_prefs_level_EN1";
+    public static readonly string STAT_PREFS_MEDIC_LEVEL = "stats_prefs_level_ME2";
+    public static readonly string STAT_PREFS_RIFLEMAN_LEVEL = "stats_prefs_level_RI3";
+    public static readonly string STAT_PREFS_ENGINEER_LEVEL = "stats_prefs_level_EN4";
 
     public static readonly string STAT_PREFS_ENFORCER_RANK = "stats_prefs_level1";
     public static readonly string STAT_PREFS_MEDIC_RANK = "stats_prefs_level2";
@@ -156,134 +156,139 @@ public class GamePlayController : MonoBehaviour
         Debug.Log("Rifleman level: " + PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 0));
         Debug.Log("Engineer level: " + PlayerPrefs.GetInt(STAT_PREFS_ENGINEER_LEVEL, 0));
 
-        enforcer.SetStats(PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_LEVEL, 0), PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_RANK, 0));
-        medic.SetStats(PlayerPrefs.GetInt(STAT_PREFS_MEDIC_LEVEL, 0), PlayerPrefs.GetInt(STAT_PREFS_MEDIC_RANK, 1));
-        rifleman.SetStats(PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 0), PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_RANK, 2));
-        engineer.SetStats(PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 0), PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_RANK, 3));
+        enforcer.SetStats(PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_LEVEL, 4), PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_RANK, 0));
+        medic.SetStats(PlayerPrefs.GetInt(STAT_PREFS_MEDIC_LEVEL, 4), PlayerPrefs.GetInt(STAT_PREFS_MEDIC_RANK, 1));
+        rifleman.SetStats(PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 4), PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_RANK, 2));
+        engineer.SetStats(PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 4), PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_RANK, 3));
 
-		//level1
-		if (Application.loadedLevelName == "level1") {
+        //level1
+        if (Application.loadedLevelName == "level1")
+        {
 
-			freightEnemy1 = new Freight ();
-			freightEnemy1.SetStats (1, 0);
-			freightEnemy2 = new Freight ();
-			freightEnemy2.SetStats (1, 1);
-			freightEnemy3 = new Freight ();
-			freightEnemy3.SetStats (1, 2);
-			freightEnemy4 = new Freight ();
-			freightEnemy4.SetStats (1, 3);
+            freightEnemy1 = new Freight();
+            freightEnemy1.SetStats(1, 0);
+            freightEnemy2 = new Freight();
+            freightEnemy2.SetStats(1, 1);
+            freightEnemy3 = new Freight();
+            freightEnemy3.SetStats(1, 2);
+            freightEnemy4 = new Freight();
+            freightEnemy4.SetStats(1, 3);
 
-			enforcer.SetStats(1, 0);
-			medic.SetStats(1, 1);
-			rifleman.SetStats(1, 2);
-			engineer.SetStats(1, 3);
+            enforcer.SetStats(1, 0);
+            medic.SetStats(1, 1);
+            rifleman.SetStats(1, 2);
+            engineer.SetStats(1, 3);
 
-			allies = new Unit[] { enforcer, medic, rifleman, engineer };
-			enemies = new Unit[] { freightEnemy1, freightEnemy2, freightEnemy3, freightEnemy4 };
+            allies = new Unit[] { enforcer, medic, rifleman, engineer };
+            enemies = new Unit[] { freightEnemy1, freightEnemy2, freightEnemy3, freightEnemy4 };
 
-			//hardcode setup
-			order = new Unit[] { enforcer, medic, rifleman, engineer, freightEnemy1, freightEnemy2, freightEnemy3, freightEnemy4 };
-			//order = enforcer.Order(allies, enemies);
-		}
+            //hardcode setup
+            order = new Unit[] { enforcer, medic, rifleman, engineer, freightEnemy1, freightEnemy2, freightEnemy3, freightEnemy4 };
+            //order = enforcer.Order(allies, enemies);
+        }
 
-		//level2
-		if (Application.loadedLevelName == "level2") {
+        //level2
+        if (Application.loadedLevelName == "level2")
+        {
 
-			//level2
-			freightEnemy1 = new Freight();
-			freightEnemy1.SetStats (2, 0);
-			mediEnemy1 = new MediBot ();
-			mediEnemy1.SetStats (2, 1);
-			infectedEnemy1 = new Infected ();
-			infectedEnemy1.SetStats (2, 2);
-			freightEnemy2 = new Freight ();
-			freightEnemy2.SetStats (2, 3);
+            //level2
+            freightEnemy1 = new Freight();
+            freightEnemy1.SetStats(2, 0);
+            mediEnemy1 = new MediBot();
+            mediEnemy1.SetStats(2, 1);
+            infectedEnemy1 = new Infected();
+            infectedEnemy1.SetStats(2, 2);
+            freightEnemy2 = new Freight();
+            freightEnemy2.SetStats(2, 3);
 
-			enforcer.SetStats(2, 0);
-			medic.SetStats(2, 1);
-			rifleman.SetStats(2, 2);
-			engineer.SetStats(2, 3);
+            enforcer.SetStats(2, 0);
+            medic.SetStats(2, 1);
+            rifleman.SetStats(2, 2);
+            engineer.SetStats(2, 3);
 
-			allies = new Unit[] { enforcer, medic, rifleman, engineer };
-			enemies = new Unit[] { freightEnemy1, mediEnemy1, infectedEnemy1, freightEnemy2 };
+            allies = new Unit[] { enforcer, medic, rifleman, engineer };
+            enemies = new Unit[] { freightEnemy1, mediEnemy1, infectedEnemy1, freightEnemy2 };
 
-			//hardcode setup
-			order = new Unit[] { enforcer, medic, rifleman, engineer, freightEnemy1, mediEnemy1, infectedEnemy1, freightEnemy2 };
-			//order = enforcer.Order(allies, enemies);
-		}
+            //hardcode setup
+            order = new Unit[] { enforcer, medic, rifleman, engineer, freightEnemy1, mediEnemy1, infectedEnemy1, freightEnemy2 };
+            //order = enforcer.Order(allies, enemies);
+        }
 
-		//level3
-		if (Application.loadedLevelName == "level3") {
+        //level3
+        if (Application.loadedLevelName == "level3")
+        {
 
-			//level2
-			infectedEnemy1 = new Infected();
-			infectedEnemy1.SetStats (3, 0);
-			mediEnemy1 = new MediBot ();
-			mediEnemy1.SetStats (3, 1);
-			freightEnemy1 = new Freight ();
-			freightEnemy1.SetStats (3, 2);
-			mediEnemy2 = new MediBot ();
-			mediEnemy2.SetStats (3, 3);
+            //level2
+            infectedEnemy1 = new Infected();
+            infectedEnemy1.SetStats(3, 0);
+            mediEnemy1 = new MediBot();
+            mediEnemy1.SetStats(3, 1);
+            freightEnemy1 = new Freight();
+            freightEnemy1.SetStats(3, 2);
+            mediEnemy2 = new MediBot();
+            mediEnemy2.SetStats(3, 3);
 
-			enforcer.SetStats(3, 0);
-			medic.SetStats(3, 1);
-			rifleman.SetStats(3, 2);
-			engineer.SetStats(3, 3);
+            enforcer.SetStats(3, 0);
+            medic.SetStats(3, 1);
+            rifleman.SetStats(3, 2);
+            engineer.SetStats(3, 3);
 
-			allies = new Unit[] { enforcer, medic, rifleman, engineer };
-			enemies = new Unit[] { infectedEnemy1, mediEnemy1, freightEnemy1, mediEnemy2 };
+            allies = new Unit[] { enforcer, medic, rifleman, engineer };
+            enemies = new Unit[] { infectedEnemy1, mediEnemy1, freightEnemy1, mediEnemy2 };
 
-			//hardcode setup
-			order = new Unit[] { enforcer, medic, rifleman, engineer, infectedEnemy1, mediEnemy1, freightEnemy1, mediEnemy2 };
-			//order = enforcer.Order(allies, enemies);
-		}
+            //hardcode setup
+            order = new Unit[] { enforcer, medic, rifleman, engineer, infectedEnemy1, mediEnemy1, freightEnemy1, mediEnemy2 };
+            //order = enforcer.Order(allies, enemies);
+        }
 
-		//level4
-		if (Application.loadedLevelName == "level4") {
+        //level4
+        if (Application.loadedLevelName == "level4")
+        {
 
-			//level2
-			securityEnemy1 = new Security();
-			securityEnemy1.SetStats (4, 0);
-			mediEnemy1 = new MediBot ();
-			mediEnemy1.SetStats (4, 1);
-			mediEnemy2 = new MediBot ();
-			mediEnemy2.SetStats (4, 2);
-			securityEnemy2 = new Security ();
-			securityEnemy2.SetStats (4, 3);
+            //level2
+            securityEnemy1 = new Security();
+            securityEnemy1.SetStats(4, 0);
+            mediEnemy1 = new MediBot();
+            mediEnemy1.SetStats(4, 1);
+            mediEnemy2 = new MediBot();
+            mediEnemy2.SetStats(4, 2);
+            securityEnemy2 = new Security();
+            securityEnemy2.SetStats(4, 3);
 
-			enforcer.SetStats(4, 0);
-			medic.SetStats(4, 1);
-			rifleman.SetStats(4, 2);
-			engineer.SetStats(4, 3);
+            enforcer.SetStats(4, 0);
+            medic.SetStats(4, 1);
+            rifleman.SetStats(4, 2);
+            engineer.SetStats(4, 3);
 
-			allies = new Unit[] { enforcer, medic, rifleman, engineer };
-			enemies = new Unit[] { securityEnemy1, mediEnemy1, mediEnemy2, securityEnemy2 };
+            allies = new Unit[] { enforcer, medic, rifleman, engineer };
+            enemies = new Unit[] { securityEnemy1, mediEnemy1, mediEnemy2, securityEnemy2 };
 
-			//hardcode setup
-			order = new Unit[] { enforcer, medic, rifleman, engineer, securityEnemy1, mediEnemy1, mediEnemy2, securityEnemy2 };
-			//order = enforcer.Order(allies, enemies);
-		}
+            //hardcode setup
+            order = new Unit[] { enforcer, medic, rifleman, engineer, securityEnemy1, mediEnemy1, mediEnemy2, securityEnemy2 };
+            //order = enforcer.Order(allies, enemies);
+        }
 
-		//level5
-		if (Application.loadedLevelName == "level5") {
+        //level5
+        if (Application.loadedLevelName == "level5")
+        {
 
-			//level2
-			infectedEnemy1 = new Infected ();
-			infectedEnemy1.SetStats (4, 0);
-			infectedEnemy2 = new Infected ();
-			infectedEnemy2.SetStats (4, 1);
-			infectedEnemy3 = new Infected ();
-			infectedEnemy3.SetStats (4, 2);
-			mediEnemy1 = new MediBot();
-			mediEnemy1.SetStats(4, 3);
+            //level2
+            infectedEnemy1 = new Infected();
+            infectedEnemy1.SetStats(4, 0);
+            infectedEnemy2 = new Infected();
+            infectedEnemy2.SetStats(4, 1);
+            infectedEnemy3 = new Infected();
+            infectedEnemy3.SetStats(4, 2);
+            mediEnemy1 = new MediBot();
+            mediEnemy1.SetStats(4, 3);
 
-			allies = new Unit[] { enforcer, medic, rifleman, engineer };
-			enemies = new Unit[] { infectedEnemy1, infectedEnemy2, infectedEnemy3, mediEnemy1 };
+            allies = new Unit[] { enforcer, medic, rifleman, engineer };
+            enemies = new Unit[] { infectedEnemy1, infectedEnemy2, infectedEnemy3, mediEnemy1 };
 
-			//hardcode setup
-			order = new Unit[] { enforcer, medic, rifleman, engineer, infectedEnemy1, infectedEnemy2, infectedEnemy3, mediEnemy1 };
-			//order = enforcer.Order(allies, enemies);
-		}
+            //hardcode setup
+            order = new Unit[] { enforcer, medic, rifleman, engineer, infectedEnemy1, infectedEnemy2, infectedEnemy3, mediEnemy1 };
+            //order = enforcer.Order(allies, enemies);
+        }
 
         //We are going to resort our allies and enemies array based off order chosen now
         int friendlyIndex = 0;
@@ -374,16 +379,16 @@ public class GamePlayController : MonoBehaviour
 
                     //level up, store in player prefs if we aren't already at max level
 
-                    if (PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_LEVEL, 1) < 4 && PlayerPrefs.GetInt(STAT_PREFS_MEDIC_LEVEL, 1) < 4 &&
-                        PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 1) < 4 && PlayerPrefs.GetInt(STAT_PREFS_ENGINEER_LEVEL, 1) < 4 &&
-                        haveLeveledUp == false)
-                    {
-                        PlayerPrefs.SetInt(STAT_PREFS_ENFORCER_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_LEVEL, 1) + 1);
-                        PlayerPrefs.SetInt(STAT_PREFS_MEDIC_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_MEDIC_LEVEL, 1) + 1);
-                        PlayerPrefs.SetInt(STAT_PREFS_RIFLEMAN_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 1) + 1);
-                        PlayerPrefs.SetInt(STAT_PREFS_ENGINEER_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_ENGINEER_LEVEL, 1) + 1);
-                        haveLeveledUp = true;
-                    }
+                    //if (PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_LEVEL, 1) < 4 && PlayerPrefs.GetInt(STAT_PREFS_MEDIC_LEVEL, 1) < 4 &&
+                    //    PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 1) < 4 && PlayerPrefs.GetInt(STAT_PREFS_ENGINEER_LEVEL, 1) < 4 &&
+                    //    haveLeveledUp == false)
+                    //{
+                    //    PlayerPrefs.SetInt(STAT_PREFS_ENFORCER_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_ENFORCER_LEVEL, 1) + 1);
+                    //    PlayerPrefs.SetInt(STAT_PREFS_MEDIC_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_MEDIC_LEVEL, 1) + 1);
+                    //    PlayerPrefs.SetInt(STAT_PREFS_RIFLEMAN_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_RIFLEMAN_LEVEL, 1) + 1);
+                    //    PlayerPrefs.SetInt(STAT_PREFS_ENGINEER_LEVEL, PlayerPrefs.GetInt(STAT_PREFS_ENGINEER_LEVEL, 1) + 1);
+                    //    haveLeveledUp = true;
+                    //}
                 }
             }
         }
@@ -652,40 +657,40 @@ public class GamePlayController : MonoBehaviour
                 }
                 break;
             case "StepAttackEnemy":
-            bool canAttack = true;
-            	foreach (Debuff D in currentCharacter.GetDebuffs())
-            	{
-            		if (D.GetCategory() == "Stun")
-            		{
-            			canAttack = false;
-            		}
-				if (D.GetCategory() == "Bleed" || D.GetCategory() == "Acid")
-            		{
-            			currentCharacter.RemoveHealth((int)D.GetPower());
-            		}
-            	}
-            	if (canAttack)
-            	{
-	                //make a simple ai move
-	                int move = Random.Range(0, 2);
-	                int allyHit = Random.Range(0, 4);
-	                //if player isn't dead
-	                if (!currentCharacter.GetIsDead())
-	                {
-					currentCharacter.MakeMove(move, enemies, allies, allies[allyHit]);
-				}
-	            }
-	                if (indexOfOrder < order.Length - 1)
-	                {
-	                    ++indexOfOrder;
-	                }
-	                else
-	                {
-	                    indexOfOrder = 0;
-	                }
+                bool canAttack = true;
+                foreach (Debuff D in currentCharacter.GetDebuffs())
+                {
+                    if (D.GetCategory() == "Stun")
+                    {
+                        canAttack = false;
+                    }
+                    if (D.GetCategory() == "Bleed" || D.GetCategory() == "Acid")
+                    {
+                        currentCharacter.RemoveHealth((int)D.GetPower());
+                    }
+                }
+                if (canAttack)
+                {
+                    //make a simple ai move
+                    int move = Random.Range(0, 2);
+                    int allyHit = Random.Range(0, 4);
+                    //if player isn't dead
+                    if (!currentCharacter.GetIsDead())
+                    {
+                        currentCharacter.MakeMove(move, enemies, allies, allies[allyHit]);
+                    }
+                }
+                if (indexOfOrder < order.Length - 1)
+                {
+                    ++indexOfOrder;
+                }
+                else
+                {
+                    indexOfOrder = 0;
+                }
 
-	                hideStepEnemyAttackPopUp();
-	                enableAbilityButtons();
+                hideStepEnemyAttackPopUp();
+                enableAbilityButtons();
                 break;
         }
     }
@@ -960,84 +965,93 @@ public class GamePlayController : MonoBehaviour
         }
     }
 
-    public void playSound(){
-        if(currentCharacter.GetType().ToString()=="Enforcer"){
-            switch(currentAbility){
+    public void playSound()
+    {
+        if (currentCharacter.GetType().ToString() == "Enforcer")
+        {
+            switch (currentAbility)
+            {
                 case 0:
-                hit.Play();
-                break;
+                    hit.Play();
+                    break;
                 case 1:
-                hit.Play();
-                break;
+                    hit.Play();
+                    break;
                 case 2:
-                slash.Play();
-                break;
+                    slash.Play();
+                    break;
                 case 3:
-                heal.Play();
-                break;
+                    heal.Play();
+                    break;
                 case 4:
-                heal.Play();
-                break;
+                    heal.Play();
+                    break;
 
             }
         }
-        if(currentCharacter.GetType().ToString()=="Medic"){
-            switch(currentAbility){
+        if (currentCharacter.GetType().ToString() == "Medic")
+        {
+            switch (currentAbility)
+            {
                 case 0:
-                heal.Play();
-                break;
+                    heal.Play();
+                    break;
                 case 1:
-                heal.Play();
-                break;
+                    heal.Play();
+                    break;
                 case 2:
-                heal.Play();
-                break;
+                    heal.Play();
+                    break;
                 case 3:
-                shoot.Play();
-                break;
+                    shoot.Play();
+                    break;
                 case 4:
-                heal.Play();
-                break;
+                    heal.Play();
+                    break;
 
             }
         }
-        if(currentCharacter.GetType().ToString()=="Engineer"){
-            switch(currentAbility){
+        if (currentCharacter.GetType().ToString() == "Engineer")
+        {
+            switch (currentAbility)
+            {
                 case 0:
-                heal.Play();
-                break;
+                    heal.Play();
+                    break;
                 case 1:
-                heal.Play();
-                break;
+                    heal.Play();
+                    break;
                 case 2:
-                heal.Play();
-                break;
+                    heal.Play();
+                    break;
                 case 3:
-                heal.Play();
-                break;
+                    heal.Play();
+                    break;
                 case 4:
-                heal.Play();
-                break;
+                    heal.Play();
+                    break;
 
             }
         }
-        if(currentCharacter.GetType().ToString()=="Rifleman"){
-            switch(currentAbility){
+        if (currentCharacter.GetType().ToString() == "Rifleman")
+        {
+            switch (currentAbility)
+            {
                 case 0:
-                slash.Play();
-                break;
+                    slash.Play();
+                    break;
                 case 1:
-                heal.Play();
-                break;
+                    heal.Play();
+                    break;
                 case 2:
-                heal.Play();
-                break;
+                    heal.Play();
+                    break;
                 case 3:
-                gunShot.Play();
-                break;
+                    gunShot.Play();
+                    break;
                 case 4:
-                gunShot.Play();
-                break;
+                    gunShot.Play();
+                    break;
 
             }
         }

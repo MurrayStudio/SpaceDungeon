@@ -72,8 +72,13 @@ public class Medic : Unit
 	}
 
 	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target)
-	{	
-		if (MoveID == PISTOL || MoveID == TASER) 
+	{
+        if (Target.GetIsDead() == true)
+        {
+            return FAILURE;
+        }
+
+        if (MoveID == PISTOL || MoveID == TASER) 
 		{
 			if (!this.CheckHit(MoveID, Target)) 
 			{

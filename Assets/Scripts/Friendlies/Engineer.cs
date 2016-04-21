@@ -80,7 +80,12 @@ public class Engineer : Unit
 
 	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) 
 	{
-		if (MoveID != LIGHT_WALL)
+        if (Target.GetIsDead() == true)
+        {
+            return FAILURE;
+        }
+
+        if (MoveID != LIGHT_WALL)
 		{
 			if (!CheckHit (MoveID, Target))
 			{

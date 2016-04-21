@@ -71,8 +71,13 @@ public class Rifleman : Unit
 	}
 
 	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target)
-	{	
-		if (MoveID == BAYONET)
+	{
+        if (Target.GetIsDead() == true)
+        {
+            return FAILURE;
+        }
+
+        if (MoveID == BAYONET)
 		{
 			MoveUnit (Allies, this, 1);
 		}

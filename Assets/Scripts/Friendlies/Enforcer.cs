@@ -82,6 +82,11 @@ public class Enforcer : Unit
 
 	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target)
 	{
+        if(Target.GetIsDead() == true)
+        {
+            return FAILURE;
+        }
+
 		if (MoveID == KICK) 
 		{
 			MoveUnit (Allies, this, 1);
