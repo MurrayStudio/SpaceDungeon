@@ -89,6 +89,12 @@ public class GamePlayController : MonoBehaviour
     //popup attack window
     public GameObject popUPAttack;
 
+	//popup attack window
+    public GameObject popUpStun;
+
+	//popup attack window
+    public GameObject popUpBleed;
+
     //popStepEnemyAttack
     public GameObject stepEnemyAttackPopUp;
 
@@ -334,6 +340,8 @@ public class GamePlayController : MonoBehaviour
 
         //popUP.SetActive(false);
         //popUPAttack.SetActive(false);
+        hidePopUpBleed();
+        hidePopUpStun();
         hideNuxModeText();
         hidePopUp();
         hidePopUpAttack();
@@ -523,6 +531,8 @@ public class GamePlayController : MonoBehaviour
         //new turn so hide these until needed again
         hidePopUpHit();
         hidePopUpMiss();
+        hidePopUpBleed();
+        hidePopUpStun();
 
         currentButtonClicked = EventSystem.current.currentSelectedGameObject.name;
         Debug.Log(currentButtonClicked);
@@ -575,6 +585,18 @@ public class GamePlayController : MonoBehaviour
                         }
                         playSound();
                         showPopUpHit();
+						foreach (Debuff D in enemies[0].GetDebuffs())
+	                	{
+							string temp = D.GetCategory();
+	                		if (temp == "Bleed")
+	                		{
+	                			showPopUpBleed();
+	                		}
+	                		if (temp == "Stun")
+	                		{
+	                			showPopUpStun();
+	                		}
+	                	}
                     }
                     else
                     {
@@ -596,7 +618,19 @@ public class GamePlayController : MonoBehaviour
                             currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[1]);
                         }
                         showPopUpHit();
-                        playSound();
+					playSound();
+						foreach (Debuff D in enemies[1].GetDebuffs())
+	                	{
+							string temp = D.GetCategory();
+	                		if (temp == "Bleed")
+	                		{
+	                			showPopUpBleed();
+	                		}
+	                		if (temp == "Stun")
+	                		{
+	                			showPopUpStun();
+	                		}
+	                	}
                     }
                     else
                     {
@@ -618,7 +652,19 @@ public class GamePlayController : MonoBehaviour
                             currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[2]);
                         }
                         showPopUpHit();
-                        playSound();
+					playSound();
+						foreach (Debuff D in enemies[2].GetDebuffs())
+	                	{
+							string temp = D.GetCategory();
+	                		if (temp == "Bleed")
+	                		{
+	                			showPopUpBleed();
+	                		}
+	                		if (temp == "Stun")
+	                		{
+	                			showPopUpStun();
+	                		}
+	                	}
                     }
                     else
                     {
@@ -640,7 +686,19 @@ public class GamePlayController : MonoBehaviour
                             currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[3]);
                         }
                         showPopUpHit();
-                        playSound();
+					playSound();
+						foreach (Debuff D in enemies[3].GetDebuffs())
+	                	{
+							string temp = D.GetCategory();
+	                		if (temp == "Bleed")
+	                		{
+	                			showPopUpBleed();
+	                		}
+	                		if (temp == "Stun")
+	                		{
+	                			showPopUpStun();
+	                		}
+	                	}
                     }
                     else
                     {
@@ -1168,6 +1226,26 @@ public class GamePlayController : MonoBehaviour
     public void hidePopUpMiss()
     {
         popUpMiss.SetActive(false);
+    }
+
+	public void showPopUpStun()
+    {
+        popUpStun.SetActive(true);
+    }
+
+    public void hidePopUpStun()
+    {
+        popUpStun.SetActive(false);
+    }
+
+	public void showPopUpBleed()
+    {
+        popUpBleed.SetActive(true);
+    }
+
+    public void hidePopUpBleed()
+    {
+        popUpBleed.SetActive(false);
     }
 
     public void showPopUpMiss()
