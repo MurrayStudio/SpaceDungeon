@@ -65,19 +65,21 @@ public class Infected : Unit
 
 	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) 
 	{
-		if (!CheckHit (MoveID, Target))
+        int move = Random.Range(0, 2);
+
+        if (!CheckHit (move, Target))
 		{
 			return FAILURE;
 		}
 
-		if (MoveID == CLAW)
+		if (move == CLAW)
 		{
-			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			Target.RemoveHealth (RollDamage (move, this.BaseDmg, Target));
 			return SUCCESS;
 		}
-		else if (MoveID == ACID_SPIT)
+		else if (move == ACID_SPIT)
 		{
-			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			Target.RemoveHealth (RollDamage (move, this.BaseDmg, Target));
 			Debuff D1 = new Debuff (DOT_DUR, DebuffMods [ACID_SPIT], ACID);
 			Target.AddDebuff (D1);
 			return SUCCESS;

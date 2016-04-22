@@ -697,9 +697,9 @@ public class GamePlayController : MonoBehaviour
             case "allEnemy":
                 hidePopUpAttack();
                 hidePopUp();
-                if (currentCharacter.GetFriendly() == true && currentCharacter.GetHealth() > 0)
+                if (currentCharacter.GetFriendly() && currentCharacter.GetHealth() > 0)
                 {
-                    if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[0]) == true) //make this 0 and it will attack all
+                    if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[0])) //make this 0 and it will attack all
                     {
                         showPopUpHit();
                     }
@@ -716,6 +716,7 @@ public class GamePlayController : MonoBehaviour
                 {
                     if (D.GetCategory() == "Stun")
                     {
+                            showPopUpMiss();
                         canAttack = false;
                     }
                     if (D.GetCategory() == "Bleed" || D.GetCategory() == "Acid")
@@ -726,12 +727,17 @@ public class GamePlayController : MonoBehaviour
                 if (canAttack)
                 {
                     //make a simple ai move
-                    int move = Random.Range(0, 2);
+                    //int move = Random.Range(0, 2);
                     int allyHit = Random.Range(0, 4);
+                    while(allies[allyHit].GetIsDead())
+                    {
+                        if (popUpFailure.activeSelf) return;
+                        allyHit = Random.Range(0, 4);
+                    }
                     //if player isn't dead
                     if (!currentCharacter.GetIsDead())
                     {
-                        currentCharacter.MakeMove(move, enemies, allies, allies[allyHit]);
+                        currentCharacter.MakeMove(0, enemies, allies, allies[allyHit]);
                     }
                 }
                 if (indexOfOrder < order.Length - 1)

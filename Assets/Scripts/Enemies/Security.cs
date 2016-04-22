@@ -67,25 +67,28 @@ public class Security : Unit
 
 	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) 
 	{
-		if (!this.CheckHit (MoveID, Target)) 
+        int move = Random.Range(0, 2);
+        if((float)this.GetHealth() / (float)this.GetBaseHealth() < 0.20f) move = SELF_DESTRUCT;
+
+        if (!this.CheckHit (move, Target)) 
 		{
 			return FAILURE;
 		}
 
-		if (MoveID == CANNON) 
+		if (move == CANNON) 
 		{
-			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			Target.RemoveHealth (RollDamage (move, this.BaseDmg, Target));
 			return SUCCESS;
 		}
-		else if (MoveID == BEAM)
+		else if (move == BEAM)
 		{
 			Target.MoveUnit (Enemies, Target, -1);
-			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			Target.RemoveHealth (RollDamage (move, this.BaseDmg, Target));
 			return SUCCESS;
 		}
-		else if (MoveID == SELF_DESTRUCT)
+		else if (move == SELF_DESTRUCT)
 		{
-			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			Target.RemoveHealth (RollDamage (move, this.BaseDmg, Target));
 			this.RemoveHealth (50);
 			return SUCCESS;
 		}

@@ -67,30 +67,33 @@ public class Freight : Unit
 
 	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target)
 	{
-		if (MoveID == CHARGE) 
+        int move = Random.Range(0, 2);
+        if ((float)this.GetHealth() / (float)this.GetBaseHealth() < 0.20f) move = SELF_DESTRUCT;
+
+        if (move == CHARGE) 
 		{
 			MoveUnit (Allies, this, 1);
 		}
 
-		if (!this.CheckHit (MoveID, Target)) 
+		if (!this.CheckHit (move, Target)) 
 		{
 			return FAILURE;
 		}
 
-		if (MoveID == SLAM) 
+		if (move == SLAM) 
 		{
-			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			Target.RemoveHealth (RollDamage (move, this.BaseDmg, Target));
 			return SUCCESS;
 		}
-		else if (MoveID == CHARGE)
+		else if (move == CHARGE)
 		{
 			Target.MoveUnit (Enemies, Target, -1);
-			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			Target.RemoveHealth (RollDamage (move, this.BaseDmg, Target));
 			return SUCCESS;
 		}
-		else if (MoveID == SELF_DESTRUCT)
+		else if (move == SELF_DESTRUCT)
 		{
-			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			Target.RemoveHealth (RollDamage (move, this.BaseDmg, Target));
 			this.RemoveHealth (50);
 			return SUCCESS;
 		}

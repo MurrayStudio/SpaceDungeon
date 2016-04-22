@@ -69,29 +69,34 @@ public class MediBot : Unit
 
 	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) 
 	{
-		if (MoveID == RESTORE) 
+        int move = Random.Range(0, 2);
+        if ((float)this.GetHealth() / (float)this.GetBaseHealth() < 0.10f) move = SELF_DESTRUCT;
+
+        if (move == RESTORE)
 		{
             foreach (Unit U in Allies)
             {
-                if (!U.GetIsDead() == true) { 
+                if (!U.GetIsDead()) { 
                     U.AddHealth(RESTORE_HEAL);
                 }
 			}
 			return SUCCESS;
 		}
-		else if (MoveID == STIMS)
+		else if (move == STIMS)
 		{
 			Debuff D1 = new Debuff(DEBUFF_DUR, DebuffMods[STIMS], SPEED);
 			foreach (Unit U in Allies)
 			{
 				if (!U.GetIsDead())
-					U.AddDebuff(D1);
-			}
+                {
+                    U.AddDebuff(D1);
+                }
+            }
 			return SUCCESS;
 		}
-		else if (MoveID == SELF_DESTRUCT)
+		else if (move == SELF_DESTRUCT)
 		{
-			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			Target.RemoveHealth (RollDamage (move, this.BaseDmg, Target));
 			this.RemoveHealth (50);
 			return SUCCESS;
 		}

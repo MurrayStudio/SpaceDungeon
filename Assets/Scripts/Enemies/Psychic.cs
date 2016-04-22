@@ -67,28 +67,31 @@ public class Psychic : Unit
 
 	public override bool MakeMove (int MoveID, Unit[] Allies, Unit[] Enemies, Unit Target) 
 	{
-		if (!CheckHit (MoveID, Target))
+        int move = Random.Range(1, 3);
+        if ((float)this.GetHealth() / (float)this.GetBaseHealth() < 0.33f) move = DRAIN;
+
+        if (!CheckHit (move, Target))
 		{
 			return FAILURE;
 		}
 
-		if (MoveID == DRAIN)
+		if (move == DRAIN)
 		{
-			int amt = RollDamage (MoveID, this.BaseDmg, Target);
+			int amt = RollDamage (move, this.BaseDmg, Target);
 			Target.RemoveHealth (amt);
 			this.AddHealth(amt);
 			return SUCCESS;
 		}
-		else if (MoveID == MIND_WIPE)
+		else if (move == MIND_WIPE)
 		{
-			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			Target.RemoveHealth (RollDamage (move, this.BaseDmg, Target));
 			Debuff D1 = new Debuff (STUN_DUR, DebuffMods [MIND_WIPE], STUN);
 			Target.AddDebuff (D1);
 			return SUCCESS;
 		}
-		else if (MoveID == CRIPPLE)
+		else if (move == CRIPPLE)
 		{
-			Target.RemoveHealth (RollDamage (MoveID, this.BaseDmg, Target));
+			Target.RemoveHealth (RollDamage (move, this.BaseDmg, Target));
 			Debuff D2 = new Debuff (DEBUFF_DUR, DebuffMods [CRIPPLE], SPEED);
 			Target.AddDebuff (D2);
 			return SUCCESS;
