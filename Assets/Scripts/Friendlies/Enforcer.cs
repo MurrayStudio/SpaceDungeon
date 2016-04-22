@@ -138,6 +138,8 @@ public class Enforcer : Unit
 			{
 				if (!U.GetIsDead())
 					U.AddDebuff (D3);
+
+				U.AddHealth(2);
 			}
 			return SUCCESS;
 		}
