@@ -70,7 +70,6 @@ public class GamePlayController : MonoBehaviour
     //popUp window and components
     public GameObject popUP;
     public Image popUpImage;
-    public Text popUpText;
 
     //holds text of current character
     public Text currentCharacterText;
@@ -99,6 +98,11 @@ public class GamePlayController : MonoBehaviour
 
     //so we only level up once a level
     private bool haveLeveledUp = false;
+
+    //nux mode enabled
+    private bool nuxMode = false;
+
+    public Text nuxModeText;
 
     //current button
     private string currentButtonClicked;
@@ -330,6 +334,7 @@ public class GamePlayController : MonoBehaviour
 
         //popUP.SetActive(false);
         //popUPAttack.SetActive(false);
+        hideNuxModeText();
         hidePopUp();
         hidePopUpAttack();
         hideStepEnemyAttackPopUp();
@@ -340,8 +345,8 @@ public class GamePlayController : MonoBehaviour
         enableAbilityButtons();
     }
 
-    // Update is called once per frame
-    void Update()
+    //keyboard input
+    void OnGUI()
     {
         //load main menu if escape is pressed.
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -349,6 +354,25 @@ public class GamePlayController : MonoBehaviour
             Application.LoadLevel(0);
         }
 
+        //toggle nux mode if it is on
+        if (Input.GetKeyDown(KeyCode.N) && nuxMode == false)
+        {
+            nuxMode = true;
+            showNuxModeText();
+        }
+
+        //toggle nux mode if it is on
+        if (Input.GetKeyDown(KeyCode.M) && nuxMode == true)
+        {
+            nuxMode = false;
+            hideNuxModeText();
+        }
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    { 
 
         //these for loops below are bad coding practice and slow things down but we are lazy so they are here...
 
@@ -544,6 +568,11 @@ public class GamePlayController : MonoBehaviour
                 {
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[0]) == true)
                     {
+                        //if we hit and nux mode is on, then make move again so we are OP
+                        if(nuxMode == true)
+                        {
+                            currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[0]);
+                        }
                         playSound();
                         showPopUpHit();
                     }
@@ -561,6 +590,11 @@ public class GamePlayController : MonoBehaviour
                 {
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[1]) == true)
                     {
+                        //if we hit and nux mode is on, then make move again so we are OP
+                        if (nuxMode == true)
+                        {
+                            currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[1]);
+                        }
                         showPopUpHit();
                         playSound();
                     }
@@ -578,6 +612,11 @@ public class GamePlayController : MonoBehaviour
                 {
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[2]) == true)
                     {
+                        //if we hit and nux mode is on, then make move again so we are OP
+                        if (nuxMode == true)
+                        {
+                            currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[2]);
+                        }
                         showPopUpHit();
                         playSound();
                     }
@@ -595,6 +634,11 @@ public class GamePlayController : MonoBehaviour
                 {
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[3]) == true)
                     {
+                        //if we hit and nux mode is on, then make move again so we are OP
+                        if (nuxMode == true)
+                        {
+                            currentCharacter.MakeMove(currentAbility, allies, enemies, enemies[3]);
+                        }
                         showPopUpHit();
                         playSound();
                     }
@@ -612,6 +656,11 @@ public class GamePlayController : MonoBehaviour
                 {
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, order[indexOfOrder]) == true)
                     {
+                        //if we hit and nux mode is on, then make move again so we are OP
+                        if (nuxMode == true)
+                        {
+                            currentCharacter.MakeMove(currentAbility, allies, enemies, order[indexOfOrder]);
+                        }
                         showPopUpHit();
                         playSound();
 
@@ -630,6 +679,11 @@ public class GamePlayController : MonoBehaviour
                 {
                     if (currentCharacter.MakeMove(currentAbility, allies, enemies, allies[0]) == true) //make this 0 for now
                     {
+                        //if we hit and nux mode is on, then make move again so we are OP
+                        if (nuxMode == true)
+                        {
+                            currentCharacter.MakeMove(currentAbility, allies, enemies, allies[0]);
+                        }
                         showPopUpHit();
                         playSound();
                     }
@@ -1113,6 +1167,16 @@ public class GamePlayController : MonoBehaviour
     public void showPopUpMiss()
     {
         popUpMiss.SetActive(true);
+    }
+
+    public void hideNuxModeText()
+    {
+        nuxModeText.text = "";
+    }
+
+    public void showNuxModeText()
+    {
+        nuxModeText.text = "Nux Mode Active";
     }
 
     public void disableAbilityButtons()
