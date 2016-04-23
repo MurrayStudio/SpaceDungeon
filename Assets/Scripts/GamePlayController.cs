@@ -774,7 +774,6 @@ public class GamePlayController : MonoBehaviour
                 {
                     if (D.GetCategory() == "Stun")
                     {
-                            showPopUpMiss();
                         canAttack = false;
                     }
                     if (D.GetCategory() == "Bleed" || D.GetCategory() == "Acid")
